@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-20T16:22:57.000Z</updated>
+  <updated>2016-08-20T16:45:16.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="http://truelogician.com/2016/08/hexo-quick-start/"/>
     <id>http://truelogician.com/2016/08/hexo-quick-start/</id>
     <published>2016-08-14T19:55:50.000Z</published>
-    <updated>2016-08-20T16:22:57.000Z</updated>
+    <updated>2016-08-20T16:45:16.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/hexo/header.png" alt=""></p>
-<p>So you want to create a blog and perhaps turned down the option of using <a href="http://wordpress.com" target="_blank" rel="external">Wordpress</a>.<br>Well, fear not as static site generators are to rescue. A static site generator is basically an engine that creates html files for your website using some text (in form of markdown language) as well as some templates. </p>
+<p>Have you ever felt like you wish you had your own blog? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to blogs at Wordpress?</p>
+<p>Well, that was exactly the case for me and if it’s the same for you too, then give “static site generators” a go. A static site generator is basically an engine that creates html files for your website using some text (in form of markdown language) as well as some templates. </p>
 <p>Static site generators are very much easy to setup and use and provide users with more control. You can choose themes, heavily customize them, choose among plenty of plugins and finally host your website on github for free. This blog attemps to setup and configure a blog in Mac OS (basically the same in Linux) using Hexo in almost no time. So, if you want to get your blog up and running quickly, you’re in a right place.</p>
 <h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Before installing hexo, use your OS package manager to update and cleanup system packages.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew update --all &amp;&amp; brew upgrade --all &amp;&amp; brew cleanup &amp;&amp; brew doctor &amp;&amp; brew prune</div></pre></td></tr></table></figure>
@@ -59,16 +60,17 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># URL</span></div><div class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></div><div class="line"><span class="attr">url:</span> &lt;real-blog-url<span class="string">&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="Git-Deployer"><a href="#Git-Deployer" class="headerlink" title="Git Deployer"></a><a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">Git Deployer</a></h3><p>This plugin will help you deploy your blog using git.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>The configuration options could be as presented below:</p>
+<p>You can configure the deployer plugin like this:</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> git</div><div class="line"><span class="attr">  repo:</span> https://github.com/&lt;username&gt;/&lt;repository<span class="string">&gt;</span></div><div class="line"><span class="attr">  branch:</span> master</div></pre></td></tr></table></figure>
 <h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>When you are ready to deploy your blog to the github, run the following commands to generate your blog and deploy it to the specified branch in your github repository as you setup before.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>Now that you have your generated blog on github, you can configure and connect your custom domain to load your blog from github.</p>
 ]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;/images/hexo/header.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;So you want to create a blog and perhaps turned down the option of using &lt;a href=&quot;http:
+&lt;p&gt;Have you ever felt like you wish you had your own blog? Did you get frustrated as you t
     
     </summary>
     
