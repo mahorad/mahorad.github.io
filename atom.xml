@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-20T18:43:31.000Z</updated>
+  <updated>2016-08-20T18:44:53.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://truelogician.com/2016/08/hexo-quick-start/"/>
     <id>http://truelogician.com/2016/08/hexo-quick-start/</id>
     <published>2016-08-14T19:55:50.000Z</published>
-    <updated>2016-08-20T18:43:31.000Z</updated>
+    <updated>2016-08-20T18:44:53.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header.png" alt=""></p>
 <p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to blogs at Wordpress?</p>
@@ -47,7 +47,7 @@
 <h2 id="Installing-Additional-Plugins"><a href="#Installing-Additional-Plugins" class="headerlink" title="Installing Additional Plugins"></a>Installing Additional Plugins</h2><p>Now let’s go through a few essential plugins that might leverage your blog’s usability very briefly.</p>
 <h3 id="Blog-Search"><a href="#Blog-Search" class="headerlink" title="Blog Search"></a><a href="https://github.com/alexbruno/hexo-generator-json-content" target="_blank" rel="external">Blog Search</a></h3><p>Using this plugin, you can empower your blog reader with the ability of searching through your posts. </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-json-content --save</div></pre></td></tr></table></figure>
-<p>Right after installation, the plugin might work out of the box; however, in order to through details of configuration you might want to check the github or your theme’s _config.yaml file.</p>
+<p>Right after installation, the plugin might work out of the box; however, in order to through details of configuration you might want to check its github page or your theme’s “_config.yaml” file.</p>
 <h3 id="RSS-Feed"><a href="#RSS-Feed" class="headerlink" title="RSS Feed"></a><a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="external">RSS Feed</a></h3><p>You can enable your blog with an RSS feed out of your posts in hexo by installing this plugin. </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-feed --save</div></pre></td></tr></table></figure>
 <p>The plugin can be configured in the _config.yaml with the following configuration section.</p>
