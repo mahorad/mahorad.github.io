@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-21T18:24:04.000Z</updated>
+  <updated>2016-08-22T21:48:37.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://truelogician.com/2016/08/hexo-quick-start/"/>
     <id>http://truelogician.com/2016/08/hexo-quick-start/</id>
     <published>2016-08-14T19:55:50.000Z</published>
-    <updated>2016-08-21T18:24:04.000Z</updated>
+    <updated>2016-08-22T21:48:37.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header.png" alt=""></p>
 <p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to blogs at Wordpress?</p>
@@ -79,6 +79,8 @@
 &lt;p&gt;Have you ever wished you could create your own blog in no time? Did you get frustr
     
     </summary>
+    
+      <category term="Front-End" scheme="http://truelogician.com/categories/Front-End/"/>
     
     
       <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
