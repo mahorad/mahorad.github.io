@@ -253,7 +253,7 @@
         
             
             <p><img src="/images/2016/hexo/header.png" alt=""></p>
-<p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to blogs at Wordpress?</p>
+<p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?</p>
 <p>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
 <h3 id="What-is-a-“Static-Stite-Generator”"><a href="#What-is-a-“Static-Stite-Generator”" class="headerlink" title="What is a “Static Stite Generator”?"></a>What is a “Static Stite Generator”?</h3><p>In short, a static site generator is basically a html file generator. It crates and formats html files by using its template engine as well as your text which is usually in a format such as markdown.</p>
 <p>Static site generators are very much easy to setup and use while providing users with more control over it. You can choose and heavily customize themes, choose among plenty of plugins and finally host your website on github pages for free. </p>
@@ -275,6 +275,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
 <h2 id="Installing-Additional-Plugins"><a href="#Installing-Additional-Plugins" class="headerlink" title="Installing Additional Plugins"></a>Installing Additional Plugins</h2><p>Now let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/" target="_blank" rel="external">here</a>.</p>
+<h3 id="Comments-amp-Discussions"><a href="#Comments-amp-Discussions" class="headerlink" title="Comments &amp; Discussions"></a>Comments &amp; Discussions</h3><p>One of the most important features of a blog is perhaps the possiblity to interact with your readers and that will keep them coming back. <a href="https://disqus.com/" target="_blank" rel="external">disqus</a> is a popular commenting service that works through the javascript snippet within your page.</p>
+<p>What you need to do to modify your blog with a full fledged commenting service is to <a href="https://disqus.com/profile/signup/" target="_blank" rel="external">sign up</a> for a disqus account, <a href="http://disqus.com/admin/create" target="_blank" rel="external">register your site</a> and pick a unique shortname for your blog and paste it in your _config.yaml file, right below your theme name as shown here.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">disqus_shortname:</span> &lt;your-disqus-shortname<span class="string">&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="Blog-Search"><a href="#Blog-Search" class="headerlink" title="Blog Search"></a><a href="https://github.com/alexbruno/hexo-generator-json-content" target="_blank" rel="external">Blog Search</a></h3><p>Using this plugin, you can empower your blog reader with the ability of searching through your posts. </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-json-content --save</div></pre></td></tr></table></figure>
 <p>Right after installation, the plugin should work properly out of the box (after running <em>hexo generate</em> or <em>hexo server</em>). however, in order to through details of configuration you might want to check its github page or your theme’s “_config.yaml” file.</p>
@@ -311,7 +314,7 @@
 
 </div>
 
-    <a data-url="http://truelogician.com/2016/08/hexo-quick-start/" data-id="cis71pekx0000ucrow0e1xddg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2016/08/hexo-quick-start/" data-id="cis72jtta0000xjroyegyezxf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
