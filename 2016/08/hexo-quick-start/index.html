@@ -11,12 +11,12 @@
 <meta property="og:url" content="http://truelogician.com/2016/08/hexo-quick-start/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
 <meta property="og:description" content="Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control ove">
-<meta property="og:image" content="http://truelogician.com/images/2016/hexo/header.png">
-<meta property="og:updated_time" content="2016-08-23T06:06:39.000Z">
+<meta property="og:image" content="http://truelogician.com/images/2016/hexo/header-startup.png">
+<meta property="og:updated_time" content="2016-08-23T20:47:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Creating a Blog by Hexo">
 <meta name="twitter:description" content="Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control ove">
-<meta name="twitter:image" content="http://truelogician.com/images/2016/hexo/header.png">
+<meta name="twitter:image" content="http://truelogician.com/images/2016/hexo/header-startup.png">
     
 
     
@@ -38,6 +38,17 @@
     
         <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
     
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83022248-1', 'auto');
+ga('send', 'pageview');
+
+</script>
     
     
     
@@ -157,8 +168,8 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                1
-                <span>post</span>
+                2
+                <span>posts</span>
             </div>
             <div class="article-info-block">
                 3
@@ -257,9 +268,8 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><img src="/images/2016/hexo/header.png" alt=""></p>
-<p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?</p>
-<p>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
+            <p><img src="/images/2016/hexo/header-startup.png" alt=""></p>
+<p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br><a id="more"></a><br>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
 <h3 id="What-is-a-“Static-Stite-Generator”"><a href="#What-is-a-“Static-Stite-Generator”" class="headerlink" title="What is a “Static Stite Generator”?"></a>What is a “Static Stite Generator”?</h3><p>In short, a static site generator is basically a html file generator. It crates and formats html files by using its template engine as well as your text which is usually in a format such as markdown.</p>
 <p>Static site generators are very much easy to setup and use while providing users with more control over it. You can choose and heavily customize themes, choose among plenty of plugins and finally host your website on github pages for free. </p>
 <h3 id="What-is-Hexo"><a href="#What-is-Hexo" class="headerlink" title="What is Hexo?"></a><a href="https://hexo.io/docs/" target="_blank" rel="external">What is Hexo?</a></h3><p>Accoding to Hexo’s documentation, <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
@@ -279,36 +289,6 @@
 <h2 id="Running-Your-Blog-server"><a href="#Running-Your-Blog-server" class="headerlink" title="Running Your Blog server"></a>Running Your Blog server</h2><p>The following is how to start a node.js server on port 4000. <a href="http://localhost:4000" target="_blank" rel="external">view locally</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
-<h2 id="Installing-Additional-Plugins"><a href="#Installing-Additional-Plugins" class="headerlink" title="Installing Additional Plugins"></a>Installing Additional Plugins</h2><p>Now let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/" target="_blank" rel="external">here</a>.</p>
-<h3 id="Comments-amp-Discussions"><a href="#Comments-amp-Discussions" class="headerlink" title="Comments &amp; Discussions"></a>Comments &amp; Discussions</h3><p>One of the most important features of a blog is perhaps the possiblity to interact with your readers and that will keep them coming back. <a href="https://disqus.com/" target="_blank" rel="external">disqus</a> is a popular commenting service that works through the javascript snippet within your page.</p>
-<p>What you need to do to modify your blog with a full fledged commenting service is to <a href="https://disqus.com/profile/signup/" target="_blank" rel="external">sign up</a> for a disqus account, <a href="http://disqus.com/admin/create" target="_blank" rel="external">register your site</a> and pick a unique shortname for your blog and paste it in your _config.yaml file, right below your theme name as shown here.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">disqus_shortname:</span> &lt;your-disqus-shortname<span class="string">&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Blog-Search"><a href="#Blog-Search" class="headerlink" title="Blog Search"></a><a href="https://github.com/alexbruno/hexo-generator-json-content" target="_blank" rel="external">Blog Search</a></h3><p>Using this plugin, you can empower your blog reader with the ability of searching through your posts. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-json-content --save</div></pre></td></tr></table></figure>
-<p>Right after installation, the plugin should work properly out of the box (after running <em>hexo generate</em> or <em>hexo server</em>). however, in order to through details of configuration you might want to check its github page or your theme’s “_config.yaml” file.</p>
-<h3 id="RSS-Feed"><a href="#RSS-Feed" class="headerlink" title="RSS Feed"></a><a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="external">RSS Feed</a></h3><p>You can enable your blog with an RSS feed out of your posts in hexo by installing this plugin. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-feed --save</div></pre></td></tr></table></figure>
-<p>The plugin can be configured in the _config.yaml with the following configuration section.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">feed:</span></div><div class="line"><span class="attr">  type:</span> atom</div><div class="line"><span class="attr">  path:</span> atom.xml</div><div class="line"><span class="attr">  limit:</span> <span class="number">20</span></div></pre></td></tr></table></figure>
-<h3 id="Markdown-Support"><a href="#Markdown-Support" class="headerlink" title="Markdown Support"></a><a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="external">Markdown Support</a></h3><p>This plugin provides more support on the markdown such as gmf (Github flavored markdown) tables and line breaks.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-renderer-marked --save</div></pre></td></tr></table></figure>
-<p>You can customize the plugin by pasting the following in your _config.yaml and changing the values.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attr">marked:</span></div><div class="line"><span class="attr">  gfm:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  pedantic:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  sanitize:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  tables:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  breaks:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  smartLists:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  smartypants:</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
-<h3 id="Category-Generator"><a href="#Category-Generator" class="headerlink" title="Category Generator"></a><a href="https://github.com/hexojs/hexo-generator-category" target="_blank" rel="external">Category Generator</a></h3><p>This plugin allows you to assign one or more tags to your post. It will group your posts and enables your readers to later on find out about all of posts that are tagged with the same category.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-category --save</div></pre></td></tr></table></figure>
-<p>and the related options are as follows:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">category_generator:</span></div><div class="line"><span class="attr">  per_page:</span> <span class="number">10</span></div></pre></td></tr></table></figure>
-<h3 id="CNAME-Generator"><a href="#CNAME-Generator" class="headerlink" title="CNAME Generator"></a><a href="https://github.com/leecrossley/hexo-generator-cname" target="_blank" rel="external">CNAME Generator</a></h3><p>This plugin will automatically generate a Github pages CNAME file.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-cname --save</div></pre></td></tr></table></figure>
-<p>This plugin does not require any specific configuration. Only make sure to change your blog’s url to the real one in the _config.yaml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># URL</span></div><div class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></div><div class="line"><span class="attr">url:</span> &lt;real-blog-url<span class="string">&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Git-Deployer"><a href="#Git-Deployer" class="headerlink" title="Git Deployer"></a><a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">Git Deployer</a></h3><p>This plugin will help you deploy your blog using git.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>You can configure the deployer plugin like this:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> git</div><div class="line"><span class="attr">  repo:</span> https://github.com/&lt;username&gt;/&lt;repository<span class="string">&gt;</span></div><div class="line"><span class="attr">  branch:</span> master</div></pre></td></tr></table></figure>
-<h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>When you are ready to deploy your blog to the github, run the following commands to generate your blog and deploy it to the specified branch in your github repository as you setup before.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>Now that you have your generated blog on github, you can configure and connect your custom domain to load your blog from github.</p>
 
         
         </div>
@@ -319,7 +299,7 @@
 
 </div>
 
-    <a data-url="http://truelogician.com/2016/08/hexo-quick-start/" data-id="cis72jtta0000xjroyegyezxf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2016/08/hexo-quick-start/" data-id="cis7z9afo000223roudn02ss4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -394,6 +374,20 @@
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2016/08/hexo-install-plugins/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Enhance Your Hexo Blog
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
 
     
 </article>
@@ -423,10 +417,29 @@
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2016/08/hexo-install-plugins/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/2016/hexo/header-plugins.jpg)" alt="Enhance Your Hexo Blog" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Front-End/">Front-End</a></p>
+                            <p class="item-title"><a href="/2016/08/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
+                            <p class="item-date"><time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2016/08/hexo-quick-start/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/2016/hexo/header.png)" alt="Creating a Blog by Hexo" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/2016/hexo/header-startup.png)" alt="Creating a Blog by Hexo" class="thumbnail-image"></span>
     
 </a>
 
@@ -448,7 +461,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Front-End/">Front-End</a><span class="category-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -457,7 +470,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -466,7 +479,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
