@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-23T20:42:28.000Z</updated>
+  <updated>2016-08-23T22:01:57.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://truelogician.com/2016/08/hexo-install-plugins/"/>
     <id>http://truelogician.com/2016/08/hexo-install-plugins/</id>
     <published>2016-08-23T20:22:01.000Z</published>
-    <updated>2016-08-23T20:42:28.000Z</updated>
+    <updated>2016-08-23T22:01:57.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header-plugins.jpg" alt=""></p>
 <p>This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the <a href="/2016/08/hexo-quick-start/">quick start</a> with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/" target="_blank" rel="external">here</a>.<br><a id="more"></a></p>
@@ -65,9 +65,9 @@
       <category term="Front-End" scheme="http://truelogician.com/categories/Front-End/"/>
     
     
-      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
-    
       <category term="Hexo" scheme="http://truelogician.com/tags/Hexo/"/>
+    
+      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
     
       <category term="StaticWebsite" scheme="http://truelogician.com/tags/StaticWebsite/"/>
     
@@ -78,7 +78,7 @@
     <link href="http://truelogician.com/2016/08/hexo-quick-start/"/>
     <id>http://truelogician.com/2016/08/hexo-quick-start/</id>
     <published>2016-08-14T19:55:50.000Z</published>
-    <updated>2016-08-23T20:47:10.000Z</updated>
+    <updated>2016-08-23T22:28:38.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header-startup.png" alt=""></p>
 <p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br><a id="more"></a><br>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
@@ -98,9 +98,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div></pre></td></tr></table></figure>
 <p>After the blog directory is created cd to the created folder and download all the node modules we need to run and manage our blog.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> blog</div><div class="line">$ npm install</div></pre></td></tr></table></figure>
-<h2 id="Running-Your-Blog-server"><a href="#Running-Your-Blog-server" class="headerlink" title="Running Your Blog server"></a>Running Your Blog server</h2><p>The following is how to start a node.js server on port 4000. <a href="http://localhost:4000" target="_blank" rel="external">view locally</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
+<h2 id="Running-Your-Blog-server"><a href="#Running-Your-Blog-server" class="headerlink" title="Running Your Blog server"></a>Running Your Blog server</h2><p>Now let’s clean (<em>not needed for the first time but it’s a good practice</em>), generate and run the blog on a node server on the default port 4000. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server</div></pre></td></tr></table></figure>
+<p>You can now <a href="http://localhost:4000" target="_blank" rel="external">view your blog</a> locally on your browser.</p>
+<h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><p>In order to create more posts, you simply need to create .md files within your _posts folder. Additionally, Hexo also provides the following sugar coated commands to create a post, page or draft.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
+<p>Now that you have a post, open it in your favorite editor and write your content in <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">markdown</a> language. At this point you have a working blog (<em>with the default theme</em>). You might want to apply and customize a different theme. Hexo provides a handfule of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> on their website that you can choose from. In addition to themes, plenty of plugins are also available for hexo that can totally enhance your blog and your reader’s experience form it. </p>
+<p>So, if you still eager about improving your blog and connect a couple of useful plugins, read further on the <a href="/2016/08/hexo-install-plugins/">next section</a>.</p>
 ]]></content>
     
     <summary type="html">
@@ -113,9 +117,9 @@
       <category term="Front-End" scheme="http://truelogician.com/categories/Front-End/"/>
     
     
-      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
-    
       <category term="Hexo" scheme="http://truelogician.com/tags/Hexo/"/>
+    
+      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
     
       <category term="StaticWebsite" scheme="http://truelogician.com/tags/StaticWebsite/"/>
     
