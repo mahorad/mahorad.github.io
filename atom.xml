@@ -80,7 +80,7 @@
     <link href="http://truelogician.com/2016/08/hexo-quick-start/"/>
     <id>http://truelogician.com/2016/08/hexo-quick-start/</id>
     <published>2016-08-14T19:55:50.000Z</published>
-    <updated>2016-08-23T22:32:57.000Z</updated>
+    <updated>2016-08-24T04:54:04.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header-startup.png" alt=""></p>
 <p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br><a id="more"></a><br>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
@@ -92,7 +92,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew update --all &amp;&amp; brew upgrade --all &amp;&amp; brew cleanup &amp;&amp; brew doctor &amp;&amp; brew prune</div></pre></td></tr></table></figure>
 <h2 id="Install-Node-js"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js</h2><p>Hexo is a node.js package. As a result, we first need to install the node.js in case it’s not.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
-<p>npm is the default package manager of the node.js. In case you have had the node installed for some time, make an update and clean the previously installed packages. We will use npm to install all the required packages in our blog.  </p>
+<p>On linux machines, the procedure is similar with the distro’s package manager. On Windows machines, please refer to this <a href="https://nodejs.org/en/download/" target="_blank" rel="external">page</a> for download. </p>
+<p>npm is the default package manager of the node.js. In case you have had the node installed for some time, make an update and clean the previously installed packages. We will later on use npm to install all the required packages in our blog.  </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm update &amp;&amp; npm upgrade &amp;&amp; npm cache clean</div></pre></td></tr></table></figure>
 <p>Now, we can actually install the hexo package.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-cli -g</div></pre></td></tr></table></figure>
@@ -105,7 +106,8 @@
 <p>You can now <a href="http://localhost:4000" target="_blank" rel="external">view your blog</a> locally on your browser.</p>
 <h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><p>In order to create more posts, you simply need to create .md files within your _posts folder. Additionally, Hexo also provides the following sugar coated commands to create a post, page or draft.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
-<p>Now that you have a post, open it in your favorite editor and write your content in <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">markdown</a> language. At this point you have a working blog (<em>with the default theme</em>). You might want to apply and customize a different theme. Hexo provides a handfule of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> on their website that you can choose from. In addition to themes, plenty of plugins are also available for hexo that can totally enhance your blog and your reader’s experience form it. </p>
+<p>Now that you have a post, open it in your favorite editor and write your content in <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">markdown</a> language. Having a <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank" rel="external">cheat sheet</a> at your disposal is also a good idea while you are writing in Markdown. </p>
+<p>At this point you have a working blog (<em>with the default theme</em>). You might want to apply and customize a different theme. Hexo provides a handfule of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> on their website that you can choose from. In addition to themes, plenty of plugins are also available for hexo that can totally enhance your blog and your reader’s experience form it. </p>
 <p>So, if you still eager about improving your blog and connect a couple of useful plugins, read further on the <a href="/2016/08/hexo-install-plugins/">next section</a>.</p>
 ]]></content>
     
