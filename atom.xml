@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-25T19:23:23.000Z</updated>
+  <updated>2016-08-25T20:11:06.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://truelogician.com/2016/08/introduction-to-akka/"/>
     <id>http://truelogician.com/2016/08/introduction-to-akka/</id>
     <published>2016-08-24T19:21:34.000Z</published>
-    <updated>2016-08-25T19:23:23.000Z</updated>
+    <updated>2016-08-25T20:11:06.000Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br>The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It provides a platform enabling developers to easily create concurrent and loosely coupled applications with the ability of self-healing in the face of failures.<br></div>
 
@@ -129,7 +129,7 @@
     
       <category term="Akka" scheme="http://truelogician.com/tags/Akka/"/>
     
-      <category term="Distributed" scheme="http://truelogician.com/tags/Distributed/"/>
+      <category term="Distributed-Systems" scheme="http://truelogician.com/tags/Distributed-Systems/"/>
     
       <category term="Actor Model" scheme="http://truelogician.com/tags/Actor-Model/"/>
     
