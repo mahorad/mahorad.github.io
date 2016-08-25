@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-23T22:32:43.000Z</updated>
+  <updated>2016-08-25T19:12:45.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -16,11 +16,133 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Introduction to Akka</title>
+    <link href="http://truelogician.com/2016/08/introduction-to-akka/"/>
+    <id>http://truelogician.com/2016/08/introduction-to-akka/</id>
+    <published>2016-08-24T19:21:34.000Z</published>
+    <updated>2016-08-25T19:12:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/2016/akka/header-1.png" alt=""></p>
+<div align="justify"><br>The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It provides a platform enabling developers to easily create concurrent and loosely coupled applications with the ability of self-healing in the face of failures.<br></div>
+
+<a id="more"></a>
+<h3 id="Typical-Problems-of-Complex-Systems"><a href="#Typical-Problems-of-Complex-Systems" class="headerlink" title="Typical Problems of Complex Systems"></a>Typical Problems of Complex Systems</h3><p>Below is mentioned a few of the more important problems and issues that need to be addressed when dealing with more complex systems:</p>
+<ul>
+<li>Threads tend to need a lot of coordination logic, locks and synchronizations.</li>
+<li>The amount of threads to be used within an application is limited.</li>
+<li>It is usually hard to scale up, scale out, deploy and run the complex applications.</li>
+<li>Creating fault tolerant applications that can recover form errors is tedious.</li>
+<li>It is cumbersome to modify applications and systems with load balancing.</li>
+</ul>
+<h3 id="How-Akka-Addresses-the-Issues"><a href="#How-Akka-Addresses-the-Issues" class="headerlink" title="How Akka Addresses the Issues?"></a>How Akka Addresses the Issues?</h3><p>Alright, now that we know some of the top issues, let’s also mention a few key notes about what Akka has to offer in general and what it brings to the table to address them. </p>
+<ul>
+<li>Akka pushes the burden of low-level thread management and thread-safe code to the actor model.</li>
+<li>The use of actor model also makes Akka to be aligned with reactive manifesto which improves applications in the following terms:<ul>
+<li><strong>Message-Driven:</strong><br>Asynchronous message passing decreases coupling and provides location transparency for system components.</li>
+<li><strong>Resilience:</strong><br>Akka enforces single responsibility through component isolation (<em>actors</em>).</li>
+<li><strong>Elasticity:</strong><br>As systems scale, they will still be able to handle various workloads. In addition, actors can be increased in amount where they are exactly needed and they also can divide the workload among themselves.</li>
+<li><strong>Responsivenes:</strong><br>Loose coupling, Resilience and Elasticity will make the system responsive.</li>
+</ul>
+</li>
+<li>The increases in abstraction and loose coupling will also result into:<ul>
+<li>Reduction in use of shared states among components.</li>
+<li>Increase in CPU utilization.</li>
+<li>Increase in capability to scale up and out.</li>
+<li>Increasing system fault-tolerance.</li>
+</ul>
+</li>
+</ul>
+<h3 id="So-What-is-an-Actor"><a href="#So-What-is-an-Actor" class="headerlink" title="So, What is an Actor?"></a>So, What is an Actor?</h3><p><strong>Definition:</strong> <em>an actor is a fundamental primitive unit of computation or work which basically means that they are designed to perform small, simple and well-defined tasks.</em></p>
+<p>In order to better imagine and understand what an actor is, let’s start getting to know about their behavior and attributes.</p>
+<ul>
+<li>Each actor has a unique address and hence location transparent.</li>
+<li>Each actor has a mailbox (queue of messages), state and behavior.</li>
+<li>Actors are very lightweight (2.7 Million per 1GB of RAM).</li>
+<li>They are formed in hierarchies/trees (parent child relationship).</li>
+<li>They can live and communicate on different machines.</li>
+<li>They can create child actors.</li>
+<li>They can heal their children.</li>
+<li>They can supervise their children.</li>
+<li>They can change their behavior.</li>
+<li>They only communicate with one or more actors via message passing.</li>
+<li>They can only handle one message at a time.</li>
+<li>They can decide what to do with the message.</li>
+<li>Their states are only known by querying them (sending messages).</li>
+</ul>
+<p><strong>Note:</strong> <em>The fact that actors come in hierarchies and that they can heal their children can really help developers push the risky and error-prone logic to child actors (or leaves); Therefore, as soon as a child dies, its parent is notified and supervises it accordingly.</em></p>
+<h3 id="What-is-an-Actor-System-node"><a href="#What-is-an-Actor-System-node" class="headerlink" title="What is an Actor-System (node)?"></a>What is an Actor-System (node)?</h3><p>A node or an actor-system groups several actors and thus, an instance of it can contain one or more actors. According to this definition, we can now have local or remote actors. </p>
+<p>Let’s say actor “a” lives on actor-system “X”; in this case:</p>
+<p><strong>Local Actor:</strong> An actor “b” is local to actor “a”, if “b” lives on the same actor-system as “a” (meaning actor-system “X”). </p>
+<p><strong>Remote Actor:</strong> An actor “b” is remote to actor “a”, if “b” lives on a different actor-system (let’s say actor-system “Y”). Also note that actor-system “Y” might be located on the same or a separate machine.</p>
+<p>Using addresses, an actor in one actor-system can send messages to local actor or remote actors. </p>
+<p>The address of an actor follows the format below and consists of these parts.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[protocol]://[actor-system]@[hostname]:[port]</div></pre></td></tr></table></figure>
+<h3 id="Details-of-Actors-Actions"><a href="#Details-of-Actors-Actions" class="headerlink" title="Details of Actors Actions"></a>Details of Actors Actions</h3><ul>
+<li><strong>Creating Actor:</strong><ul>
+<li>With a name and certain properties (called props), actors can create other child actors.</li>
+</ul>
+</li>
+<li><strong>Sending Messages:</strong><ul>
+<li>An actor can send message to a local or remote actor.</li>
+<li>Passing messages among actors are async and non-blocking (Fire &amp; Forget).</li>
+<li>Actors are totally inactive/passive until they receive a message.</li>
+<li>Actors can handle throughput of 50 million messages per second per machine.</li>
+<li>The order of messages are maintained the same for sender and receiver.</li>
+</ul>
+</li>
+<li><strong>Changing Behavior:</strong><ul>
+<li>An actor can change its behavior at runtime.</li>
+<li>This change in behavior is triggered after receiving a message.</li>
+</ul>
+</li>
+<li><strong>Supervising Children:</strong><ul>
+<li>Actors can supervise their child actors.</li>
+<li>Child actors send failure signal and the parent instruct them what to do.<ul>
+<li>The child does not need to know how to handle the error.</li>
+</ul>
+</li>
+<li>Actors can supervise their children even over separate physical nodes.</li>
+<li>There are several error supervising strategies they can pick from.<ul>
+<li>these strategies basically indicate what to do if a child fails in general or of a certain event.</li>
+<li>The strategy options are: resume / restart / escalate</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Note:</strong> <em>In Akka, the message transport and the message delivery are completely separated processes. Akka uses concurrent-linked-queue as the mailbox, however one can define what message queue to use either per actor or per actor-system (node). Its also possible to use broker and let broker handle messaging.</em></p>
+<h3 id="Properties-of-an-Akka-Message"><a href="#Properties-of-an-Akka-Message" class="headerlink" title="Properties of an Akka Message"></a>Properties of an Akka Message</h3><p>An Akka message is a simple <em>immutable</em> data container defined by user and is created and passed asynchronously among actors. Akka messages also aligned with the definition of a message in reactive manifesto.</p>
+<blockquote>
+<p>A message is an item of data that is sent to a specific destination. In a message driven system, addressable recipients await the arrival of messages and react to them, otherwise lying dormant (<a href="http://www.reactivemanifesto.org/glossary\#Message-Driven" target="_blank" rel="external">Reactive Manifesto</a>).</p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/images/2016/akka/header-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div align=&quot;justify&quot;&gt;&lt;br&gt;The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It provides a platform enabling developers to easily create concurrent and loosely coupled applications with the ability of self-healing in the face of failures.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
+    
+      <category term="Akka" scheme="http://truelogician.com/categories/Architecture/Akka/"/>
+    
+    
+      <category term="Akka" scheme="http://truelogician.com/tags/Akka/"/>
+    
+      <category term="Distributed" scheme="http://truelogician.com/tags/Distributed/"/>
+    
+      <category term="Actor Model" scheme="http://truelogician.com/tags/Actor-Model/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Enhance Your Hexo Blog</title>
-    <link href="http://truelogician.com/2016/08/hexo-install-plugins/"/>
-    <id>http://truelogician.com/2016/08/hexo-install-plugins/</id>
-    <published>2016-08-23T20:22:01.000Z</published>
-    <updated>2016-08-23T22:32:43.000Z</updated>
+    <link href="http://truelogician.com/2016/07/hexo-install-plugins/"/>
+    <id>http://truelogician.com/2016/07/hexo-install-plugins/</id>
+    <published>2016-07-23T20:22:01.000Z</published>
+    <updated>2016-08-24T19:26:17.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header-plugins.jpg" alt=""></p>
 <p>This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the <a href="/2016/08/hexo-quick-start/">quick start</a> with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/" target="_blank" rel="external">here</a>.<br><a id="more"></a></p>
@@ -77,10 +199,10 @@
   
   <entry>
     <title>Creating a Blog by Hexo</title>
-    <link href="http://truelogician.com/2016/08/hexo-quick-start/"/>
-    <id>http://truelogician.com/2016/08/hexo-quick-start/</id>
-    <published>2016-08-14T19:55:50.000Z</published>
-    <updated>2016-08-24T04:54:04.000Z</updated>
+    <link href="http://truelogician.com/2016/07/hexo-quick-start/"/>
+    <id>http://truelogician.com/2016/07/hexo-quick-start/</id>
+    <published>2016-07-14T19:55:50.000Z</published>
+    <updated>2016-08-24T19:26:10.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/2016/hexo/header-startup.png" alt=""></p>
 <p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br><a id="more"></a><br>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>

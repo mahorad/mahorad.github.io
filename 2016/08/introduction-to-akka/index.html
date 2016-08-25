@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Creating a Blog by Hexo | Mahan&#39;s Blog</title>
+    <title>Introduction to Akka | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control ove">
+    <meta name="description" content="The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It prov">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Creating a Blog by Hexo">
-<meta property="og:url" content="http://truelogician.com/2016/08/hexo-quick-start/index.html">
+<meta property="og:title" content="Introduction to Akka">
+<meta property="og:url" content="http://truelogician.com/2016/08/introduction-to-akka/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
-<meta property="og:description" content="Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control ove">
-<meta property="og:image" content="http://truelogician.com/images/2016/hexo/header-startup.png">
-<meta property="og:updated_time" content="2016-08-24T04:54:04.000Z">
+<meta property="og:description" content="The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It prov">
+<meta property="og:image" content="http://truelogician.com/images/2016/akka/header-1.png">
+<meta property="og:updated_time" content="2016-08-25T19:12:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Creating a Blog by Hexo">
-<meta name="twitter:description" content="Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control ove">
-<meta name="twitter:image" content="http://truelogician.com/images/2016/hexo/header-startup.png">
+<meta name="twitter:title" content="Introduction to Akka">
+<meta name="twitter:description" content="The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It prov">
+<meta name="twitter:image" content="http://truelogician.com/images/2016/akka/header-1.png">
     
 
     
@@ -168,11 +168,11 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                3
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                3
+                6
                 <span>tags</span>
             </div>
         </div>
@@ -225,7 +225,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-hexo-quick-start" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-introduction-to-akka" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -233,7 +233,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            Creating a Blog by Hexo
+            Introduction to Akka
         </h1>
     
 
@@ -242,8 +242,8 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/08/hexo-quick-start/">
-            <time datetime="2016-08-14T19:55:50.000Z" itemprop="datePublished">2016-08-14</time>
+        <a href="/2016/08/introduction-to-akka/">
+            <time datetime="2016-08-24T19:21:34.000Z" itemprop="datePublished">2016-08-24</time>
         </a>
     </div>
 
@@ -251,13 +251,13 @@ ga('send', 'pageview');
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Startup/">Startup</a>
+        <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Akka/">Akka</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Blogging/">Blogging</a>, <a class="tag-link" href="/tags/Hexo/">Hexo</a>, <a class="tag-link" href="/tags/StaticWebsite/">StaticWebsite</a>
+        <a class="tag-link" href="/tags/Actor-Model/">Actor Model</a>, <a class="tag-link" href="/tags/Akka/">Akka</a>, <a class="tag-link" href="/tags/Distributed/">Distributed</a>
     </div>
 
                     </div>
@@ -268,33 +268,99 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><img src="/images/2016/hexo/header-startup.png" alt=""></p>
-<p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br><a id="more"></a><br>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
-<h3 id="What-is-a-“Static-Stite-Generator”"><a href="#What-is-a-“Static-Stite-Generator”" class="headerlink" title="What is a “Static Stite Generator”?"></a>What is a “Static Stite Generator”?</h3><p>In short, a static site generator is basically a html file generator. It crates and formats html files by using its template engine as well as your text which is usually in a format such as markdown.</p>
-<p>Static site generators are very much easy to setup and use while providing users with more control over it. You can choose and heavily customize themes, choose among plenty of plugins and finally host your website on github pages for free. </p>
-<h3 id="What-is-Hexo"><a href="#What-is-Hexo" class="headerlink" title="What is Hexo?"></a><a href="https://hexo.io/docs/" target="_blank" rel="external">What is Hexo?</a></h3><p>Accoding to Hexo’s documentation, <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
-<p>-Alright, now let’s dive in.</p>
-<h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Before installing hexo, use your OS package manager to update and cleanup system packages.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew update --all &amp;&amp; brew upgrade --all &amp;&amp; brew cleanup &amp;&amp; brew doctor &amp;&amp; brew prune</div></pre></td></tr></table></figure>
-<h2 id="Install-Node-js"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js</h2><p>Hexo is a node.js package. As a result, we first need to install the node.js in case it’s not.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
-<p>On linux machines, the procedure is similar with the distro’s package manager. On Windows machines, please refer to this <a href="https://nodejs.org/en/download/" target="_blank" rel="external">page</a> for download. </p>
-<p>npm is the default package manager of the node.js. In case you have had the node installed for some time, make an update and clean the previously installed packages. We will later on use npm to install all the required packages in our blog.  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm update &amp;&amp; npm upgrade &amp;&amp; npm cache clean</div></pre></td></tr></table></figure>
-<p>Now, we can actually install the hexo package.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-cli -g</div></pre></td></tr></table></figure>
-<h2 id="Creaing-Your-First-Blog"><a href="#Creaing-Your-First-Blog" class="headerlink" title="Creaing Your First Blog"></a>Creaing Your First Blog</h2><p>Now, in order to create a blog, goto a directory in which you want to create a blog.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div></pre></td></tr></table></figure>
-<p>After the blog directory is created cd to the created folder and download all the node modules we need to run and manage our blog.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> blog</div><div class="line">$ npm install</div></pre></td></tr></table></figure>
-<h2 id="Running-Your-Blog-server"><a href="#Running-Your-Blog-server" class="headerlink" title="Running Your Blog server"></a>Running Your Blog server</h2><p>Now let’s clean (<em>not needed for the first time but it’s a good practice</em>), generate and run the blog on a node server on the default port 4000. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server</div></pre></td></tr></table></figure>
-<p>You can now <a href="http://localhost:4000" target="_blank" rel="external">view your blog</a> locally on your browser.</p>
-<h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><p>In order to create more posts, you simply need to create .md files within your _posts folder. Additionally, Hexo also provides the following sugar coated commands to create a post, page or draft.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
-<p>Now that you have a post, open it in your favorite editor and write your content in <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">markdown</a> language. Having a <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank" rel="external">cheat sheet</a> at your disposal is also a good idea while you are writing in Markdown. </p>
-<p>At this point you have a working blog (<em>with the default theme</em>). You might want to apply and customize a different theme. Hexo provides a handfule of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> on their website that you can choose from. In addition to themes, plenty of plugins are also available for hexo that can totally enhance your blog and your reader’s experience form it. </p>
-<p>So, if you still eager about improving your blog and connect a couple of useful plugins, read further on the <a href="/2016/08/hexo-install-plugins/">next section</a>.</p>
+            <p><img src="/images/2016/akka/header-1.png" alt=""></p>
+<div align="justify"><br>The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It provides a platform enabling developers to easily create concurrent and loosely coupled applications with the ability of self-healing in the face of failures.<br></div>
+
+<a id="more"></a>
+<h3 id="Typical-Problems-of-Complex-Systems"><a href="#Typical-Problems-of-Complex-Systems" class="headerlink" title="Typical Problems of Complex Systems"></a>Typical Problems of Complex Systems</h3><p>Below is mentioned a few of the more important problems and issues that need to be addressed when dealing with more complex systems:</p>
+<ul>
+<li>Threads tend to need a lot of coordination logic, locks and synchronizations.</li>
+<li>The amount of threads to be used within an application is limited.</li>
+<li>It is usually hard to scale up, scale out, deploy and run the complex applications.</li>
+<li>Creating fault tolerant applications that can recover form errors is tedious.</li>
+<li>It is cumbersome to modify applications and systems with load balancing.</li>
+</ul>
+<h3 id="How-Akka-Addresses-the-Issues"><a href="#How-Akka-Addresses-the-Issues" class="headerlink" title="How Akka Addresses the Issues?"></a>How Akka Addresses the Issues?</h3><p>Alright, now that we know some of the top issues, let’s also mention a few key notes about what Akka has to offer in general and what it brings to the table to address them. </p>
+<ul>
+<li>Akka pushes the burden of low-level thread management and thread-safe code to the actor model.</li>
+<li>The use of actor model also makes Akka to be aligned with reactive manifesto which improves applications in the following terms:<ul>
+<li><strong>Message-Driven:</strong><br>Asynchronous message passing decreases coupling and provides location transparency for system components.</li>
+<li><strong>Resilience:</strong><br>Akka enforces single responsibility through component isolation (<em>actors</em>).</li>
+<li><strong>Elasticity:</strong><br>As systems scale, they will still be able to handle various workloads. In addition, actors can be increased in amount where they are exactly needed and they also can divide the workload among themselves.</li>
+<li><strong>Responsivenes:</strong><br>Loose coupling, Resilience and Elasticity will make the system responsive.</li>
+</ul>
+</li>
+<li>The increases in abstraction and loose coupling will also result into:<ul>
+<li>Reduction in use of shared states among components.</li>
+<li>Increase in CPU utilization.</li>
+<li>Increase in capability to scale up and out.</li>
+<li>Increasing system fault-tolerance.</li>
+</ul>
+</li>
+</ul>
+<h3 id="So-What-is-an-Actor"><a href="#So-What-is-an-Actor" class="headerlink" title="So, What is an Actor?"></a>So, What is an Actor?</h3><p><strong>Definition:</strong> <em>an actor is a fundamental primitive unit of computation or work which basically means that they are designed to perform small, simple and well-defined tasks.</em></p>
+<p>In order to better imagine and understand what an actor is, let’s start getting to know about their behavior and attributes.</p>
+<ul>
+<li>Each actor has a unique address and hence location transparent.</li>
+<li>Each actor has a mailbox (queue of messages), state and behavior.</li>
+<li>Actors are very lightweight (2.7 Million per 1GB of RAM).</li>
+<li>They are formed in hierarchies/trees (parent child relationship).</li>
+<li>They can live and communicate on different machines.</li>
+<li>They can create child actors.</li>
+<li>They can heal their children.</li>
+<li>They can supervise their children.</li>
+<li>They can change their behavior.</li>
+<li>They only communicate with one or more actors via message passing.</li>
+<li>They can only handle one message at a time.</li>
+<li>They can decide what to do with the message.</li>
+<li>Their states are only known by querying them (sending messages).</li>
+</ul>
+<p><strong>Note:</strong> <em>The fact that actors come in hierarchies and that they can heal their children can really help developers push the risky and error-prone logic to child actors (or leaves); Therefore, as soon as a child dies, its parent is notified and supervises it accordingly.</em></p>
+<h3 id="What-is-an-Actor-System-node"><a href="#What-is-an-Actor-System-node" class="headerlink" title="What is an Actor-System (node)?"></a>What is an Actor-System (node)?</h3><p>A node or an actor-system groups several actors and thus, an instance of it can contain one or more actors. According to this definition, we can now have local or remote actors. </p>
+<p>Let’s say actor “a” lives on actor-system “X”; in this case:</p>
+<p><strong>Local Actor:</strong> An actor “b” is local to actor “a”, if “b” lives on the same actor-system as “a” (meaning actor-system “X”). </p>
+<p><strong>Remote Actor:</strong> An actor “b” is remote to actor “a”, if “b” lives on a different actor-system (let’s say actor-system “Y”). Also note that actor-system “Y” might be located on the same or a separate machine.</p>
+<p>Using addresses, an actor in one actor-system can send messages to local actor or remote actors. </p>
+<p>The address of an actor follows the format below and consists of these parts.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[protocol]://[actor-system]@[hostname]:[port]</div></pre></td></tr></table></figure>
+<h3 id="Details-of-Actors-Actions"><a href="#Details-of-Actors-Actions" class="headerlink" title="Details of Actors Actions"></a>Details of Actors Actions</h3><ul>
+<li><strong>Creating Actor:</strong><ul>
+<li>With a name and certain properties (called props), actors can create other child actors.</li>
+</ul>
+</li>
+<li><strong>Sending Messages:</strong><ul>
+<li>An actor can send message to a local or remote actor.</li>
+<li>Passing messages among actors are async and non-blocking (Fire &amp; Forget).</li>
+<li>Actors are totally inactive/passive until they receive a message.</li>
+<li>Actors can handle throughput of 50 million messages per second per machine.</li>
+<li>The order of messages are maintained the same for sender and receiver.</li>
+</ul>
+</li>
+<li><strong>Changing Behavior:</strong><ul>
+<li>An actor can change its behavior at runtime.</li>
+<li>This change in behavior is triggered after receiving a message.</li>
+</ul>
+</li>
+<li><strong>Supervising Children:</strong><ul>
+<li>Actors can supervise their child actors.</li>
+<li>Child actors send failure signal and the parent instruct them what to do.<ul>
+<li>The child does not need to know how to handle the error.</li>
+</ul>
+</li>
+<li>Actors can supervise their children even over separate physical nodes.</li>
+<li>There are several error supervising strategies they can pick from.<ul>
+<li>these strategies basically indicate what to do if a child fails in general or of a certain event.</li>
+<li>The strategy options are: resume / restart / escalate</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Note:</strong> <em>In Akka, the message transport and the message delivery are completely separated processes. Akka uses concurrent-linked-queue as the mailbox, however one can define what message queue to use either per actor or per actor-system (node). Its also possible to use broker and let broker handle messaging.</em></p>
+<h3 id="Properties-of-an-Akka-Message"><a href="#Properties-of-an-Akka-Message" class="headerlink" title="Properties of an Akka Message"></a>Properties of an Akka Message</h3><p>An Akka message is a simple <em>immutable</em> data container defined by user and is created and passed asynchronously among actors. Akka messages also aligned with the definition of a message in reactive manifesto.</p>
+<blockquote>
+<p>A message is an item of data that is sent to a specific destination. In a message driven system, addressable recipients await the arrival of messages and react to them, otherwise lying dormant (<a href="http://www.reactivemanifesto.org/glossary\#Message-Driven" target="_blank" rel="external">Reactive Manifesto</a>).</p>
+</blockquote>
 
         
         </div>
@@ -305,7 +371,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2016/08/hexo-quick-start/" data-id="cis8ft86b000bu8rol9gl85lk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2016/08/introduction-to-akka/" data-id="cisapj6a60006jbrovrb60zgq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -373,7 +439,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2016/08/hexo-quick-start/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/08/hexo-quick-start/">Comments</a>
+        <a href="http://truelogician.com/2016/08/introduction-to-akka/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/08/introduction-to-akka/">Comments</a>
     
 
         </footer>
@@ -382,15 +448,11 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2016/08/hexo-install-plugins/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    Enhance Your Hexo Blog
-                
-            </div>
-        </a>
     
+        <a href="/2016/07/hexo-install-plugins/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Enhance Your Hexo Blog</div>
+        </a>
     
 </nav>
 
@@ -423,7 +485,26 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/08/hexo-install-plugins/" class="thumbnail">
+                            <a href="/2016/08/introduction-to-akka/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/2016/akka/header-1.png)" alt="Introduction to Akka" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Akka/">Akka</a></p>
+                            <p class="item-title"><a href="/2016/08/introduction-to-akka/" class="title">Introduction to Akka</a></p>
+                            <p class="item-date"><time datetime="2016-08-24T19:21:34.000Z" itemprop="datePublished">2016-08-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/hexo-install-plugins/" class="thumbnail">
     
     
         <span style="background-image:url(/images/2016/hexo/header-plugins.jpg)" alt="Enhance Your Hexo Blog" class="thumbnail-image"></span>
@@ -434,15 +515,15 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Plugins/">Plugins</a></p>
-                            <p class="item-title"><a href="/2016/08/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
-                            <p class="item-date"><time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time></p>
+                            <p class="item-title"><a href="/2016/07/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
+                            <p class="item-date"><time datetime="2016-07-23T20:22:01.000Z" itemprop="datePublished">2016-07-23</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/08/hexo-quick-start/" class="thumbnail">
+                            <a href="/2016/07/hexo-quick-start/" class="thumbnail">
     
     
         <span style="background-image:url(/images/2016/hexo/header-startup.png)" alt="Creating a Blog by Hexo" class="thumbnail-image"></span>
@@ -453,8 +534,8 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Startup/">Startup</a></p>
-                            <p class="item-title"><a href="/2016/08/hexo-quick-start/" class="title">Creating a Blog by Hexo</a></p>
-                            <p class="item-date"><time datetime="2016-08-14T19:55:50.000Z" itemprop="datePublished">2016-08-14</time></p>
+                            <p class="item-title"><a href="/2016/07/hexo-quick-start/" class="title">Creating a Blog by Hexo</a></p>
+                            <p class="item-date"><time datetime="2016-07-14T19:55:50.000Z" itemprop="datePublished">2016-07-14</time></p>
                         </div>
                     </li>
                 
@@ -467,7 +548,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/">Architecture</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -476,7 +557,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -485,7 +566,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed/">Distributed</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -494,7 +575,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Blogging/" style="font-size: 10px;">Blogging</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/StaticWebsite/" style="font-size: 10px;">StaticWebsite</a>
+            <a href="/tags/Actor-Model/" style="font-size: 10px;">Actor Model</a> <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Blogging/" style="font-size: 20px;">Blogging</a> <a href="/tags/Distributed/" style="font-size: 10px;">Distributed</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/StaticWebsite/" style="font-size: 20px;">StaticWebsite</a>
         </div>
     </div>
 
@@ -532,9 +613,9 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/2016/08/hexo-quick-start/';
+            this.page.url = 'http://truelogician.com/2016/08/introduction-to-akka/';
         
-        this.page.identifier = 'hexo-quick-start';
+        this.page.identifier = 'introduction-to-akka';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

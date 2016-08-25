@@ -162,11 +162,11 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                3
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                3
+                6
                 <span>tags</span>
             </div>
         </div>
@@ -220,7 +220,7 @@ ga('send', 'pageview');
 
             
             <section id="main">
-    <article id="post-hexo-install-plugins" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-introduction-to-akka" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -228,7 +228,7 @@ ga('send', 'pageview');
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/hexo-install-plugins/">Enhance Your Hexo Blog</a>
+            <a class="article-title" href="/2016/08/introduction-to-akka/">Introduction to Akka</a>
         </h1>
     
 
@@ -237,8 +237,142 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/08/hexo-install-plugins/">
-            <time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time>
+        <a href="/2016/08/introduction-to-akka/">
+            <time datetime="2016-08-24T19:21:34.000Z" itemprop="datePublished">2016-08-24</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Akka/">Akka</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Actor-Model/">Actor Model</a>, <a class="tag-link" href="/tags/Akka/">Akka</a>, <a class="tag-link" href="/tags/Distributed/">Distributed</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p><img src="/images/2016/akka/header-1.png" alt=""></p>
+<div align="justify"><br>The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It provides a platform enabling developers to easily create concurrent and loosely coupled applications with the ability of self-healing in the face of failures.<br></div></p>
+            <p class="article-more-link">
+                <a href="/2016/08/introduction-to-akka/#more">Read More</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://truelogician.com/2016/08/introduction-to-akka/" data-id="cisapj6a60006jbrovrb60zgq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2016/08/introduction-to-akka/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/08/introduction-to-akka/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-hexo-install-plugins" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/07/hexo-install-plugins/">Enhance Your Hexo Blog</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/hexo-install-plugins/">
+            <time datetime="2016-07-23T20:22:01.000Z" itemprop="datePublished">2016-07-23</time>
         </a>
     </div>
 
@@ -265,7 +399,7 @@ ga('send', 'pageview');
             <p><p><img src="/images/2016/hexo/header-plugins.jpg" alt=""></p>
 <p>This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the <a href="/2016/08/hexo-quick-start/">quick start</a> with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/">here</a>.<br></p>
             <p class="article-more-link">
-                <a href="/2016/08/hexo-install-plugins/#more">Read More</a>
+                <a href="/2016/07/hexo-install-plugins/#more">Read More</a>
             </p>
         
         </div>
@@ -276,7 +410,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2016/08/hexo-install-plugins/" data-id="cis8ft8550000u8ro50bpb207" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2016/07/hexo-install-plugins/" data-id="cisapj69q0000jbrohhqiblcs" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -344,7 +478,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2016/08/hexo-install-plugins/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/08/hexo-install-plugins/">Comments</a>
+        <a href="http://truelogician.com/2016/07/hexo-install-plugins/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/07/hexo-install-plugins/">Comments</a>
     
 
         </footer>
@@ -362,7 +496,7 @@ ga('send', 'pageview');
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/hexo-quick-start/">Creating a Blog by Hexo</a>
+            <a class="article-title" href="/2016/07/hexo-quick-start/">Creating a Blog by Hexo</a>
         </h1>
     
 
@@ -371,8 +505,8 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/08/hexo-quick-start/">
-            <time datetime="2016-08-14T19:55:50.000Z" itemprop="datePublished">2016-08-14</time>
+        <a href="/2016/07/hexo-quick-start/">
+            <time datetime="2016-07-14T19:55:50.000Z" itemprop="datePublished">2016-07-14</time>
         </a>
     </div>
 
@@ -399,7 +533,7 @@ ga('send', 'pageview');
             <p><p><img src="/images/2016/hexo/header-startup.png" alt=""></p>
 <p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br></p>
             <p class="article-more-link">
-                <a href="/2016/08/hexo-quick-start/#more">Read More</a>
+                <a href="/2016/07/hexo-quick-start/#more">Read More</a>
             </p>
         
         </div>
@@ -410,7 +544,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2016/08/hexo-quick-start/" data-id="cis8ft86b000bu8rol9gl85lk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2016/07/hexo-quick-start/" data-id="cisapj69v0002jbroeagqskhv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -478,7 +612,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2016/08/hexo-quick-start/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/08/hexo-quick-start/">Comments</a>
+        <a href="http://truelogician.com/2016/07/hexo-quick-start/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2016/07/hexo-quick-start/">Comments</a>
     
 
         </footer>
@@ -500,7 +634,26 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/08/hexo-install-plugins/" class="thumbnail">
+                            <a href="/2016/08/introduction-to-akka/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/2016/akka/header-1.png)" alt="Introduction to Akka" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Akka/">Akka</a></p>
+                            <p class="item-title"><a href="/2016/08/introduction-to-akka/" class="title">Introduction to Akka</a></p>
+                            <p class="item-date"><time datetime="2016-08-24T19:21:34.000Z" itemprop="datePublished">2016-08-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/hexo-install-plugins/" class="thumbnail">
     
     
         <span style="background-image:url(/images/2016/hexo/header-plugins.jpg)" alt="Enhance Your Hexo Blog" class="thumbnail-image"></span>
@@ -511,15 +664,15 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Plugins/">Plugins</a></p>
-                            <p class="item-title"><a href="/2016/08/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
-                            <p class="item-date"><time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time></p>
+                            <p class="item-title"><a href="/2016/07/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
+                            <p class="item-date"><time datetime="2016-07-23T20:22:01.000Z" itemprop="datePublished">2016-07-23</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/08/hexo-quick-start/" class="thumbnail">
+                            <a href="/2016/07/hexo-quick-start/" class="thumbnail">
     
     
         <span style="background-image:url(/images/2016/hexo/header-startup.png)" alt="Creating a Blog by Hexo" class="thumbnail-image"></span>
@@ -530,8 +683,8 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Startup/">Startup</a></p>
-                            <p class="item-title"><a href="/2016/08/hexo-quick-start/" class="title">Creating a Blog by Hexo</a></p>
-                            <p class="item-date"><time datetime="2016-08-14T19:55:50.000Z" itemprop="datePublished">2016-08-14</time></p>
+                            <p class="item-title"><a href="/2016/07/hexo-quick-start/" class="title">Creating a Blog by Hexo</a></p>
+                            <p class="item-date"><time datetime="2016-07-14T19:55:50.000Z" itemprop="datePublished">2016-07-14</time></p>
                         </div>
                     </li>
                 
@@ -544,7 +697,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/">Architecture</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -553,7 +706,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -562,7 +715,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed/">Distributed</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -571,7 +724,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Blogging/" style="font-size: 10px;">Blogging</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/StaticWebsite/" style="font-size: 10px;">StaticWebsite</a>
+            <a href="/tags/Actor-Model/" style="font-size: 10px;">Actor Model</a> <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Blogging/" style="font-size: 20px;">Blogging</a> <a href="/tags/Distributed/" style="font-size: 10px;">Distributed</a> <a href="/tags/Hexo/" style="font-size: 20px;">Hexo</a> <a href="/tags/StaticWebsite/" style="font-size: 20px;">StaticWebsite</a>
         </div>
     </div>
 
