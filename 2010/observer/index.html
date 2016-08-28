@@ -3,14 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Category: Architecture | Mahan&#39;s Blog</title>
+    <title>Observer Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Mahan's Blog">
-<meta property="og:url" content="http://truelogician.com/categories/Architecture/index.html">
+    <meta name="description" content="Design Patterns Overview
+DefinitionReceive topic updates from publisher by subscribing to them. Objects/subscribers are notified of an event when it happens or a topic when it’s published.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Observer Pattern">
+<meta property="og:url" content="http://truelogician.com/2010/observer/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="Design Patterns Overview
+DefinitionReceive topic updates from publisher by subscribing to them. Objects/subscribers are notified of an event when it happens or a topic when it’s published.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/observer-thumb.png">
+<meta property="og:updated_time" content="2016-08-28T21:16:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mahan's Blog">
+<meta name="twitter:title" content="Observer Pattern">
+<meta name="twitter:description" content="Design Patterns Overview
+DefinitionReceive topic updates from publisher by subscribing to them. Objects/subscribers are notified of an event when it happens or a topic when it’s published.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/observer-thumb.png">
     
 
     
@@ -219,61 +228,21 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">Architecture</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-2010/observer" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2014/introduction-to-akka/">Introduction to Akka</a>
+        <h1 class="article-title" itemprop="name">
+            Observer Pattern
         </h1>
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2014/introduction-to-akka/">
-            <time datetime="2014-06-12T19:21:34.000Z" itemprop="datePublished">2014-06-12</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Akka/">Akka</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Actor-Model/">Actor Model</a>, <a class="tag-link" href="/tags/Akka/">Akka</a>, <a class="tag-link" href="/tags/Distributed-Systems/">Distributed-Systems</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2010/observer/">Observer Pattern</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2010/observer/">
@@ -282,95 +251,182 @@ ga('send', 'pageview');
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
         <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/Behavioral/">Behavioral</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2010/strategy/">Strategy Pattern</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Receive topic updates from publisher by subscribing to them.</strong> <em>Objects/subscribers are notified of an event when it happens or a topic when it’s published.</em></p>
+<a id="more"></a>
+<h3 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h3><ul>
+<li>The topic (also called Context/Event/Observable) and its properties. </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ITopic</span> </span>&#123; <span class="comment">/* properties */</span> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The subscriber/observer interface and its concrete class. Notice how the topic/context is received.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISubscriber</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(ITopic topic)</span></span>;   </div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subscriber</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(ITopic topic)</span> </span>&#123;</div><div class="line">        <span class="comment">/* implementation */</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The publisher interface and its concrete class that at least does the following 3 actions:<ul>
+<li><strong>subscribe:</strong> Adds the subscriber to the subscriber’s list.</li>
+<li><strong>unsubscribe:</strong> Removes the subscriber from the subscriber’s list.</li>
+<li><strong>publish:</strong> Notifies all subscribers in the list by invoking their <em>onReceived(topic)</em> method.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPublisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(ITopic topic)</span></span>;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="How-to-Use-It"><a href="#How-to-Use-It" class="headerlink" title="How to Use It:"></a>How to Use It:</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        <span class="comment">// create a publisher &amp; subscriber</span></div><div class="line">        Publisher  pub  = <span class="keyword">new</span> Publisher();</div><div class="line">        Subscriber sub1 = <span class="keyword">new</span> Subscriber();</div><div class="line">        Subscriber sub2 = <span class="keyword">new</span> Subscriber();</div><div class="line">        <span class="comment">// subscribe to receive topics/events</span></div><div class="line">        pub.subscribe(sub1); </div><div class="line">        pub.subscribe(sub2); </div><div class="line">        <span class="comment">// now let's say some event happened and </span></div><div class="line">        <span class="comment">// we want to notify all subscribers</span></div><div class="line">        pub.publish(<span class="keyword">new</span> Topic());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
+<ul>
+<li>Let’s first define the topic which is an order in our case.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">ITopic</span> </span>&#123;</div><div class="line">    String userEmail;</div><div class="line">    String itemId;</div><div class="line">    <span class="keyword">double</span> price;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Accordingly, the subscribers will look like this.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inventory</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* fetch item using order.itemId */</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Confirmation</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* send email using order.userMail */</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Accounting</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* proceed using order.price */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Also, the OrderService will look like below</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> <span class="keyword">implements</span> <span class="title">Publisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="comment">// Let's say we receive orders from clients here</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onOrderReceived</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        publish(order);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (subscriber : subscribers)</div><div class="line">            subscriber.onReceived(order)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2010/strategy/">
-            <time datetime="2010-09-07T20:14:58.000Z" itemprop="datePublished">2010-09-07</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/Behavioral/">Behavioral</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2010/design-patterns/">Design Patterns Overview</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2010/design-patterns/">
-            <time datetime="2010-09-07T18:52:07.000Z" itemprop="datePublished">2010-09-07</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a>
-    </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
 </div>
+
+    <a data-url="http://truelogician.com/2010/observer/" data-id="cisf4at9400049ero0j8j9umt" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2010/observer/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2010/observer/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Introduction to Akka
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2010/strategy/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Strategy Pattern</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
@@ -550,11 +606,13 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-        this.page.identifier = 'undefined';
+            this.page.url = 'http://truelogician.com/2010/observer/';
+        
+        this.page.identifier = '2010/observer';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'mahansblog' + '.disqus.com/count.js';
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();

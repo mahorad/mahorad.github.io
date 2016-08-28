@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2016-08-25T20:11:06.000Z</updated>
+  <updated>2016-08-28T14:35:16.000Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -16,11 +16,132 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Enhance Your Hexo Blog</title>
+    <link href="http://truelogician.com/2016/hexo-install-plugins/"/>
+    <id>http://truelogician.com/2016/hexo-install-plugins/</id>
+    <published>2016-07-23T20:22:01.000Z</published>
+    <updated>2016-08-28T14:35:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br>This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the <a href="/2016/08/hexo-quick-start/">quick start</a> with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/" target="_blank" rel="external">here</a>.<br></div> 
+
+<a id="more"></a>
+<h3 id="Comments-amp-Discussions"><a href="#Comments-amp-Discussions" class="headerlink" title="Comments &amp; Discussions"></a>Comments &amp; Discussions</h3><p>One of the most important features of a blog is perhaps the possiblity to interact with your readers and that will keep them coming back. <a href="https://disqus.com/" target="_blank" rel="external">disqus</a> is a popular commenting service that works through the javascript snippet within your page.</p>
+<p>What you need to do to modify your blog with a full fledged commenting service is to <a href="https://disqus.com/profile/signup/" target="_blank" rel="external">sign up</a> for a disqus account, <a href="http://disqus.com/admin/create" target="_blank" rel="external">register your site</a> and pick a unique shortname for your blog and paste it in your _config.yaml file, right below your theme name as shown here.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">disqus_shortname:</span> &lt;your-disqus-shortname<span class="string">&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Blog-Search"><a href="#Blog-Search" class="headerlink" title="Blog Search"></a><a href="https://github.com/alexbruno/hexo-generator-json-content" target="_blank" rel="external">Blog Search</a></h3><p>Using this plugin, you can empower your blog reader with the ability of searching through your posts. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-json-content --save</div></pre></td></tr></table></figure>
+<p>Right after installation, the plugin should work properly out of the box (after running <em>hexo generate</em> or <em>hexo server</em>). however, in order to through details of configuration you might want to check its github page or your theme’s “_config.yaml” file.</p>
+<h3 id="RSS-Feed"><a href="#RSS-Feed" class="headerlink" title="RSS Feed"></a><a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="external">RSS Feed</a></h3><p>You can enable your blog with an RSS feed out of your posts in hexo by installing this plugin. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-feed --save</div></pre></td></tr></table></figure>
+<p>The plugin can be configured in the _config.yaml with the following configuration section.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">feed:</span></div><div class="line"><span class="attr">  type:</span> atom</div><div class="line"><span class="attr">  path:</span> atom.xml</div><div class="line"><span class="attr">  limit:</span> <span class="number">20</span></div></pre></td></tr></table></figure>
+<h3 id="Markdown-Support"><a href="#Markdown-Support" class="headerlink" title="Markdown Support"></a><a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="external">Markdown Support</a></h3><p>This plugin provides more support on the markdown such as gmf (Github flavored markdown) tables and line breaks.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-renderer-marked --save</div></pre></td></tr></table></figure>
+<p>You can customize the plugin by pasting the following in your _config.yaml and changing the values.</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attr">marked:</span></div><div class="line"><span class="attr">  gfm:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  pedantic:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  sanitize:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  tables:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  breaks:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  smartLists:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  smartypants:</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
+<h3 id="Category-Generator"><a href="#Category-Generator" class="headerlink" title="Category Generator"></a><a href="https://github.com/hexojs/hexo-generator-category" target="_blank" rel="external">Category Generator</a></h3><p>This plugin allows you to assign one or more tags to your post. It will group your posts and enables your readers to later on find out about all of posts that are tagged with the same category.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-category --save</div></pre></td></tr></table></figure>
+<p>and the related options are as follows:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">category_generator:</span></div><div class="line"><span class="attr">  per_page:</span> <span class="number">10</span></div></pre></td></tr></table></figure>
+<h3 id="CNAME-Generator"><a href="#CNAME-Generator" class="headerlink" title="CNAME Generator"></a><a href="https://github.com/leecrossley/hexo-generator-cname" target="_blank" rel="external">CNAME Generator</a></h3><p>This plugin will automatically generate a Github pages CNAME file.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-cname --save</div></pre></td></tr></table></figure>
+<p>This plugin does not require any specific configuration. Only make sure to change your blog’s url to the real one in the _config.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># URL</span></div><div class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></div><div class="line"><span class="attr">url:</span> &lt;real-blog-url<span class="string">&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="Git-Deployer"><a href="#Git-Deployer" class="headerlink" title="Git Deployer"></a><a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">Git Deployer</a></h3><p>This plugin will help you deploy your blog using git.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<p>You can configure the deployer plugin like this:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> git</div><div class="line"><span class="attr">  repo:</span> https://github.com/&lt;username&gt;/&lt;repository<span class="string">&gt;</span></div><div class="line"><span class="attr">  branch:</span> master</div></pre></td></tr></table></figure>
+<h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>When you are ready to deploy your blog to the github, run the following commands to generate your blog and deploy it to the specified branch in your github repository as you setup before.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>Now that you have your generated blog on github, you can configure and connect your custom domain to load your blog from github.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the &lt;a href=&quot;/2016/08/hexo-quick-start/&quot;&gt;quick start&lt;/a&gt; with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins &lt;a href=&quot;https://hexo.io/plugins/&quot;&gt;here&lt;/a&gt;.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://truelogician.com/categories/Hexo/"/>
+    
+      <category term="Plugins" scheme="http://truelogician.com/categories/Hexo/Plugins/"/>
+    
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Hexo" scheme="http://truelogician.com/tags/Hexo/"/>
+    
+      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
+    
+      <category term="StaticWebsite" scheme="http://truelogician.com/tags/StaticWebsite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Creating a Blog by Hexo</title>
+    <link href="http://truelogician.com/2016/hexo-quick-start/"/>
+    <id>http://truelogician.com/2016/hexo-quick-start/</id>
+    <published>2016-07-14T19:55:50.000Z</published>
+    <updated>2016-08-28T14:37:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br></div>
+
+<a id="more"></a>
+<p>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
+<h3 id="What-is-a-“Static-Stite-Generator”"><a href="#What-is-a-“Static-Stite-Generator”" class="headerlink" title="What is a “Static Stite Generator”?"></a>What is a “Static Stite Generator”?</h3><p>In short, a static site generator is basically a html file generator. It crates and formats html files by using its template engine as well as your text which is usually in a format such as markdown.</p>
+<p>Static site generators are very much easy to setup and use while providing users with more control over it. You can choose and heavily customize themes, choose among plenty of plugins and finally host your website on github pages for free. </p>
+<h3 id="What-is-Hexo"><a href="#What-is-Hexo" class="headerlink" title="What is Hexo?"></a><a href="https://hexo.io/docs/" target="_blank" rel="external">What is Hexo?</a></h3><p>Accoding to Hexo’s documentation, <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
+<p>-Alright, now let’s dive in.</p>
+<h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Before installing hexo, use your OS package manager to update and cleanup system packages.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew update --all &amp;&amp; brew upgrade --all &amp;&amp; brew cleanup &amp;&amp; brew doctor &amp;&amp; brew prune</div></pre></td></tr></table></figure>
+<h2 id="Install-Node-js"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js</h2><p>Hexo is a node.js package. As a result, we first need to install the node.js in case it’s not.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
+<p>On linux machines, the procedure is similar with the distro’s package manager. On Windows machines, please refer to this <a href="https://nodejs.org/en/download/" target="_blank" rel="external">page</a> for download. </p>
+<p>npm is the default package manager of the node.js. In case you have had the node installed for some time, make an update and clean the previously installed packages. We will later on use npm to install all the required packages in our blog.  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm update &amp;&amp; npm upgrade &amp;&amp; npm cache clean</div></pre></td></tr></table></figure>
+<p>Now, we can actually install the hexo package.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-cli -g</div></pre></td></tr></table></figure>
+<h2 id="Creaing-Your-First-Blog"><a href="#Creaing-Your-First-Blog" class="headerlink" title="Creaing Your First Blog"></a>Creaing Your First Blog</h2><p>Now, in order to create a blog, goto a directory in which you want to create a blog.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div></pre></td></tr></table></figure>
+<p>After the blog directory is created cd to the created folder and download all the node modules we need to run and manage our blog.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> blog</div><div class="line">$ npm install</div></pre></td></tr></table></figure>
+<h2 id="Running-Your-Blog-server"><a href="#Running-Your-Blog-server" class="headerlink" title="Running Your Blog server"></a>Running Your Blog server</h2><p>Now let’s clean (<em>not needed for the first time but it’s a good practice</em>), generate and run the blog on a node server on the default port 4000. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server</div></pre></td></tr></table></figure>
+<p>You can now <a href="http://localhost:4000" target="_blank" rel="external">view your blog</a> locally on your browser.</p>
+<h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><p>In order to create more posts, you simply need to create .md files within your _posts folder. Additionally, Hexo also provides the following sugar coated commands to create a post, page or draft.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
+<p>Now that you have a post, open it in your favorite editor and write your content in <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">markdown</a> language. Having a <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank" rel="external">cheat sheet</a> at your disposal is also a good idea while you are writing in Markdown. </p>
+<p>At this point you have a working blog (<em>with the default theme</em>). You might want to apply and customize a different theme. Hexo provides a handfule of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> on their website that you can choose from. In addition to themes, plenty of plugins are also available for hexo that can totally enhance your blog and your reader’s experience form it. </p>
+<p>So, if you still eager about improving your blog and connect a couple of useful plugins, read further on the <a href="/2016/hexo-install-plugins/">next section</a>.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://truelogician.com/categories/Hexo/"/>
+    
+      <category term="Startup" scheme="http://truelogician.com/categories/Hexo/Startup/"/>
+    
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Hexo" scheme="http://truelogician.com/tags/Hexo/"/>
+    
+      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
+    
+      <category term="StaticWebsite" scheme="http://truelogician.com/tags/StaticWebsite/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Introduction to Akka</title>
-    <link href="http://truelogician.com/2016/08/introduction-to-akka/"/>
-    <id>http://truelogician.com/2016/08/introduction-to-akka/</id>
-    <published>2016-08-24T19:21:34.000Z</published>
-    <updated>2016-08-25T20:11:06.000Z</updated>
+    <link href="http://truelogician.com/2014/introduction-to-akka/"/>
+    <id>http://truelogician.com/2014/introduction-to-akka/</id>
+    <published>2014-06-12T19:21:34.000Z</published>
+    <updated>2016-08-28T14:35:41.000Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br>The following intends to provide a brief introduction to Akka which is framework based on the actor model and designed to increase the abstraction, scalability and fault-tolerance of systems. It provides a platform enabling developers to easily create concurrent and loosely coupled applications with the ability of self-healing in the face of failures.<br></div>
 
@@ -40,7 +161,7 @@
 <li><strong>Message-Driven:</strong><br>Asynchronous message passing decreases coupling and provides location transparency for system components.</li>
 <li><strong>Resilience:</strong><br>Akka enforces single responsibility through component isolation (<em>actors</em>).</li>
 <li><strong>Elasticity:</strong><br>As systems scale, they will still be able to handle various workloads. In addition, actors can be increased in amount where they are exactly needed and they also can divide the workload among themselves.</li>
-<li><strong>Responsivenes:</strong><br>Loose coupling, Resilience and Elasticity will make the system responsive.</li>
+<li><strong>Responsiveness:</strong><br>Loose coupling, Resilience and Elasticity will make the system responsive.</li>
 </ul>
 </li>
 <li>The increases in abstraction and loose coupling will also result into:<ul>
@@ -127,6 +248,8 @@
       <category term="Akka" scheme="http://truelogician.com/categories/Architecture/Akka/"/>
     
     
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
       <category term="Akka" scheme="http://truelogician.com/tags/Akka/"/>
     
       <category term="Distributed-Systems" scheme="http://truelogician.com/tags/Distributed-Systems/"/>
@@ -136,114 +259,306 @@
   </entry>
   
   <entry>
-    <title>Enhance Your Hexo Blog</title>
-    <link href="http://truelogician.com/2016/07/hexo-install-plugins/"/>
-    <id>http://truelogician.com/2016/07/hexo-install-plugins/</id>
-    <published>2016-07-23T20:22:01.000Z</published>
-    <updated>2016-08-25T19:23:59.000Z</updated>
+    <title>Observer Pattern</title>
+    <link href="http://truelogician.com/2010/observer/"/>
+    <id>http://truelogician.com/2010/observer/</id>
+    <published>2010-10-18T19:11:19.000Z</published>
+    <updated>2016-08-28T21:16:48.000Z</updated>
     
-    <content type="html"><![CDATA[<p>This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the <a href="/2016/08/hexo-quick-start/">quick start</a> with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins <a href="https://hexo.io/plugins/" target="_blank" rel="external">here</a>.<br><a id="more"></a></p>
-<h3 id="Comments-amp-Discussions"><a href="#Comments-amp-Discussions" class="headerlink" title="Comments &amp; Discussions"></a>Comments &amp; Discussions</h3><p>One of the most important features of a blog is perhaps the possiblity to interact with your readers and that will keep them coming back. <a href="https://disqus.com/" target="_blank" rel="external">disqus</a> is a popular commenting service that works through the javascript snippet within your page.</p>
-<p>What you need to do to modify your blog with a full fledged commenting service is to <a href="https://disqus.com/profile/signup/" target="_blank" rel="external">sign up</a> for a disqus account, <a href="http://disqus.com/admin/create" target="_blank" rel="external">register your site</a> and pick a unique shortname for your blog and paste it in your _config.yaml file, right below your theme name as shown here.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">disqus_shortname:</span> &lt;your-disqus-shortname<span class="string">&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Blog-Search"><a href="#Blog-Search" class="headerlink" title="Blog Search"></a><a href="https://github.com/alexbruno/hexo-generator-json-content" target="_blank" rel="external">Blog Search</a></h3><p>Using this plugin, you can empower your blog reader with the ability of searching through your posts. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-json-content --save</div></pre></td></tr></table></figure>
-<p>Right after installation, the plugin should work properly out of the box (after running <em>hexo generate</em> or <em>hexo server</em>). however, in order to through details of configuration you might want to check its github page or your theme’s “_config.yaml” file.</p>
-<h3 id="RSS-Feed"><a href="#RSS-Feed" class="headerlink" title="RSS Feed"></a><a href="https://github.com/hexojs/hexo-generator-feed" target="_blank" rel="external">RSS Feed</a></h3><p>You can enable your blog with an RSS feed out of your posts in hexo by installing this plugin. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-feed --save</div></pre></td></tr></table></figure>
-<p>The plugin can be configured in the _config.yaml with the following configuration section.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">feed:</span></div><div class="line"><span class="attr">  type:</span> atom</div><div class="line"><span class="attr">  path:</span> atom.xml</div><div class="line"><span class="attr">  limit:</span> <span class="number">20</span></div></pre></td></tr></table></figure>
-<h3 id="Markdown-Support"><a href="#Markdown-Support" class="headerlink" title="Markdown Support"></a><a href="https://github.com/hexojs/hexo-renderer-marked" target="_blank" rel="external">Markdown Support</a></h3><p>This plugin provides more support on the markdown such as gmf (Github flavored markdown) tables and line breaks.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-renderer-marked --save</div></pre></td></tr></table></figure>
-<p>You can customize the plugin by pasting the following in your _config.yaml and changing the values.</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attr">marked:</span></div><div class="line"><span class="attr">  gfm:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  pedantic:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  sanitize:</span> <span class="literal">false</span></div><div class="line"><span class="attr">  tables:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  breaks:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  smartLists:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  smartypants:</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
-<h3 id="Category-Generator"><a href="#Category-Generator" class="headerlink" title="Category Generator"></a><a href="https://github.com/hexojs/hexo-generator-category" target="_blank" rel="external">Category Generator</a></h3><p>This plugin allows you to assign one or more tags to your post. It will group your posts and enables your readers to later on find out about all of posts that are tagged with the same category.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-category --save</div></pre></td></tr></table></figure>
-<p>and the related options are as follows:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">category_generator:</span></div><div class="line"><span class="attr">  per_page:</span> <span class="number">10</span></div></pre></td></tr></table></figure>
-<h3 id="CNAME-Generator"><a href="#CNAME-Generator" class="headerlink" title="CNAME Generator"></a><a href="https://github.com/leecrossley/hexo-generator-cname" target="_blank" rel="external">CNAME Generator</a></h3><p>This plugin will automatically generate a Github pages CNAME file.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-generator-cname --save</div></pre></td></tr></table></figure>
-<p>This plugin does not require any specific configuration. Only make sure to change your blog’s url to the real one in the _config.yaml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># URL</span></div><div class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></div><div class="line"><span class="attr">url:</span> &lt;real-blog-url<span class="string">&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="Git-Deployer"><a href="#Git-Deployer" class="headerlink" title="Git Deployer"></a><a href="https://github.com/hexojs/hexo-deployer-git" target="_blank" rel="external">Git Deployer</a></h3><p>This plugin will help you deploy your blog using git.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-<p>You can configure the deployer plugin like this:</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">deploy:</span></div><div class="line"><span class="attr">  type:</span> git</div><div class="line"><span class="attr">  repo:</span> https://github.com/&lt;username&gt;/&lt;repository<span class="string">&gt;</span></div><div class="line"><span class="attr">  branch:</span> master</div></pre></td></tr></table></figure>
-<h2 id="Deploy-to-Github"><a href="#Deploy-to-Github" class="headerlink" title="Deploy to Github"></a>Deploy to Github</h2><p>When you are ready to deploy your blog to the github, run the following commands to generate your blog and deploy it to the specified branch in your github repository as you setup before.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>Now that you have your generated blog on github, you can configure and connect your custom domain to load your blog from github.</p>
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Receive topic updates from publisher by subscribing to them.</strong> <em>Objects/subscribers are notified of an event when it happens or a topic when it’s published.</em></p>
+<a id="more"></a>
+<h3 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h3><ul>
+<li>The topic (also called Context/Event/Observable) and its properties. </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ITopic</span> </span>&#123; <span class="comment">/* properties */</span> &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The subscriber/observer interface and its concrete class. Notice how the topic/context is received.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISubscriber</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(ITopic topic)</span></span>;   </div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subscriber</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(ITopic topic)</span> </span>&#123;</div><div class="line">        <span class="comment">/* implementation */</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The publisher interface and its concrete class that at least does the following 3 actions:<ul>
+<li><strong>subscribe:</strong> Adds the subscriber to the subscriber’s list.</li>
+<li><strong>unsubscribe:</strong> Removes the subscriber from the subscriber’s list.</li>
+<li><strong>publish:</strong> Notifies all subscribers in the list by invoking their <em>onReceived(topic)</em> method.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPublisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(ITopic topic)</span></span>;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="How-to-Use-It"><a href="#How-to-Use-It" class="headerlink" title="How to Use It:"></a>How to Use It:</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        <span class="comment">// create a publisher &amp; subscriber</span></div><div class="line">        Publisher  pub  = <span class="keyword">new</span> Publisher();</div><div class="line">        Subscriber sub1 = <span class="keyword">new</span> Subscriber();</div><div class="line">        Subscriber sub2 = <span class="keyword">new</span> Subscriber();</div><div class="line">        <span class="comment">// subscribe to receive topics/events</span></div><div class="line">        pub.subscribe(sub1); </div><div class="line">        pub.subscribe(sub2); </div><div class="line">        <span class="comment">// now let's say some event happened and </span></div><div class="line">        <span class="comment">// we want to notify all subscribers</span></div><div class="line">        pub.publish(<span class="keyword">new</span> Topic());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
+<ul>
+<li>Let’s first define the topic which is an order in our case.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">ITopic</span> </span>&#123;</div><div class="line">    String userEmail;</div><div class="line">    String itemId;</div><div class="line">    <span class="keyword">double</span> price;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Accordingly, the subscribers will look like this.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inventory</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* fetch item using order.itemId */</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Confirmation</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* send email using order.userMail */</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Accounting</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* proceed using order.price */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Also, the OrderService will look like below</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> <span class="keyword">implements</span> <span class="title">Publisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="comment">// Let's say we receive orders from clients here</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onOrderReceived</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        publish(order);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (subscriber : subscribers)</div><div class="line">            subscriber.onReceived(order)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;This tutorial covers how you can enhance your Hexo blog. If you have not yet create it, you might want to check out the &lt;a href=&quot;/2016/08/hexo-quick-start/&quot;&gt;quick start&lt;/a&gt; with Hexo, otherwise let’s go through a few essential plugins that might leverage your blog’s usability very briefly. You can find the detailed list of plugins &lt;a href=&quot;https://hexo.io/plugins/&quot;&gt;here&lt;/a&gt;.&lt;br&gt;
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Receive topic updates from publisher by subscribing to them.&lt;/strong&gt; &lt;em&gt;Objects/subscribers are notified of an event when it happens or a topic when it’s published.&lt;/em&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="Hexo" scheme="http://truelogician.com/categories/Hexo/"/>
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
     
-      <category term="Plugins" scheme="http://truelogician.com/categories/Hexo/Plugins/"/>
+      <category term="Design-Patterns" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/"/>
+    
+      <category term="Behavioral" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/Behavioral/"/>
     
     
-      <category term="Hexo" scheme="http://truelogician.com/tags/Hexo/"/>
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
-      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
-    
-      <category term="StaticWebsite" scheme="http://truelogician.com/tags/StaticWebsite/"/>
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
     
   </entry>
   
   <entry>
-    <title>Creating a Blog by Hexo</title>
-    <link href="http://truelogician.com/2016/07/hexo-quick-start/"/>
-    <id>http://truelogician.com/2016/07/hexo-quick-start/</id>
-    <published>2016-07-14T19:55:50.000Z</published>
-    <updated>2016-08-25T19:24:17.000Z</updated>
+    <title>Strategy Pattern</title>
+    <link href="http://truelogician.com/2010/strategy/"/>
+    <id>http://truelogician.com/2010/strategy/</id>
+    <published>2010-09-07T20:14:58.000Z</published>
+    <updated>2016-08-28T20:50:34.000Z</updated>
     
-    <content type="html"><![CDATA[<p>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?<br><a id="more"></a><br>Well, that was exactly the case for me and if it’s the same for you, then give “static site generators” a go. </p>
-<h3 id="What-is-a-“Static-Stite-Generator”"><a href="#What-is-a-“Static-Stite-Generator”" class="headerlink" title="What is a “Static Stite Generator”?"></a>What is a “Static Stite Generator”?</h3><p>In short, a static site generator is basically a html file generator. It crates and formats html files by using its template engine as well as your text which is usually in a format such as markdown.</p>
-<p>Static site generators are very much easy to setup and use while providing users with more control over it. You can choose and heavily customize themes, choose among plenty of plugins and finally host your website on github pages for free. </p>
-<h3 id="What-is-Hexo"><a href="#What-is-Hexo" class="headerlink" title="What is Hexo?"></a><a href="https://hexo.io/docs/" target="_blank" rel="external">What is Hexo?</a></h3><p>Accoding to Hexo’s documentation, <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a> is a fast, simple and powerful blog framework. You write posts in Markdown (or other languages) and Hexo generates static files with a beautiful theme in seconds.</p>
-<p>-Alright, now let’s dive in.</p>
-<h2 id="Installing-Hexo"><a href="#Installing-Hexo" class="headerlink" title="Installing Hexo"></a>Installing Hexo</h2><p>Before installing hexo, use your OS package manager to update and cleanup system packages.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew update --all &amp;&amp; brew upgrade --all &amp;&amp; brew cleanup &amp;&amp; brew doctor &amp;&amp; brew prune</div></pre></td></tr></table></figure>
-<h2 id="Install-Node-js"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js</h2><p>Hexo is a node.js package. As a result, we first need to install the node.js in case it’s not.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ brew install node</div></pre></td></tr></table></figure>
-<p>On linux machines, the procedure is similar with the distro’s package manager. On Windows machines, please refer to this <a href="https://nodejs.org/en/download/" target="_blank" rel="external">page</a> for download. </p>
-<p>npm is the default package manager of the node.js. In case you have had the node installed for some time, make an update and clean the previously installed packages. We will later on use npm to install all the required packages in our blog.  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm update &amp;&amp; npm upgrade &amp;&amp; npm cache clean</div></pre></td></tr></table></figure>
-<p>Now, we can actually install the hexo package.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-cli -g</div></pre></td></tr></table></figure>
-<h2 id="Creaing-Your-First-Blog"><a href="#Creaing-Your-First-Blog" class="headerlink" title="Creaing Your First Blog"></a>Creaing Your First Blog</h2><p>Now, in order to create a blog, goto a directory in which you want to create a blog.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div></pre></td></tr></table></figure>
-<p>After the blog directory is created cd to the created folder and download all the node modules we need to run and manage our blog.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> blog</div><div class="line">$ npm install</div></pre></td></tr></table></figure>
-<h2 id="Running-Your-Blog-server"><a href="#Running-Your-Blog-server" class="headerlink" title="Running Your Blog server"></a>Running Your Blog server</h2><p>Now let’s clean (<em>not needed for the first time but it’s a good practice</em>), generate and run the blog on a node server on the default port 4000. </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo clean &amp;&amp; hexo generate &amp;&amp; hexo server</div></pre></td></tr></table></figure>
-<p>You can now <a href="http://localhost:4000" target="_blank" rel="external">view your blog</a> locally on your browser.</p>
-<h2 id="Creating-Post-Page-or-Draft"><a href="#Creating-Post-Page-or-Draft" class="headerlink" title="Creating Post, Page or Draft"></a>Creating Post, Page or Draft</h2><p>In order to create more posts, you simply need to create .md files within your _posts folder. Additionally, Hexo also provides the following sugar coated commands to create a post, page or draft.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My Post"</span></div><div class="line">$ hexo new post <span class="string">"My Post"</span></div><div class="line">$ hexo new page <span class="string">"About Me"</span></div><div class="line">$ hexo new draft <span class="string">"My Post"</span></div></pre></td></tr></table></figure>
-<p>Now that you have a post, open it in your favorite editor and write your content in <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="external">markdown</a> language. Having a <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank" rel="external">cheat sheet</a> at your disposal is also a good idea while you are writing in Markdown. </p>
-<p>At this point you have a working blog (<em>with the default theme</em>). You might want to apply and customize a different theme. Hexo provides a handfule of <a href="https://hexo.io/themes/" target="_blank" rel="external">themes</a> on their website that you can choose from. In addition to themes, plenty of plugins are also available for hexo that can totally enhance your blog and your reader’s experience form it. </p>
-<p>So, if you still eager about improving your blog and connect a couple of useful plugins, read further on the <a href="/2016/08/hexo-install-plugins/">next section</a>.</p>
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Adding Behavior at Runtime.</strong> <em>Strategy pattern encapsulates Interchangeable Behaviors and Uses Delegation to Decide Which One to Use.</em></p>
+<a id="more"></a>
+<h3 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h3><ul>
+<li>The actual behavior (strategy) interface and concrete implementations.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BehaviorA</span> <span class="keyword">implements</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BehaviorB</span> <span class="keyword">implements</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The class that owns the behavior (called context)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    IBehavior behavior;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="How-to-Use-It"><a href="#How-to-Use-It" class="headerlink" title="How to Use It:"></a>How to Use It:</h3><p>In the following snippet, the product is initiated with BehaviorA; however, at some point during runtime its behavior is changed to BehaviorB.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Product p = <span class="keyword">new</span> Product();</div><div class="line">        p.behavior = <span class="keyword">new</span> BehaviorA();</div><div class="line">        <span class="comment">// after a while</span></div><div class="line">        <span class="keyword">if</span> (<span class="comment">/*shall change behavior?*/</span>)</div><div class="line">            p.behavior = <span class="keyword">new</span> BehaviorB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Imagine there is a class called ‘Animal’. Also imaging that we want to provide the ‘Movement’ capability for it. Obviously this ability comes in different flavours for different animals. So, we know that we need an interface to define the generality of the behavior.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMovement</span> </span>&#123; <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>; &#125;</div></pre></td></tr></table></figure>
+<p>In such case, the ‘Animal’ is called a “context class” and ‘Movability’ is called “behavior”.<br>One way to do it, is to define an interface ‘IMovement’ and implement it within the ‘Animal’ class.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">IMovement</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementations*/</span>&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Although this could also be one solution, due to reasons partly mentioned below, it’s better if we do NOT inherit the behavior but instead, own it:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123; </div><div class="line">    IMovement movement; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
+<li>Composition over inheritance: <ul>
+<li>The interchangability of the behavior for the product class and its <em>derivations</em>.</li>
+</ul>
+</li>
+<li>Causes the behavior independance from superclass or subclasses.</li>
+<li>Allows the behavior vary independently from the <em>clients</em> that use it.</li>
+</ul>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in Wordpress?&lt;br&gt;
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Adding Behavior at Runtime.&lt;/strong&gt; &lt;em&gt;Strategy pattern encapsulates Interchangeable Behaviors and Uses Delegation to Decide Which One to Use.&lt;/em&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="Hexo" scheme="http://truelogician.com/categories/Hexo/"/>
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
     
-      <category term="Startup" scheme="http://truelogician.com/categories/Hexo/Startup/"/>
+      <category term="Design-Patterns" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/"/>
+    
+      <category term="Behavioral" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/Behavioral/"/>
     
     
-      <category term="Hexo" scheme="http://truelogician.com/tags/Hexo/"/>
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
-      <category term="Blogging" scheme="http://truelogician.com/tags/Blogging/"/>
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
     
-      <category term="StaticWebsite" scheme="http://truelogician.com/tags/StaticWebsite/"/>
+  </entry>
+  
+  <entry>
+    <title>Design Patterns Overview</title>
+    <link href="http://truelogician.com/2010/design-patterns/"/>
+    <id>http://truelogician.com/2010/design-patterns/</id>
+    <published>2010-09-07T18:52:07.000Z</published>
+    <updated>2016-08-28T16:14:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br>Even after reading the original GoF book and <a href="https://www.amazon.com/Head-First-Design-Patterns-Freeman/dp/0596007124/ref=sr_1_1?ie=UTF8&amp;qid=1472376203&amp;sr=8-1&amp;keywords=head+first+design+patterns" target="_blank" rel="external">“Head First Design Patterns”</a> which is by the way one of the best book in this field, as well as many articles, I still found it very daunting and hard to grasb the gist of each pattern and apply the most suitable one for a certain scenario.<br></div>
+
+<a id="more"></a>
+<p>This became the very reason for me to start describing them in an easier manner and in a way that I was expected to be explained back when I started learning them. </p>
+<h2 id="What-is-a-Design-Pattern"><a href="#What-is-a-Design-Pattern" class="headerlink" title="What is a Design Pattern"></a>What is a Design Pattern</h2><p>I believe the <a href="https://en.wikipedia.org/wiki/Software_design_pattern" target="_blank" rel="external">Wikipedia</a>‘s definition of design pattern is quite clear. It basically states that a design pattern is a general solution to problems that we developers usually encounter on daily basis while adding new features or refactoring code. They are not finished solution for specific problems nor they can be transformed directly into source code. </p>
+<h2 id="Design-Patterns-Classification"><a href="#Design-Patterns-Classification" class="headerlink" title="Design Patterns Classification"></a>Design Patterns Classification</h2><p>Classical Design Patterns are essentially divided in 3 categories. Each category addresses problems in a specific much wider area of software development.  </p>
+<h3 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h3><p>Behavioral patterns are those that concern the different aspects of the behaviors that your entities might take on. These patterns help your design to be more resilient to change specifically when the change concerns the communication between objects.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/strategy/">Strategy</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/observer-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/observer/">Observer</a></td>
+<td style="text-align:left">Be Notified When Something Happens</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/command/">Command</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/state/">State</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/template/">Template Method</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/visitor/">Visitor</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/interpreter/">Interpreter</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/chain/">Chain of Responsibility</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/iterator/">Iterator</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/mediator/">Mediator</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/memento/">Memento</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Creational-Patterns"><a href="#Creational-Patterns" class="headerlink" title="Creational Patterns"></a>Creational Patterns</h3><p>Creational patterns are ones that create objects for you, rather than having you instantiate objects directly. This gives your program more flexibility in deciding which objects need to be created for a given case (<a href="https://en.wikipedia.org/wiki/Creational_pattern" target="_blank" rel="external">Wikipedia</a>).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/factory-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/factory/">Factory Method</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/abstract-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/abstract/">Abstract Factory</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/singleton-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/singleton/">Singleton</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/prototype/">Prototype</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/build/">Build</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Structural-Patterns"><a href="#Structural-Patterns" class="headerlink" title="Structural Patterns"></a>Structural Patterns</h3><p>These patterns concern class and object composition. They use inheritance to compose interfaces and define ways to compose objects to obtain new functionality (<a href="https://en.wikipedia.org/wiki/Design_Patterns#Structural" target="_blank" rel="external">Wikipedia</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/adapter/">Adapter</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/observer-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/decorator/">Decorator</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/composite/">Composite</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/bridge/">Bridge</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/facade/">Facade</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/flyweight/">Flyweight</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+<tr>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><a href="/2010/proxy/">Proxy</a></td>
+<td style="text-align:left">Adding Behavior at Runtime</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;Even after reading the original GoF book and &lt;a href=&quot;https://www.amazon.com/Head-First-Design-Patterns-Freeman/dp/0596007124/ref=sr_1_1?ie=UTF8&amp;amp;qid=1472376203&amp;amp;sr=8-1&amp;amp;keywords=head+first+design+patterns&quot;&gt;“Head First Design Patterns”&lt;/a&gt; which is by the way one of the best book in this field, as well as many articles, I still found it very daunting and hard to grasb the gist of each pattern and apply the most suitable one for a certain scenario.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
     
   </entry>
   
