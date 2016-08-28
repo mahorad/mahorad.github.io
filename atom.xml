@@ -384,7 +384,7 @@
     <link href="http://truelogician.com/2010/design-patterns/"/>
     <id>http://truelogician.com/2010/design-patterns/</id>
     <published>2010-09-07T18:52:07.000Z</published>
-    <updated>2016-08-28T16:14:00.000Z</updated>
+    <updated>2016-08-28T21:24:18.000Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br>Even after reading the original GoF book and <a href="https://www.amazon.com/Head-First-Design-Patterns-Freeman/dp/0596007124/ref=sr_1_1?ie=UTF8&amp;qid=1472376203&amp;sr=8-1&amp;keywords=head+first+design+patterns" target="_blank" rel="external">“Head First Design Patterns”</a> which is by the way one of the best book in this field, as well as many articles, I still found it very daunting and hard to grasb the gist of each pattern and apply the most suitable one for a certain scenario.<br></div>
 
@@ -512,7 +512,7 @@
 <td style="text-align:left">Adding Behavior at Runtime</td>
 </tr>
 <tr>
-<td style="text-align:left"><img src="/images/patterns/observer-thumb.png" width="50" height="50"></td>
+<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
 <td style="text-align:left"><a href="/2010/decorator/">Decorator</a></td>
 <td style="text-align:left">Adding Behavior at Runtime</td>
 </tr>
