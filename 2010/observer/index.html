@@ -14,7 +14,7 @@ DefinitionReceive topic updates from publisher by subscribing to them. Objects/s
 <meta property="og:description" content="Design Patterns Overview
 DefinitionReceive topic updates from publisher by subscribing to them. Objects/subscribers are notified of an event when it happens or a topic when it’s published.">
 <meta property="og:image" content="http://truelogician.com/images/patterns/observer-thumb.png">
-<meta property="og:updated_time" content="2016-08-28T21:16:48.000Z">
+<meta property="og:updated_time" content="2016-08-30T18:34:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Observer Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
@@ -171,7 +171,7 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                6
+                9
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -274,7 +274,7 @@ ga('send', 'pageview');
             <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Receive topic updates from publisher by subscribing to them.</strong> <em>Objects/subscribers are notified of an event when it happens or a topic when it’s published.</em></p>
 <a id="more"></a>
-<h3 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h3><ul>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
 <li>The topic (also called Context/Event/Observable) and its properties. </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ITopic</span> </span>&#123; <span class="comment">/* properties */</span> &#125;</div></pre></td></tr></table></figure>
@@ -291,9 +291,10 @@ ga('send', 'pageview');
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPublisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(ITopic topic)</span></span>;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="How-to-Use-It"><a href="#How-to-Use-It" class="headerlink" title="How to Use It:"></a>How to Use It:</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        <span class="comment">// create a publisher &amp; subscriber</span></div><div class="line">        Publisher  pub  = <span class="keyword">new</span> Publisher();</div><div class="line">        Subscriber sub1 = <span class="keyword">new</span> Subscriber();</div><div class="line">        Subscriber sub2 = <span class="keyword">new</span> Subscriber();</div><div class="line">        <span class="comment">// subscribe to receive topics/events</span></div><div class="line">        pub.subscribe(sub1); </div><div class="line">        pub.subscribe(sub2); </div><div class="line">        <span class="comment">// now let's say some event happened and </span></div><div class="line">        <span class="comment">// we want to notify all subscribers</span></div><div class="line">        pub.publish(<span class="keyword">new</span> Topic());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
 <ul>
 <li>Let’s first define the topic which is an order in our case.</li>
 </ul>
@@ -306,7 +307,7 @@ ga('send', 'pageview');
 <li>Also, the OrderService will look like below</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> <span class="keyword">implements</span> <span class="title">Publisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="comment">// Let's say we receive orders from clients here</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onOrderReceived</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        publish(order);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (subscriber : subscribers)</div><div class="line">            subscriber.onReceived(order)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
         
         </div>
@@ -317,7 +318,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2010/observer/" data-id="cisf4jznq0004vcro9hti64fh" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2010/observer/" data-id="cishvllms0008cprog1z84rvm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -394,11 +395,11 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2010/factory/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Introduction to Akka
+                    Factory Pattern
                 
             </div>
         </a>
@@ -497,10 +498,10 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2010/observer/" class="thumbnail">
+                            <a href="/2011/singleton/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/patterns/observer-thumb.png)" alt="Observer Pattern" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/patterns/singleton-thumb.png)" alt="Singleton Pattern" class="thumbnail-image"></span>
     
 </a>
 
@@ -508,18 +509,18 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a></p>
-                            <p class="item-title"><a href="/2010/observer/" class="title">Observer Pattern</a></p>
-                            <p class="item-date"><time datetime="2010-10-18T19:11:19.000Z" itemprop="datePublished">2010-10-18</time></p>
+                            <p class="item-title"><a href="/2011/singleton/" class="title">Singleton Pattern</a></p>
+                            <p class="item-date"><time datetime="2011-01-21T08:49:21.000Z" itemprop="datePublished">2011-01-21</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2010/strategy/" class="thumbnail">
+                            <a href="/2010/abstract-factory/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/patterns/strategy-thumb.png)" alt="Strategy Pattern" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/patterns/abstract-thumb.png)" alt="Abstract Factory Pattern" class="thumbnail-image"></span>
     
 </a>
 
@@ -527,8 +528,8 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a></p>
-                            <p class="item-title"><a href="/2010/strategy/" class="title">Strategy Pattern</a></p>
-                            <p class="item-date"><time datetime="2010-09-07T20:14:58.000Z" itemprop="datePublished">2010-09-07</time></p>
+                            <p class="item-title"><a href="/2010/abstract-factory/" class="title">Abstract Factory Pattern</a></p>
+                            <p class="item-date"><time datetime="2010-12-03T17:10:43.000Z" itemprop="datePublished">2010-12-03</time></p>
                         </div>
                     </li>
                 
@@ -541,7 +542,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/">Architecture</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Design-Patterns/Behavioral/">Behavioral</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/">Architecture</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Design-Patterns/Behavioral/">Behavioral</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Architecture/Design-Patterns/Creational/">Creational</a><span class="category-list-count">3</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li></ul>
         </div>
     </div>
 
@@ -550,7 +551,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/01/">January 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -559,7 +560,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">6</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">9</span></li></ul>
         </div>
     </div>
 

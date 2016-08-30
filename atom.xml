@@ -259,16 +259,205 @@
   </entry>
   
   <entry>
+    <title>Singleton Pattern</title>
+    <link href="http://truelogician.com/2011/singleton/"/>
+    <id>http://truelogician.com/2011/singleton/</id>
+    <published>2011-01-21T08:49:21.000Z</published>
+    <updated>2016-08-30T19:12:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Making Only One Object of a Class to Be Available for All.</strong> <em>Making Only One Object of a Class to Be Available for All.</em></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>There are different ways to define a singleton. The snippet below presents one of the simplest thread-safe approaches that is not too complicated to confuse you and also not too simple to ignore the complexities it might require in real implementation.  </p>
+<ul>
+<li>A public class with a private constructor and a private instance of itself that can be assigned only once.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</div><div class="line">    <span class="comment">// constructor</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (singleton != <span class="keyword">null</span>) <span class="keyword">return</span> singleton;</div><div class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</div><div class="line">            <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">                singleton = <span class="keyword">new</span> Singleton();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> singleton;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;<span class="comment">/*do sth.*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>After defining the singleton, all other classes can only acceess the very same instance of it across the virtual machine (JVM) as shown below.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Singleton singleton = Singleton.getInstance();</div><div class="line">        singleton.operation();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Disadvantages of singletons are far more than their benefits. They reduce testability in great deal and introduce unnecessary coupling troughout the system. A singleton can yield best results in a situation where various parts of an application concurrently try to access a shared resource. An example of a shared resource would be Logger, Print Spooler, etc.<br>In general, the use of singletons are only encouraged through the dependency injection.</p>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Making Only One Object of a Class to Be Available for All.&lt;/strong&gt; &lt;em&gt;Making Only One Object of a Class to Be Available for All.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/"/>
+    
+      <category term="Creational" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/Creational/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Abstract Factory Pattern</title>
+    <link href="http://truelogician.com/2010/abstract-factory/"/>
+    <id>http://truelogician.com/2010/abstract-factory/</id>
+    <published>2010-12-03T17:10:43.000Z</published>
+    <updated>2016-08-30T18:33:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Group Factories That Produce Similar Products.</strong> <em>Choose a Factory at Runtime, in Order to Create Different Objects of a Certain Category.</em></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>Definition of the products. </li>
+<li>In our case, 4 products:  <ul>
+<li>product Type A (comes in A1 &amp; A2 Flavors)</li>
+<li>product Type B (comes in B1 &amp; B2 Flavors)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Product A Flavors */</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProductA</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA1</span> <span class="keyword">implements</span> <span class="title">IProductA</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA2</span> <span class="keyword">implements</span> <span class="title">IProductA</span> </span>&#123; &#125;</div><div class="line"></div><div class="line"><span class="comment">/* Product B Flavors */</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProductB</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB1</span> <span class="keyword">implements</span> <span class="title">IProductB</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB2</span> <span class="keyword">implements</span> <span class="title">IProductB</span> </span>&#123; &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The family of factories. </li>
+</ul>
+<p>Notice that when ‘Factory2’ wants to create a product of type ‘A’, it returns ‘A1’ (and not ‘A2’) and this basically tries to emphasise that it is possible to build our factories in a way to return various flavors of available products according to the software needs. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IProductA <span class="title">createA</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">IProductB <span class="title">createB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory1</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IProductA <span class="title">createA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductA1(); &#125;</div><div class="line">    <span class="function">IProductB <span class="title">createB</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductB1(); &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory2</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IProductA <span class="title">createA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductA1(); &#125;</div><div class="line">    <span class="function">IProductB <span class="title">createB</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductB2(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Now that we have the factories, let’s have simple static method that chooses a factory for us at runtime to create the right product.<ul>
+<li>The ‘Props’ is an arbitrary object that contains some properties on which the selection is based.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySelector</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">static</span> IFactory <span class="title">selectBy</span><span class="params">(Props props)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="comment">/*shall select factory1?*/</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Factory1();</div><div class="line">        <span class="keyword">if</span>(<span class="comment">/*shall select factory2?*/</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Factory2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>If you have everything ready, then it would be only a matter of asking ‘FactorySelector’ to choose the right factory and create the desired product.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IFactory factory = FactorySelector.selectBy(props);</div><div class="line">        IProductB product = factory.createB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
+<li>It basically has advantages similar to the <a href="/2010/factory/">factory pattern</a>.</li>
+</ul>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Let’s say that we want to print some messages. </p>
+<ul>
+<li>The printer object can be designed to print messages to file, console, paper and etc.</li>
+<li>Messages can also come in different formats such as unstructured text, xml, json and etc.</li>
+</ul>
+<p>As a result, the product hierarchy is define as following.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPrinter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsolePrinter</span> <span class="keyword">implements</span> <span class="title">IPrinter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/*to console*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FilePrinter</span> <span class="keyword">implements</span> <span class="title">IPrinter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/*to file*/</span>&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IParser</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">parse</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonParser</span> <span class="keyword">implements</span> <span class="title">IParser</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">parse</span><span class="params">(String message)</span> </span>&#123; <span class="comment">/*parse json*/</span> &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">XmlParser</span> <span class="keyword">implements</span> <span class="title">IParser</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">parse</span><span class="params">(String message)</span> </span>&#123; <span class="comment">/*parse xml*/</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Two different factories are defined here:</p>
+<ul>
+<li>‘Logger’ which logs json messages to file</li>
+<li>‘Display’ which shows xml messages in console</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IPrinter <span class="title">createPrinter</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">IParser <span class="title">createParser</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printMessage</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printMessage</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        IPrinter printer = createPrinter();</div><div class="line">        IParser parser = createParser();</div><div class="line">        printer.print(parser.parse(message));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</div><div class="line">    <span class="function">IPrinter <span class="title">createPrinter</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> FilePrinter(); &#125;</div><div class="line">    <span class="function">IParser <span class="title">createParser</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> JsonParser(); &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Display</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</div><div class="line">    <span class="function">IPrinter <span class="title">createPrinter</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ConsolePrinter(); &#125;</div><div class="line">    <span class="function">IParser <span class="title">createParser</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> XmlParser(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Our ‘FactorySelector’ chooses the proper factory based on a given string.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySelector</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">static</span> IFactory <span class="title">select</span><span class="params">(String type)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(type.equals(<span class="string">"display"</span>))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Display();</div><div class="line">        <span class="keyword">if</span>(type.equals(<span class="string">"logger"</span>))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Logger();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>And finally, the client code can use factories as demonstrated.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IFactory logger = FactorySelector.select(<span class="string">"logger"</span>);</div><div class="line">        logger.printMessage(<span class="string">"&#123; \"hello\" : \"world\" &#125;"</span>);</div><div class="line"></div><div class="line">        logger.createPrinter().print(<span class="string">"writing to file..."</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Group Factories That Produce Similar Products.&lt;/strong&gt; &lt;em&gt;Choose a Factory at Runtime, in Order to Create Different Objects of a Certain Category.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/"/>
+    
+      <category term="Creational" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/Creational/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Factory Pattern</title>
+    <link href="http://truelogician.com/2010/factory/"/>
+    <id>http://truelogician.com/2010/factory/</id>
+    <published>2010-11-25T22:10:55.000Z</published>
+    <updated>2016-08-30T18:34:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Having Decisions of object creation to be made at Runtime.</strong> <em>Create Objects Without Knowing the Specific Type.</em></p>
+<a id="more"></a>
+<h3 id="Recipes"><a href="#Recipes" class="headerlink" title="Recipes"></a>Recipes</h3><h4 id="Simple-Factory-Centralized-Object-Instantiation"><a href="#Simple-Factory-Centralized-Object-Instantiation" class="headerlink" title="Simple Factory: Centralized Object Instantiation"></a>Simple Factory: Centralized Object Instantiation</h4><ul>
+<li>A hierarchy of products with a common parent.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductC</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The Factory class to make the decision making. <ul>
+<li>Decision is based on the properties presented by ‘Props’ object.</li>
+<li>The decision of which product to create is integrated in one place. </li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span> </span>&#123;</div><div class="line">    <span class="function">IProduct <span class="title">createProduct</span><span class="params">(Props props)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (props ....) <span class="keyword">return</span> <span class="keyword">new</span> ProductA();</div><div class="line">        <span class="keyword">if</span> (props ....) <span class="keyword">return</span> <span class="keyword">new</span> ProductB();</div><div class="line">        <span class="keyword">if</span> (props ....) <span class="keyword">return</span> <span class="keyword">new</span> ProductC();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Factory-Method-Decentralized-Object-Instantiation"><a href="#Factory-Method-Decentralized-Object-Instantiation" class="headerlink" title="Factory Method: Decentralized Object Instantiation."></a>Factory Method: Decentralized Object Instantiation.</h4><ul>
+<li>Again, a hierarchy of products with a common parent.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductC</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The product consumer with an abstract method. </li>
+<li>This will give the responsibility of product creation to subclasses </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">consume</span><span class="params">()</span> </span>&#123;</div><div class="line">        IProduct p = createProduct();</div><div class="line">        <span class="comment">/*logic for consuming the product*/</span> </div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> IProduct <span class="title">createProduct</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Consumer subclasses that each might need to consume a certain product.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsumerA</span> <span class="keyword">extends</span> <span class="title">Consumer</span> </span>&#123;</div><div class="line">    <span class="function">IProduct <span class="title">createProduct</span><span class="params">()</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductA(); </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsumerB</span> <span class="keyword">extends</span> <span class="title">Consumer</span> </span>&#123;</div><div class="line">    <span class="function">IProduct <span class="title">createProduct</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductB(); </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsumerC</span> <span class="keyword">extends</span> <span class="title">Consumer</span> </span>&#123;</div><div class="line">    <span class="function">IProduct <span class="title">createProduct</span><span class="params">()</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ProductC(); </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Using the simple factory is trivial since the client only needs to somehow pass a ‘Props’ object to the Factory and receive an instance of the product.  </p>
+<p>For the 2nd approach, the snippet below, demonstrates how a consumer of certain type is created and that the creation of the product is pushed to the consumer itself. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Consumer consumerB = <span class="keyword">new</span> ConsumerB();</div><div class="line">        consumerB.consume();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
+<li>Getting rid of many scattered if-else statements used for object creation. </li>
+<li>Making it easier to modify the object creation logic.</li>
+<li>The client knows what types of classes are possible to build.</li>
+</ul>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Suppose that we want to send a message from one computer to another. This can be done in various ways such as sending via TCP, email, web services and etc. In such case, let’s call them devices as defined in ‘Device’ class.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDevice</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(String message)</span></span>; </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TcpDevice</span> <span class="keyword">implements</span> <span class="title">IDevice</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/*TCP impl.*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MailDevice</span> <span class="keyword">implements</span> <span class="title">IDevice</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/*Mail Impl.*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>We also have a messenger that uses a Device to send a message. Note that the derivations return the type of device they need for messaging.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Messenger</span> </span>&#123;</div><div class="line">    send(String message) &#123;</div><div class="line">        IDevice Device = createDevice();</div><div class="line">        Device.send(message);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> IDevice <span class="title">createDevice</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TcpMessenger</span> <span class="keyword">extends</span> <span class="title">Messenger</span> </span>&#123;</div><div class="line">    <span class="function">IDevice <span class="title">createDevice</span><span class="params">()</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TcpDevice(); </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MailMessenger</span> <span class="keyword">extends</span> <span class="title">Messenger</span> </span>&#123;</div><div class="line">    <span class="function">IDevice <span class="title">createDevice</span><span class="params">()</span> </span>&#123; </div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MailDevice(); </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Now, if the client needs to send a TCP message, it only needs to create a ‘TcpMessenger’ and the creation will be taken care of.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Messenger tcpMessenger = <span class="keyword">new</span> TcpMessenger();</div><div class="line">        tcpMessenger.send(<span class="string">"hello world!"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Having Decisions of object creation to be made at Runtime.&lt;/strong&gt; &lt;em&gt;Create Objects Without Knowing the Specific Type.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Architecture" scheme="http://truelogician.com/categories/Architecture/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/"/>
+    
+      <category term="Creational" scheme="http://truelogician.com/categories/Architecture/Design-Patterns/Creational/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Observer Pattern</title>
     <link href="http://truelogician.com/2010/observer/"/>
     <id>http://truelogician.com/2010/observer/</id>
     <published>2010-10-18T19:11:19.000Z</published>
-    <updated>2016-08-28T21:16:48.000Z</updated>
+    <updated>2016-08-30T18:34:49.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Receive topic updates from publisher by subscribing to them.</strong> <em>Objects/subscribers are notified of an event when it happens or a topic when it’s published.</em></p>
 <a id="more"></a>
-<h3 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h3><ul>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
 <li>The topic (also called Context/Event/Observable) and its properties. </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ITopic</span> </span>&#123; <span class="comment">/* properties */</span> &#125;</div></pre></td></tr></table></figure>
@@ -285,9 +474,10 @@
 </li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPublisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(ITopic topic)</span></span>;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="How-to-Use-It"><a href="#How-to-Use-It" class="headerlink" title="How to Use It:"></a>How to Use It:</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        <span class="comment">// create a publisher &amp; subscriber</span></div><div class="line">        Publisher  pub  = <span class="keyword">new</span> Publisher();</div><div class="line">        Subscriber sub1 = <span class="keyword">new</span> Subscriber();</div><div class="line">        Subscriber sub2 = <span class="keyword">new</span> Subscriber();</div><div class="line">        <span class="comment">// subscribe to receive topics/events</span></div><div class="line">        pub.subscribe(sub1); </div><div class="line">        pub.subscribe(sub2); </div><div class="line">        <span class="comment">// now let's say some event happened and </span></div><div class="line">        <span class="comment">// we want to notify all subscribers</span></div><div class="line">        pub.publish(<span class="keyword">new</span> Topic());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
 <ul>
 <li>Let’s first define the topic which is an order in our case.</li>
 </ul>
@@ -300,7 +490,7 @@
 <li>Also, the OrderService will look like below</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> <span class="keyword">implements</span> <span class="title">Publisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="comment">// Let's say we receive orders from clients here</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onOrderReceived</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        publish(order);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (subscriber : subscribers)</div><div class="line">            subscriber.onReceived(order)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 ]]></content>
     
     <summary type="html">
@@ -328,12 +518,12 @@
     <link href="http://truelogician.com/2010/strategy/"/>
     <id>http://truelogician.com/2010/strategy/</id>
     <published>2010-09-07T20:14:58.000Z</published>
-    <updated>2016-08-28T20:50:34.000Z</updated>
+    <updated>2016-08-30T18:35:04.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Adding Behavior at Runtime.</strong> <em>Strategy pattern encapsulates Interchangeable Behaviors and Uses Delegation to Decide Which One to Use.</em></p>
 <a id="more"></a>
-<h3 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h3><ul>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
 <li>The actual behavior (strategy) interface and concrete implementations.</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BehaviorA</span> <span class="keyword">implements</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BehaviorB</span> <span class="keyword">implements</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -341,14 +531,8 @@
 <li>The class that owns the behavior (called context)</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    IBehavior behavior;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="How-to-Use-It"><a href="#How-to-Use-It" class="headerlink" title="How to Use It:"></a>How to Use It:</h3><p>In the following snippet, the product is initiated with BehaviorA; however, at some point during runtime its behavior is changed to BehaviorB.</p>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>In the following snippet, the product is initiated with BehaviorA; however, at some point during runtime its behavior is changed to BehaviorB.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Product p = <span class="keyword">new</span> Product();</div><div class="line">        p.behavior = <span class="keyword">new</span> BehaviorA();</div><div class="line">        <span class="comment">// after a while</span></div><div class="line">        <span class="keyword">if</span> (<span class="comment">/*shall change behavior?*/</span>)</div><div class="line">            p.behavior = <span class="keyword">new</span> BehaviorB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Imagine there is a class called ‘Animal’. Also imaging that we want to provide the ‘Movement’ capability for it. Obviously this ability comes in different flavours for different animals. So, we know that we need an interface to define the generality of the behavior.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMovement</span> </span>&#123; <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>; &#125;</div></pre></td></tr></table></figure>
-<p>In such case, the ‘Animal’ is called a “context class” and ‘Movability’ is called “behavior”.<br>One way to do it, is to define an interface ‘IMovement’ and implement it within the ‘Animal’ class.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">IMovement</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementations*/</span>&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Although this could also be one solution, due to reasons partly mentioned below, it’s better if we do NOT inherit the behavior but instead, own it:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123; </div><div class="line">    IMovement movement; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
 <li>Composition over inheritance: <ul>
 <li>The interchangability of the behavior for the product class and its <em>derivations</em>.</li>
@@ -357,6 +541,13 @@
 <li>Causes the behavior independance from superclass or subclasses.</li>
 <li>Allows the behavior vary independently from the <em>clients</em> that use it.</li>
 </ul>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Imagine there is a class called ‘Animal’. Also imaging that we want to provide the ‘Movement’ capability for it. Obviously this ability comes in different flavours for different animals. So, we know that we need an interface to define the generality of the behavior.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMovement</span> </span>&#123; <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>; &#125;</div></pre></td></tr></table></figure>
+<p>In such case, the ‘Animal’ is called a “context class” and ‘Movability’ is called “behavior”.<br>One way to do it, is to define an interface ‘IMovement’ and implement it within the ‘Animal’ class.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">IMovement</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementations*/</span>&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Although this could also be one solution, due to reasons partly mentioned below, it’s better if we do NOT inherit the behavior but instead, own it:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123; </div><div class="line">    IMovement movement; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 ]]></content>
     
     <summary type="html">
@@ -380,11 +571,11 @@
   </entry>
   
   <entry>
-    <title>Design Patterns Overview</title>
+    <title>Design Patterns Cookbook</title>
     <link href="http://truelogician.com/2010/design-patterns/"/>
     <id>http://truelogician.com/2010/design-patterns/</id>
     <published>2010-09-07T18:52:07.000Z</published>
-    <updated>2016-08-28T21:24:18.000Z</updated>
+    <updated>2016-08-30T19:36:59.000Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br>Even after reading the original GoF book and <a href="https://www.amazon.com/Head-First-Design-Patterns-Freeman/dp/0596007124/ref=sr_1_1?ie=UTF8&amp;qid=1472376203&amp;sr=8-1&amp;keywords=head+first+design+patterns" target="_blank" rel="external">“Head First Design Patterns”</a> which is by the way one of the best book in this field, as well as many articles, I still found it very daunting and hard to grasb the gist of each pattern and apply the most suitable one for a certain scenario.<br></div>
 
@@ -472,17 +663,17 @@
 <tr>
 <td style="text-align:left"><img src="/images/patterns/factory-thumb.png" width="50" height="50"></td>
 <td style="text-align:left"><a href="/2010/factory/">Factory Method</a></td>
-<td style="text-align:left">Adding Behavior at Runtime</td>
+<td style="text-align:left">Create Objects Without Knowing Their Specific Type</td>
 </tr>
 <tr>
 <td style="text-align:left"><img src="/images/patterns/abstract-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/abstract/">Abstract Factory</a></td>
-<td style="text-align:left">Adding Behavior at Runtime</td>
+<td style="text-align:left"><a href="/2010/abstract-factory/">Abstract Factory</a></td>
+<td style="text-align:left">Group Factories With Similar Products</td>
 </tr>
 <tr>
 <td style="text-align:left"><img src="/images/patterns/singleton-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/singleton/">Singleton</a></td>
-<td style="text-align:left">Adding Behavior at Runtime</td>
+<td style="text-align:left"><a href="/2011/singleton/">Singleton</a></td>
+<td style="text-align:left">Making Only One Object of a Class to Be Available for All</td>
 </tr>
 <tr>
 <td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
@@ -491,7 +682,7 @@
 </tr>
 <tr>
 <td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/build/">Build</a></td>
+<td style="text-align:left"><a href="/2011/builder/">Builder</a></td>
 <td style="text-align:left">Adding Behavior at Runtime</td>
 </tr>
 </tbody>

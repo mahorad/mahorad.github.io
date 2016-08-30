@@ -3,15 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>About | Mahan&#39;s Blog</title>
+    <title>Abstract Factory Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="About">
-<meta property="og:url" content="http://truelogician.com/about/index.html">
+    <meta name="description" content="Design Patterns Overview
+DefinitionGroup Factories That Produce Similar Products. Choose a Factory at Runtime, in Order to Create Different Objects of a Certain Category.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Abstract Factory Pattern">
+<meta property="og:url" content="http://truelogician.com/2010/abstract-factory/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
-<meta property="og:updated_time" content="2016-08-21T17:07:18.000Z">
+<meta property="og:description" content="Design Patterns Overview
+DefinitionGroup Factories That Produce Similar Products. Choose a Factory at Runtime, in Order to Create Different Objects of a Certain Category.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/abstract-thumb.png">
+<meta property="og:updated_time" content="2016-08-30T18:33:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About">
+<meta name="twitter:title" content="Abstract Factory Pattern">
+<meta name="twitter:description" content="Design Patterns Overview
+DefinitionGroup Factories That Produce Similar Products. Choose a Factory at Runtime, in Order to Create Different Objects of a Certain Category.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/abstract-thumb.png">
     
 
     
@@ -220,7 +228,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2010/abstract-factory" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -228,10 +236,34 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            About
+            Abstract Factory Pattern
         </h1>
     
 
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2010/abstract-factory/">
+            <time datetime="2010-12-03T17:10:43.000Z" itemprop="datePublished">2010-12-03</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Architecture/">Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/">Design-Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Architecture/Design-Patterns/Creational/">Creational</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
+    </div>
+
+                    </div>
                 
             </header>
         
@@ -239,7 +271,54 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            
+            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Group Factories That Produce Similar Products.</strong> <em>Choose a Factory at Runtime, in Order to Create Different Objects of a Certain Category.</em></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>Definition of the products. </li>
+<li>In our case, 4 products:  <ul>
+<li>product Type A (comes in A1 &amp; A2 Flavors)</li>
+<li>product Type B (comes in B1 &amp; B2 Flavors)</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Product A Flavors */</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProductA</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA1</span> <span class="keyword">implements</span> <span class="title">IProductA</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA2</span> <span class="keyword">implements</span> <span class="title">IProductA</span> </span>&#123; &#125;</div><div class="line"></div><div class="line"><span class="comment">/* Product B Flavors */</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProductB</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB1</span> <span class="keyword">implements</span> <span class="title">IProductB</span> </span>&#123; &#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB2</span> <span class="keyword">implements</span> <span class="title">IProductB</span> </span>&#123; &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The family of factories. </li>
+</ul>
+<p>Notice that when ‘Factory2’ wants to create a product of type ‘A’, it returns ‘A1’ (and not ‘A2’) and this basically tries to emphasise that it is possible to build our factories in a way to return various flavors of available products according to the software needs. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IProductA <span class="title">createA</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">IProductB <span class="title">createB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory1</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IProductA <span class="title">createA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductA1(); &#125;</div><div class="line">    <span class="function">IProductB <span class="title">createB</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductB1(); &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory2</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IProductA <span class="title">createA</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductA1(); &#125;</div><div class="line">    <span class="function">IProductB <span class="title">createB</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ProductB2(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Now that we have the factories, let’s have simple static method that chooses a factory for us at runtime to create the right product.<ul>
+<li>The ‘Props’ is an arbitrary object that contains some properties on which the selection is based.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySelector</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">static</span> IFactory <span class="title">selectBy</span><span class="params">(Props props)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(<span class="comment">/*shall select factory1?*/</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Factory1();</div><div class="line">        <span class="keyword">if</span>(<span class="comment">/*shall select factory2?*/</span>)</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Factory2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>If you have everything ready, then it would be only a matter of asking ‘FactorySelector’ to choose the right factory and create the desired product.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IFactory factory = FactorySelector.selectBy(props);</div><div class="line">        IProductB product = factory.createB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
+<li>It basically has advantages similar to the <a href="/2010/factory/">factory pattern</a>.</li>
+</ul>
+<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Let’s say that we want to print some messages. </p>
+<ul>
+<li>The printer object can be designed to print messages to file, console, paper and etc.</li>
+<li>Messages can also come in different formats such as unstructured text, xml, json and etc.</li>
+</ul>
+<p>As a result, the product hierarchy is define as following.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPrinter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConsolePrinter</span> <span class="keyword">implements</span> <span class="title">IPrinter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/*to console*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FilePrinter</span> <span class="keyword">implements</span> <span class="title">IPrinter</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/*to file*/</span>&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IParser</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">parse</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JsonParser</span> <span class="keyword">implements</span> <span class="title">IParser</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">parse</span><span class="params">(String message)</span> </span>&#123; <span class="comment">/*parse json*/</span> &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">XmlParser</span> <span class="keyword">implements</span> <span class="title">IParser</span> </span>&#123;</div><div class="line">    <span class="function">String <span class="title">parse</span><span class="params">(String message)</span> </span>&#123; <span class="comment">/*parse xml*/</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Two different factories are defined here:</p>
+<ul>
+<li>‘Logger’ which logs json messages to file</li>
+<li>‘Display’ which shows xml messages in console</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function">IPrinter <span class="title">createPrinter</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">IParser <span class="title">createParser</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printMessage</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactory</span> <span class="keyword">implements</span> <span class="title">IFactory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printMessage</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        IPrinter printer = createPrinter();</div><div class="line">        IParser parser = createParser();</div><div class="line">        printer.print(parser.parse(message));</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</div><div class="line">    <span class="function">IPrinter <span class="title">createPrinter</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> FilePrinter(); &#125;</div><div class="line">    <span class="function">IParser <span class="title">createParser</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> JsonParser(); &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Display</span> <span class="keyword">extends</span> <span class="title">AbstractFactory</span> </span>&#123;</div><div class="line">    <span class="function">IPrinter <span class="title">createPrinter</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> ConsolePrinter(); &#125;</div><div class="line">    <span class="function">IParser <span class="title">createParser</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> XmlParser(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Our ‘FactorySelector’ chooses the proper factory based on a given string.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FactorySelector</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">static</span> IFactory <span class="title">select</span><span class="params">(String type)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(type.equals(<span class="string">"display"</span>))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Display();</div><div class="line">        <span class="keyword">if</span>(type.equals(<span class="string">"logger"</span>))</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Logger();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>And finally, the client code can use factories as demonstrated.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IFactory logger = FactorySelector.select(<span class="string">"logger"</span>);</div><div class="line">        logger.printMessage(<span class="string">"&#123; \"hello\" : \"world\" &#125;"</span>);</div><div class="line"></div><div class="line">        logger.createPrinter().print(<span class="string">"writing to file..."</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+
         
         </div>
         <footer class="article-footer">
@@ -249,7 +328,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/about/index.html" data-id="cishvlll30000cpro1olhrewa" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2010/abstract-factory/" data-id="cishvllmj0003cprozv4s8ijn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -317,13 +396,32 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/about/index.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/about/index.html">Comments</a>
+        <a href="http://truelogician.com/2010/abstract-factory/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2010/abstract-factory/">Comments</a>
     
 
         </footer>
     </div>
     
         
+<nav id="article-nav">
+    
+        <a href="/2011/singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Singleton Pattern
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2010/factory/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Factory Pattern</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -519,9 +617,9 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/about/index.html';
+            this.page.url = 'http://truelogician.com/2010/abstract-factory/';
         
-        this.page.identifier = 'undefined';
+        this.page.identifier = '2010/abstract-factory';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
