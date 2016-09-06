@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Iterator Pattern | Mahan&#39;s Blog</title>
+    <title>Composite Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Design Patterns Overview
-DefinitionGet the Iterator for Any Type of Collections in Subclasses. Provides a Way to Traverse a Collection of Objects Without Exposing Its Implementation.">
+DefinitionAdd the Capability of Never Ending Grouping. Client Treats Collection of Objects and Individual Objects Uniformly.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Iterator Pattern">
-<meta property="og:url" content="http://truelogician.com/2012/iterator/index.html">
+<meta property="og:title" content="Composite Pattern">
+<meta property="og:url" content="http://truelogician.com/2012/composite/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
 <meta property="og:description" content="Design Patterns Overview
-DefinitionGet the Iterator for Any Type of Collections in Subclasses. Provides a Way to Traverse a Collection of Objects Without Exposing Its Implementation.">
-<meta property="og:image" content="http://truelogician.com/images/patterns/iterator-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T13:35:31.000Z">
+DefinitionAdd the Capability of Never Ending Grouping. Client Treats Collection of Objects and Individual Objects Uniformly.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/composite-thumb.png">
+<meta property="og:updated_time" content="2016-09-06T13:56:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Iterator Pattern">
+<meta name="twitter:title" content="Composite Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
-DefinitionGet the Iterator for Any Type of Collections in Subclasses. Provides a Way to Traverse a Collection of Objects Without Exposing Its Implementation.">
-<meta name="twitter:image" content="http://truelogician.com/images/patterns/iterator-thumb.png">
+DefinitionAdd the Capability of Never Ending Grouping. Client Treats Collection of Objects and Individual Objects Uniformly.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/composite-thumb.png">
     
 
     
@@ -234,7 +234,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-2012/iterator" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2012/composite" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -242,7 +242,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            Iterator Pattern
+            Composite Pattern
         </h1>
     
 
@@ -251,8 +251,8 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2012/iterator/">
-            <time datetime="2012-03-02T17:10:56.000Z" itemprop="datePublished">2012-03-02</time>
+        <a href="/2012/composite/">
+            <time datetime="2012-06-14T19:19:03.000Z" itemprop="datePublished">2012-06-14</time>
         </a>
     </div>
 
@@ -260,7 +260,7 @@ ga('send', 'pageview');
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
     </div>
 
                         
@@ -278,26 +278,43 @@ ga('send', 'pageview');
         
             
             <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Get the Iterator for Any Type of Collections in Subclasses.</strong> <em>Provides a Way to Traverse a Collection of Objects Without Exposing Its Implementation.</em></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Add the Capability of Never Ending Grouping.</strong> <em>Client Treats Collection of Objects and Individual Objects Uniformly.</em></p>
 <a id="more"></a>
 <h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The interface that defines the getIterator() method</li>
+<li>Imagine the famous example of ‘Leaf’ and ‘Branch’<ul>
+<li>A ‘Branch’ can contain other more branches or leaves.</li>
+<li>A ‘Leaf’ cannot contain any other leaf or branch.</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li>Now let’s define a single ‘Leaf’ (‘IProduct’ in this case).</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>Concrete implementations provide the iterator of a collection they might own.</li>
+<li>The implementation of the atomic ‘Leaf’ entity (Product).</li>
+<li>The implementation of the non-atomic ‘Branch’ (ProductGroup).<ul>
+<li>Notice that ProductGroup implements the same interface and contains a collection of products at the same time.</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// return the iterator of a desired collection;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// return the iterator of a desired collection;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Having implemented the IIterable, it is now possible to iterate over the collections in each implementation.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ProductA product = <span class="keyword">new</span> ProductA();</div><div class="line">        Iterator&lt;Integer&gt; iterator = product.getIterator();</div><div class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</div><div class="line">            Integer next = iterator.next();</div><div class="line">            <span class="comment">/*implementations*/</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductGroup</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line"></div><div class="line">    List&lt;IProduct&gt; products;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(IProduct... product)</span> </span>&#123;<span class="comment">/*add to products*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(IProduct product)</span> </span>&#123;<span class="comment">/*remove form products*/</span>&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>After having the ‘Leaf’ and ‘Branch’ implementations in place, the client can now compose the tree and treat branches or leaves uniformly.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ProductGroup groupA = <span class="keyword">new</span> ProductGroup();</div><div class="line">        ProductGroup groupA1 = <span class="keyword">new</span> ProductGroup();</div><div class="line">        ProductGroup groupA2 = <span class="keyword">new</span> ProductGroup();</div><div class="line"></div><div class="line">        ProductGroup groupB = <span class="keyword">new</span> ProductGroup();</div><div class="line">        ProductGroup groupB1 = <span class="keyword">new</span> ProductGroup();</div><div class="line"></div><div class="line">        IProduct product1 = <span class="keyword">new</span> Product();</div><div class="line">        IProduct product2 = <span class="keyword">new</span> Product();</div><div class="line"></div><div class="line">        groupA.add(groupA1, groupA2);</div><div class="line">        groupB.add(groupB1);</div><div class="line"></div><div class="line">        ProductGroup allGroups = <span class="keyword">new</span> ProductGroup();</div><div class="line">        allGroups.add(groupA, groupB, product1, product2);</div><div class="line"></div><div class="line">        allGroups.operationA();</div><div class="line">        product1.operationA();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>It provides a uniform way to cycle through different types of collections.</li>
-<li>You can refer to each collection of objects in the same way.</li>
-<li>It avoids code duplication which might occur during the iteration over each of them.</li>
+<li>Allows treating individual objects and compositions uniformly.</li>
 </ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Suppose there are some implementations which somehow hold a form of a collection (i.e arrays, lists, hash-tables, etc). this pattern provides a way to get an iterator over those collections.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inventory</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line"></div><div class="line">    Collection&lt;String&gt; items = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> items.iterator();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IUser</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISession</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OnlineUsers</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    AbstractMap&lt;IUser, ISession&gt; users = <span class="keyword">new</span> HashMap&lt;IUser, ISession&gt;();</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> users.keySet().iterator();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPoint</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Diagram</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    IPoint[] points = <span class="keyword">new</span> IPoint[<span class="number">10</span>];</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Arrays.asList(points).iterator();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Imagine your company asked you to create utility classes for the organizational chart.<br>The ‘WestCoast’ organization contains multiple divisions and departments. Each division might consist of other divisions or departments that groups them together. It is required to provide ceratin functionalities for handling employees and staff within divisions and departments.</p>
+<ul>
+<li>The notion of ‘Department’ is the atomic entity or a ‘Leaf’</li>
+<li>The notion of ‘Division’ is the composite entity or a ‘Branch’</li>
+<li>Don’t mind the ‘Employee’ as it’s only a utility class.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</div><div class="line">    <span class="function">List&lt;Employee&gt; <span class="title">staff</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Employee e)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printStaff</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</div><div class="line">    String name; <span class="keyword">int</span> rank;</div><div class="line">    Employee(String name, <span class="keyword">int</span> rank) &#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.rank = rank;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Now that we have our core ‘Leaf’ interface, let’s create the concerete implementation as well as its composite implementation.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Department</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</div><div class="line">    List&lt;Employee&gt; employees;</div><div class="line">    Department(Employee... employees) &#123;<span class="keyword">this</span>.employees = Arrays.asList(employees);&#125;</div><div class="line">    <span class="function">List&lt;Employee&gt; <span class="title">staff</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> employees; &#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Employee e)</span> </span>&#123; <span class="keyword">return</span> employees.contains(e); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printStaff</span><span class="params">()</span> </span>&#123;</div><div class="line">        employees.sort((e1, e2) -&gt; e1.rank - e2.rank);</div><div class="line">        <span class="keyword">for</span>(Employee e : employees)</div><div class="line">            System.out.println(e.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Division</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</div><div class="line"></div><div class="line">    List&lt;IDepartment&gt; departments;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addDepartment</span><span class="params">(IDepartment d)</span>    </span>&#123; departments.add(d);    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeDepartment</span><span class="params">(IDepartment d)</span> </span>&#123; departments.remove(d); &#125;</div><div class="line"></div><div class="line">    <span class="function">List&lt;Employee&gt; <span class="title">staff</span><span class="params">()</span> </span>&#123;</div><div class="line">        List&lt;Employee&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">for</span> (IDepartment d : departments)</div><div class="line">            staff.addAll(d.staff());</div><div class="line">        <span class="keyword">return</span> staff;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Employee e)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(IDepartment d : departments)</div><div class="line">            <span class="keyword">if</span> (d.contains(e)) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printStaff</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(IDepartment d : departments)</div><div class="line">            d.printStaff();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Employees are extracted into a database class to increase the focus on ‘Client’</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DB</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> Employee james = <span class="keyword">new</span> Employee(<span class="string">"james"</span>, <span class="number">1</span>);</div><div class="line">    <span class="keyword">static</span> Employee jack = <span class="keyword">new</span> Employee(<span class="string">"jack"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">static</span> Employee john = <span class="keyword">new</span> Employee(<span class="string">"john"</span>, <span class="number">3</span>);</div><div class="line"></div><div class="line">    <span class="keyword">static</span> Employee abraham = <span class="keyword">new</span> Employee(<span class="string">"abraham"</span>, <span class="number">5</span>);</div><div class="line">    <span class="keyword">static</span> Employee abigale = <span class="keyword">new</span> Employee(<span class="string">"abigale"</span>, <span class="number">6</span>);</div><div class="line">    <span class="keyword">static</span> Employee anna = <span class="keyword">new</span> Employee(<span class="string">"anna"</span>, <span class="number">5</span>);</div><div class="line"></div><div class="line">    <span class="keyword">static</span> Employee brian = <span class="keyword">new</span> Employee(<span class="string">"brian"</span>, <span class="number">5</span>);</div><div class="line">    <span class="keyword">static</span> Employee bernard = <span class="keyword">new</span> Employee(<span class="string">"bernard"</span>, <span class="number">6</span>);</div><div class="line">    <span class="keyword">static</span> Employee bianca = <span class="keyword">new</span> Employee(<span class="string">"bianca"</span>, <span class="number">7</span>);</div><div class="line"></div><div class="line">    <span class="keyword">static</span> Employee unknown = <span class="keyword">new</span> Employee(<span class="string">"Unknown"</span>, <span class="number">10</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IDepartment marketing = <span class="keyword">new</span> Department(DB.abigale, DB.abraham, DB.anna);</div><div class="line">        IDepartment accounting = <span class="keyword">new</span> Department(DB.bernard, DB.bianca, DB.brian);</div><div class="line">        IDepartment management = <span class="keyword">new</span> Department(DB.jack, DB.james, DB.john);</div><div class="line"></div><div class="line">        Division finance = <span class="keyword">new</span> Division();</div><div class="line">        finance.addDepartment(marketing);</div><div class="line">        finance.addDepartment(accounting);</div><div class="line"></div><div class="line">        Division westCoast = <span class="keyword">new</span> Division();</div><div class="line">        westCoast.addDepartment(management);</div><div class="line">        westCoast.addDepartment(finance);</div><div class="line"></div><div class="line">        <span class="keyword">boolean</span> exists = marketing.contains(DB.abigale);</div><div class="line">        exists = westCoast.contains(DB.unknown);</div><div class="line">        management.printStaff();</div><div class="line">        westCoast.printStaff();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
         
@@ -309,7 +326,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2012/iterator/" data-id="cisrpr8ol001delrod3ywnm8h" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2012/composite/" data-id="cisrpr8oc0011elro8w89rssx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -377,7 +394,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2012/iterator/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2012/iterator/">Comments</a>
+        <a href="http://truelogician.com/2012/composite/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2012/composite/">Comments</a>
     
 
         </footer>
@@ -386,19 +403,19 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2012/composite/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2012/flyweight/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Composite Pattern
+                    Flyweight Pattern
                 
             </div>
         </a>
     
     
-        <a href="/2012/template/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2012/iterator/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Template Method Pattern</div>
+            <div class="article-nav-title">Iterator Pattern</div>
         </a>
     
 </nav>
@@ -598,9 +615,9 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/2012/iterator/';
+            this.page.url = 'http://truelogician.com/2012/composite/';
         
-        this.page.identifier = '2012/iterator';
+        this.page.identifier = '2012/composite';
     };
     (function() { 
         var d = document, s = d.createElement('script');  

@@ -14,7 +14,7 @@ DefinitionAdding Behavior at Runtime. Strategy pattern encapsulates Interchangea
 <meta property="og:description" content="Design Patterns Overview
 DefinitionAdding Behavior at Runtime. Strategy pattern encapsulates Interchangeable Behaviors and Uses Delegation to Decide Which One to Use.">
 <meta property="og:image" content="http://truelogician.com/images/patterns/strategy-thumb.png">
-<meta property="og:updated_time" content="2016-08-31T11:07:08.000Z">
+<meta property="og:updated_time" content="2016-09-06T13:30:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Strategy Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
@@ -171,7 +171,7 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                18
+                20
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -291,7 +291,7 @@ ga('send', 'pageview');
 <h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>In the following snippet, the product is initiated with BehaviorA; however, at some point during runtime its behavior is changed to BehaviorB.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Product p = <span class="keyword">new</span> Product();</div><div class="line">        p.behavior = <span class="keyword">new</span> BehaviorA();</div><div class="line">        <span class="comment">// after a while</span></div><div class="line">        <span class="keyword">if</span> (<span class="comment">/*shall change behavior?*/</span>)</div><div class="line">            p.behavior = <span class="keyword">new</span> BehaviorB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>Composition over inheritance: <ul>
+<li>Composition over inheritance:<ul>
 <li>The interchangeability of the behavior for the product class and its <em>derivations</em>.</li>
 </ul>
 </li>
@@ -301,9 +301,9 @@ ga('send', 'pageview');
 <h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Imagine there is a class called ‘Animal’. Also imaging that we want to provide the ‘Movement’ capability for it. Obviously this ability comes in different flavors for different animals. So, we know that we need an interface to define the generality of the behavior.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMovement</span> </span>&#123; <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>; &#125;</div></pre></td></tr></table></figure>
 <p>In such case, the ‘Animal’ is called a “context class” and ‘Movability’ is called “behavior”.<br>One way to do it, is to define an interface ‘IMovement’ and implement it within the ‘Animal’ class.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">IMovement</span> </span>&#123; </div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementations*/</span>&#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">IMovement</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementations*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Although this could also be one solution, due to reasons partly mentioned below, it’s better if we do NOT inherit the behavior but instead, own it:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123; </div><div class="line">    IMovement movement; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</div><div class="line">    IMovement movement;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
         
@@ -315,7 +315,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2010/strategy/" data-id="cisqbzmk5000agwrojo86k8xk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2010/strategy/" data-id="cisrpr8nk000aelrokxy27yss" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -495,10 +495,10 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2012/iterator/" class="thumbnail">
+                            <a href="/2012/flyweight/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/patterns/iterator-thumb.png)" alt="Iterator Pattern" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/patterns/flyweight-thumb.png)" alt="Flyweight Pattern" class="thumbnail-image"></span>
     
 </a>
 
@@ -506,18 +506,18 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a></p>
-                            <p class="item-title"><a href="/2012/iterator/" class="title">Iterator Pattern</a></p>
-                            <p class="item-date"><time datetime="2012-03-02T17:10:56.000Z" itemprop="datePublished">2012-03-02</time></p>
+                            <p class="item-title"><a href="/2012/flyweight/" class="title">Flyweight Pattern</a></p>
+                            <p class="item-date"><time datetime="2012-09-23T21:21:17.000Z" itemprop="datePublished">2012-09-23</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2012/template/" class="thumbnail">
+                            <a href="/2012/composite/" class="thumbnail">
     
     
-        <span style="background-image:url(/images/patterns/template-thumb.png)" alt="Template Method Pattern" class="thumbnail-image"></span>
+        <span style="background-image:url(/images/patterns/composite-thumb.png)" alt="Composite Pattern" class="thumbnail-image"></span>
     
 </a>
 
@@ -525,8 +525,8 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a></p>
-                            <p class="item-title"><a href="/2012/template/" class="title">Template Method Pattern</a></p>
-                            <p class="item-date"><time datetime="2012-02-16T20:47:19.000Z" itemprop="datePublished">2012-02-16</time></p>
+                            <p class="item-title"><a href="/2012/composite/" class="title">Composite Pattern</a></p>
+                            <p class="item-date"><time datetime="2012-06-14T19:19:03.000Z" itemprop="datePublished">2012-06-14</time></p>
                         </div>
                     </li>
                 
@@ -539,7 +539,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">16</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">14</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">5</span></li></ul></li></ul></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">18</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">17</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">16</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">7</span></li></ul></li></ul></li></ul></li></ul>
         </div>
     </div>
 
@@ -548,7 +548,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -557,7 +557,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">18</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">20</span></li></ul>
         </div>
     </div>
 

@@ -3,14 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive: 2012 | Mahan&#39;s Blog</title>
+    <title>Flyweight Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Mahan's Blog">
-<meta property="og:url" content="http://truelogician.com/archives/2012/index.html">
+    <meta name="description" content="Design Patterns Overview
+DefinitionImprove Performance by Sharing Objects Instead of Creating Them.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flyweight Pattern">
+<meta property="og:url" content="http://truelogician.com/2012/flyweight/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="Design Patterns Overview
+DefinitionImprove Performance by Sharing Objects Instead of Creating Them.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/flyweight-thumb.png">
+<meta property="og:updated_time" content="2016-09-06T13:55:01.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mahan's Blog">
+<meta name="twitter:title" content="Flyweight Pattern">
+<meta name="twitter:description" content="Design Patterns Overview
+DefinitionImprove Performance by Sharing Objects Instead of Creating Them.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/flyweight-thumb.png">
     
 
     
@@ -225,25 +234,21 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2012</h1>
-            </div>
+            <section id="main"><article id="post-2012/flyweight" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2012/flyweight/">Flyweight Pattern</a>
+        <h1 class="article-title" itemprop="name">
+            Flyweight Pattern
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2012/flyweight/">
@@ -252,167 +257,181 @@ ga('send', 'pageview');
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
         <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2012/composite/">Composite Pattern</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Improve Performance by Sharing Objects Instead of Creating Them.</strong></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>Before identifying the elements for flyweight pattern, consider the following definitions:</p>
+<ul>
+<li><strong>Intrinsic State:</strong> A state in the object upon which we will keep a reference of that object (share the object).</li>
+<li><strong>Extrinsic State:</strong> Other states of the object that are not important to your activity at all.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    Object intrinsicState;</div><div class="line">    <span class="comment">/*  extrinsic states... */</span></div><div class="line"></div><div class="line">    Product(Object intrinsicState) &#123;</div><div class="line">        <span class="keyword">this</span>.intrinsicState = intrinsicState;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The factory where limited objects are kept and can be fetched by their intrinsic state.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> HashMap&lt;Object, IProduct&gt; products = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> IProduct <span class="title">create</span><span class="params">(Object intrinsicState)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!products.containsKey(intrinsicState))</div><div class="line">            products.put(intrinsicState, <span class="keyword">new</span> Product(intrinsicState));</div><div class="line">        <span class="keyword">return</span> products.get(intrinsicState);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The client uses the factory to either create or fetch previously created product. The client can change any extrinsic states of the <strong><em>same instance</em></strong> of the fetched product and use it as suited.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    List&lt;IProduct&gt; products = <span class="keyword">new</span> Vector&lt;&gt;();</div><div class="line"></div><div class="line">    Client() &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;</div><div class="line">            Object intrinsicState = getFromLimitedIntrinsicStates();</div><div class="line">            products.add(ProductFactory.create(intrinsicState));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>This pattern reduces the amount of memory consumption by sharing the objects that are similar in some way rather than creating new ones.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>A governmental application shall be put to smoke test for it’s limitations while processing massive amount of data. Your task is to create an in-memory database (Collections) with many records to make the test closer to reality. This collection does not need to contain unique items as long as it contains many of them.</p>
+<p>Imagine this in-memory database table called ‘JobsTable’ that needs to be populated with at least around 100,000 ‘Job’ object.</p>
+<ul>
+<li>Let’s first define the notion of ‘Job’ and ‘MockJob’. Notice that job title is the Job’s intrinsic state of the ‘Job’.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IJob</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockJob</span> <span class="keyword">implements</span> <span class="title">IJob</span> </span>&#123;</div><div class="line">    String title;</div><div class="line">    <span class="keyword">double</span> salary;</div><div class="line">    String risk;</div><div class="line"></div><div class="line">    MockJob(String title) &#123;</div><div class="line">        <span class="keyword">this</span>.title = title;</div><div class="line">        salary = <span class="number">1000</span>d;</div><div class="line">        risk = <span class="string">"LOW"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The ‘JobFactory’ stores jobs based on their title. We will end up with limited amount of instances in memory.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> HashMap&lt;String, IJob&gt; jobs;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> IJob <span class="title">create</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (jobs.containsKey(title))</div><div class="line">            <span class="keyword">return</span> jobs.get(title);</div><div class="line">        IJob job = <span class="keyword">new</span> MockJob(title);</div><div class="line">        jobs.put(title, job);</div><div class="line">        <span class="keyword">return</span> job;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The database table implementation, in our example, which keeps references to those limited instances in a ‘Vector’.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobsTable</span> </span>&#123;</div><div class="line">    List&lt;IJob&gt; jobs = <span class="keyword">new</span> Vector&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addJob</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        jobs.add(JobFactory.create(title));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Finally, our unit test will look something like this.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span> </span>&#123;</div><div class="line"></div><div class="line">    SystemUnderTest sut;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">smokeTest</span><span class="params">()</span> </span>&#123;</div><div class="line">        JobsTable table = <span class="keyword">new</span> JobsTable();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</div><div class="line">            String title = getRandomTitle();</div><div class="line">            table.addJob(title);</div><div class="line">        &#125;</div><div class="line">        sut.process(table);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    String[] titles = <span class="keyword">new</span> String[] &#123;</div><div class="line">        <span class="string">"Engineer"</span>, <span class="string">"Doctor"</span>, <span class="string">"Worker"</span>, <span class="string">"Teacher"</span></div><div class="line">    &#125;;</div><div class="line">    <span class="function">String <span class="title">getRandomTitle</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="comment">// a random title from the titles array;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2012/composite/">
-            <time datetime="2012-06-14T19:19:03.000Z" itemprop="datePublished">2012-06-14</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2012/iterator/">Iterator Pattern</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2012/iterator/">
-            <time datetime="2012-03-02T17:10:56.000Z" itemprop="datePublished">2012-03-02</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
-    </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2012/template/">Template Method Pattern</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2012/template/">
-            <time datetime="2012-02-16T20:47:19.000Z" itemprop="datePublished">2012-02-16</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2012/bridge/">Bridge Pattern</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2012/bridge/">
-            <time datetime="2012-01-29T22:20:38.000Z" itemprop="datePublished">2012-01-29</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
 </div>
+
+    <a data-url="http://truelogician.com/2012/flyweight/" data-id="cisrpr8om001ielro8luuy1cm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2012/flyweight/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2012/flyweight/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Introduction to Akka
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2012/composite/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Composite Pattern</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
@@ -592,11 +611,13 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-        this.page.identifier = 'undefined';
+            this.page.url = 'http://truelogician.com/2012/flyweight/';
+        
+        this.page.identifier = '2012/flyweight';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'mahansblog' + '.disqus.com/count.js';
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
