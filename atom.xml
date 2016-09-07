@@ -1166,11 +1166,11 @@
   </entry>
   
   <entry>
-    <title>Facade Pattern</title>
+    <title>Factory Method Pattern</title>
     <link href="http://truelogician.com/2010/factory/"/>
     <id>http://truelogician.com/2010/factory/</id>
     <published>2010-11-25T22:10:55.000Z</published>
-    <updated>2016-09-06T13:28:29.000Z</updated>
+    <updated>2016-09-07T22:30:14.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Having Decisions of object creation to be made at Runtime.</strong> <em>Create Objects Without Knowing the Specific Type.</em></p>
@@ -1230,7 +1230,7 @@
     
       <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
     
-      <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
+      <category term="Creational" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Creational/"/>
     
     
       <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
