@@ -3,14 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive: 2010/12 | Mahan&#39;s Blog</title>
+    <title>Proxy Pattern (Protection Proxy) | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Mahan's Blog">
-<meta property="og:url" content="http://truelogician.com/archives/2010/12/index.html">
+    <meta name="description" content="Design Patterns Overview
+DefinitionLimit Access to a Sensitive Class’s Properties and Behaviors. Wraps an Object In Order to Control Access to It.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxy Pattern (Protection Proxy)">
+<meta property="og:url" content="http://truelogician.com/2012/proxy/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="Design Patterns Overview
+DefinitionLimit Access to a Sensitive Class’s Properties and Behaviors. Wraps an Object In Order to Control Access to It.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/proxy-thumb.png">
+<meta property="og:updated_time" content="2016-09-07T22:23:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mahan's Blog">
+<meta name="twitter:title" content="Proxy Pattern (Protection Proxy)">
+<meta name="twitter:description" content="Design Patterns Overview
+DefinitionLimit Access to a Sensitive Class’s Properties and Behaviors. Wraps an Object In Order to Control Access to It.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/proxy-thumb.png">
     
 
     
@@ -225,50 +234,212 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2010</h1>
-            </div>
+            <section id="main"><article id="post-2012/proxy" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2010/abstract-factory/">Abstract Factory Pattern</a>
+        <h1 class="article-title" itemprop="name">
+            Proxy Pattern (Protection Proxy)
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2010/abstract-factory/">
-            <time datetime="2010-12-03T17:10:43.000Z" itemprop="datePublished">2010-12-03</time>
+        <a href="/2012/proxy/">
+            <time datetime="2012-11-09T17:11:26.000Z" itemprop="datePublished">2012-11-09</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
     </div>
 
-                </div>
-            </div>
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Limit Access to a Sensitive Class’s Properties and Behaviors.</strong> <em>Wraps an Object In Order to Control Access to It.</em></p>
+<a id="more"></a>
+<p>Proxy pattern come in three variations; Remote, Virtual and Protection. Although they are the same in essence, the following introduction discusses the Protection proxy pattern. You can read more about Remote and Virtual Proxies on <a href="https://en.wikipedia.org/wiki/Proxy_pattern" target="_blank" rel="external">Wikipedia</a>.</p>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>As usual let’s start with the definition of a Product and its concrete class (<em>real object</em>).</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function">Object <span class="title">getSensitiveData</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sensitiveActionA</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">normalOperationB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getSensitiveData</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="comment">/*data*/</span>;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sensitiveActionA</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">normalOperationB</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Since ‘Product’ contains sensitive information, we need to define the ‘Proxy’.<ul>
+<li>Only the ‘Proxy’ is exposed to the outside world.</li>
+<li>It might only provide insensitive information.</li>
+<li>It can restrict the use of sensitive operations.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationC</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyProduct</span> <span class="keyword">implements</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    Product product = <span class="keyword">new</span> Product();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;</div><div class="line">        product.normalOperationB();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationC</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/*security conditions &amp; restrictions*/</span></div><div class="line">        product.sensitiveActionA();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Since the client code has only access to the ‘ProxyProduct’, it can only use the insensitive or restricted operations.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IProxy proxy = <span class="keyword">new</span> ProxyProduct();</div><div class="line">        proxy.operationB();</div><div class="line">        proxy.operationC();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Using this pattern the sensitive class’s properties and behaviors are secured.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose a software module implements a way to interact with the underlying OS. However, out of this module scope (aka package or namespace), the clients of this module shall not be able to run certain group of commands.</p>
+<ul>
+<li>The following is the core interaction part to which the clients have no access.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shell</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(ICommand command)</span> </span>&#123;</div><div class="line">        <span class="comment">/*implementation*/</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The Command are categorized into 2 groups of:<ul>
+<li>SYS Commands: The sensitive commands that are run by clients within the scope.</li>
+<li>NET Commands: The regular simple commands which can be run by all clients.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICommand</span> </span>&#123; <span class="function">String <span class="title">get</span><span class="params">()</span></span>; &#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISysCommand</span> <span class="keyword">extends</span> <span class="title">ICommand</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">INetCommand</span> <span class="keyword">extends</span> <span class="title">ICommand</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reboot</span> <span class="keyword">implements</span> <span class="title">ISysCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"sudo reboot"</span>; &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shutdown</span> <span class="keyword">implements</span> <span class="title">ISysCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"sudo shutdown -h now"</span>; &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ping</span> <span class="keyword">implements</span> <span class="title">INetCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"ping -c 3"</span>; &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ip</span> <span class="keyword">implements</span> <span class="title">INetCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"ifconfig eth0"</span>; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The proxy and its concrete implementation are the only means for outside-scope clients to interact with OS.</li>
+<li>The proxy, in this case, filters out all system commands.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(ICommand command)</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShellProxy</span> <span class="keyword">implements</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    Shell shell = <span class="keyword">new</span> Shell();</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(ICommand command)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">if</span> (command <span class="keyword">instanceof</span> ISysCommand)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"cannot run system commands"</span>);</div><div class="line">        shell.run(command);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>and finally, the client code that is only allowed to execute simple networking commands.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ShellProxy shellProxy = <span class="keyword">new</span> ShellProxy();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            shellProxy.run(<span class="keyword">new</span> Ping());</div><div class="line">            shellProxy.run(<span class="keyword">new</span> Reboot());</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(<span class="string">"Error: "</span> + e.getMessage());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
 </div>
+
+    <a data-url="http://truelogician.com/2012/proxy/" data-id="cisth3c410017q2roq2j6y9lv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2012/proxy/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2012/proxy/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Introduction to Akka
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2012/flyweight/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Flyweight Pattern</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
@@ -448,11 +619,13 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-        this.page.identifier = 'undefined';
+            this.page.url = 'http://truelogician.com/2012/proxy/';
+        
+        this.page.identifier = '2012/proxy';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'mahansblog' + '.disqus.com/count.js';
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();

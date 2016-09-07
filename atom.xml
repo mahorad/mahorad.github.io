@@ -259,6 +259,80 @@
   </entry>
   
   <entry>
+    <title>Proxy Pattern (Protection Proxy)</title>
+    <link href="http://truelogician.com/2012/proxy/"/>
+    <id>http://truelogician.com/2012/proxy/</id>
+    <published>2012-11-09T17:11:26.000Z</published>
+    <updated>2016-09-07T22:23:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Limit Access to a Sensitive Class’s Properties and Behaviors.</strong> <em>Wraps an Object In Order to Control Access to It.</em></p>
+<a id="more"></a>
+<p>Proxy pattern come in three variations; Remote, Virtual and Protection. Although they are the same in essence, the following introduction discusses the Protection proxy pattern. You can read more about Remote and Virtual Proxies on <a href="https://en.wikipedia.org/wiki/Proxy_pattern" target="_blank" rel="external">Wikipedia</a>.</p>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>As usual let’s start with the definition of a Product and its concrete class (<em>real object</em>).</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function">Object <span class="title">getSensitiveData</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">sensitiveActionA</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">normalOperationB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getSensitiveData</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> <span class="comment">/*data*/</span>;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sensitiveActionA</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">normalOperationB</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Since ‘Product’ contains sensitive information, we need to define the ‘Proxy’.<ul>
+<li>Only the ‘Proxy’ is exposed to the outside world.</li>
+<li>It might only provide insensitive information.</li>
+<li>It can restrict the use of sensitive operations.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationC</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyProduct</span> <span class="keyword">implements</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    Product product = <span class="keyword">new</span> Product();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;</div><div class="line">        product.normalOperationB();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationC</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/*security conditions &amp; restrictions*/</span></div><div class="line">        product.sensitiveActionA();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Since the client code has only access to the ‘ProxyProduct’, it can only use the insensitive or restricted operations.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IProxy proxy = <span class="keyword">new</span> ProxyProduct();</div><div class="line">        proxy.operationB();</div><div class="line">        proxy.operationC();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Using this pattern the sensitive class’s properties and behaviors are secured.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose a software module implements a way to interact with the underlying OS. However, out of this module scope (aka package or namespace), the clients of this module shall not be able to run certain group of commands.</p>
+<ul>
+<li>The following is the core interaction part to which the clients have no access.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shell</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(ICommand command)</span> </span>&#123;</div><div class="line">        <span class="comment">/*implementation*/</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The Command are categorized into 2 groups of:<ul>
+<li>SYS Commands: The sensitive commands that are run by clients within the scope.</li>
+<li>NET Commands: The regular simple commands which can be run by all clients.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ICommand</span> </span>&#123; <span class="function">String <span class="title">get</span><span class="params">()</span></span>; &#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISysCommand</span> <span class="keyword">extends</span> <span class="title">ICommand</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">INetCommand</span> <span class="keyword">extends</span> <span class="title">ICommand</span> </span>&#123;&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reboot</span> <span class="keyword">implements</span> <span class="title">ISysCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"sudo reboot"</span>; &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shutdown</span> <span class="keyword">implements</span> <span class="title">ISysCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"sudo shutdown -h now"</span>; &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ping</span> <span class="keyword">implements</span> <span class="title">INetCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"ping -c 3"</span>; &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ip</span> <span class="keyword">implements</span> <span class="title">INetCommand</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">"ifconfig eth0"</span>; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The proxy and its concrete implementation are the only means for outside-scope clients to interact with OS.</li>
+<li>The proxy, in this case, filters out all system commands.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(ICommand command)</span> <span class="keyword">throws</span> Exception</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShellProxy</span> <span class="keyword">implements</span> <span class="title">IProxy</span> </span>&#123;</div><div class="line">    Shell shell = <span class="keyword">new</span> Shell();</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(ICommand command)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        <span class="keyword">if</span> (command <span class="keyword">instanceof</span> ISysCommand)</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"cannot run system commands"</span>);</div><div class="line">        shell.run(command);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>and finally, the client code that is only allowed to execute simple networking commands.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ShellProxy shellProxy = <span class="keyword">new</span> ShellProxy();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            shellProxy.run(<span class="keyword">new</span> Ping());</div><div class="line">            shellProxy.run(<span class="keyword">new</span> Reboot());</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            System.out.println(<span class="string">"Error: "</span> + e.getMessage());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Limit Access to a Sensitive Class’s Properties and Behaviors.&lt;/strong&gt; &lt;em&gt;Wraps an Object In Order to Control Access to It.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
+    
+      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
+    
+      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
+    
+      <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Flyweight Pattern</title>
     <link href="http://truelogician.com/2012/flyweight/"/>
     <id>http://truelogician.com/2012/flyweight/</id>
@@ -1284,199 +1358,6 @@
       <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
     
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Design Patterns Cookbook</title>
-    <link href="http://truelogician.com/2010/design-patterns/"/>
-    <id>http://truelogician.com/2010/design-patterns/</id>
-    <published>2010-09-07T18:52:07.000Z</published>
-    <updated>2016-09-06T19:24:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<div align="justify"><br>Even after reading the original GoF book and <a href="http://goo.gl/f4osja" target="_blank" rel="external">“Head First Design Patterns”</a> (which is one of the best book in this field), as well as many articles, I still found it very daunting and hard to grasp the gist of each pattern and apply the most suitable one for a certain scenario. All the examples and UML diagrams do help understanding the pattern, but deep down, developers are far better at reading code; specially code snippets.<br></div>
-
-<a id="more"></a>
-<p>This became the very reason for me to start describing patterns in an easier manner and friendlier format. In a way that I was expected to be explained when I began.</p>
-<p>Each pattern are described in 5 sections:</p>
-<ul>
-<li><strong>Definition:</strong> One or two sentence to describe the essence of the pattern.</li>
-<li><strong>Recipe:</strong> Introducing the basic elements and the nuts and bolts of a pattern.</li>
-<li><strong>Serve:</strong> Putting it all together to see how the pattern is served to the client code.</li>
-<li><strong>Benefits:</strong> Mentioning some few important benefits of the pattern.</li>
-<li><strong>Example:</strong> Giving a trivial concrete example to help reader remember the pattern.</li>
-</ul>
-<p>A section like ‘When to Use’ is intentionally ignored since I believe if developers understand the pattern thoroughly, then they will realize which one to use when they encounter a problem.</p>
-<h2 id="What-is-a-Design-Pattern"><a href="#What-is-a-Design-Pattern" class="headerlink" title="What is a Design Pattern"></a>What is a Design Pattern</h2><p>I believe the <a href="https://en.wikipedia.org/wiki/Software_design_pattern" target="_blank" rel="external">Wikipedia</a>‘s definition of design pattern is quite clear. It basically states that a design pattern is a general solution to problems that we developers usually encounter on daily basis while adding new features or refactoring code. They are not finished solution for specific problems nor they can be transformed directly into source code.</p>
-<h2 id="Design-Patterns-Classification"><a href="#Design-Patterns-Classification" class="headerlink" title="Design Patterns Classification"></a>Design Patterns Classification</h2><p>Classical Design Patterns are essentially divided in 3 categories. Each category addresses problems in a specific much wider area of software development.</p>
-<h3 id="Behavioral-Patterns"><a href="#Behavioral-Patterns" class="headerlink" title="Behavioral Patterns"></a>Behavioral Patterns</h3><p>Behavioral patterns are those that concern the different aspects of the behaviors that your entities might take on. These patterns help your design to be more resilient to change specifically when the change concerns the communication between objects.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/strategy/">Strategy</a></td>
-<td style="text-align:left">Change a Product’s Behavior at Runtime</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/observer-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/observer/">Observer</a></td>
-<td style="text-align:left">Be Notified When Something Happens</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/command-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2011/command/">Command</a></td>
-<td style="text-align:left">Create a Set of Reusable Commands For Various Products</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/state-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2013/state/">State</a></td>
-<td style="text-align:left">Change the Behavior According to the State</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/template-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2012/template/">Template Method</a></td>
-<td style="text-align:left">Create a Fixed Procedure and Vary Its Details in Subclasses</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/visitor/">Visitor</a></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/interpreter/">Interpreter</a></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/chain/">Chain of Responsibility</a></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/iterator-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2012/iterator/">Iterator</a></td>
-<td style="text-align:left">Get the Iterator for Any Type of Collections in Subclasses</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/mediator/">Mediator</a></td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/strategy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/memento/">Memento</a></td>
-</tr>
-</tbody>
-</table>
-<h3 id="Creational-Patterns"><a href="#Creational-Patterns" class="headerlink" title="Creational Patterns"></a>Creational Patterns</h3><p>Creational patterns are ones that create objects for you, rather than having you instantiate objects directly. This gives your program more flexibility in deciding which objects need to be created for a given case (<a href="https://en.wikipedia.org/wiki/Creational_pattern" target="_blank" rel="external">Wikipedia</a>).</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/factory-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/factory/">Factory Method</a></td>
-<td style="text-align:left">Create Objects Without Knowing Their Specific Type</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/abstract-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/abstract-factory/">Abstract Factory</a></td>
-<td style="text-align:left">Group Factories of Similar Products</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/singleton-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2011/singleton/">Singleton</a></td>
-<td style="text-align:left">Making Only One Object of a Class to Be Available for All</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/prototype-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2011/prototype/">Prototype</a></td>
-<td style="text-align:left">Create New Objects by Cloning</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/builder-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2011/builder/">Builder</a></td>
-<td style="text-align:left">Simplify Creation of Objects With Many Properties</td>
-</tr>
-</tbody>
-</table>
-<h3 id="Structural-Patterns"><a href="#Structural-Patterns" class="headerlink" title="Structural Patterns"></a>Structural Patterns</h3><p>These patterns concern class and object composition. They use inheritance to compose interfaces and define ways to compose objects to obtain new functionality (<a href="https://en.wikipedia.org/wiki/Design_Patterns#Structural" target="_blank" rel="external">Wikipedia</a>)</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
-<th style="text-align:left"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/adapter-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/adapter/">Adapter</a></td>
-<td style="text-align:left">Create Adaptability Among Different Interfaces</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/decorator-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2011/decorator/">Decorator</a></td>
-<td style="text-align:left">Provide New Abilities/Behaviors at Runtime</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/composite-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2012/composite/">Composite</a></td>
-<td style="text-align:left">Add the Capability of Never Ending Grouping</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/bridge-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2012/bridge/">Bridge</a></td>
-<td style="text-align:left">Decouple Products from Their Usage To Allow Independent Changes</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/facade-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2010/facade/">Facade</a></td>
-<td style="text-align:left">Provide a Simplified Interface to a Set of Classes</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/flyweight-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2012/flyweight/">Flyweight</a></td>
-<td style="text-align:left">Improve Performance by Sharing Objects Instead of Creating Them</td>
-</tr>
-<tr>
-<td style="text-align:left"><img src="/images/patterns/proxy-thumb.png" width="50" height="50"></td>
-<td style="text-align:left"><a href="/2012/proxy/">Proxy</a></td>
-<td style="text-align:left">Limit Access to a Sensitive Properties and Behaviors of a Class</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;Even after reading the original GoF book and &lt;a href=&quot;http://goo.gl/f4osja&quot;&gt;“Head First Design Patterns”&lt;/a&gt; (which is one of the best book in this field), as well as many articles, I still found it very daunting and hard to grasp the gist of each pattern and apply the most suitable one for a certain scenario. All the examples and UML diagrams do help understanding the pattern, but deep down, developers are far better at reading code; specially code snippets.&lt;br&gt;&lt;/div&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Overview" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Overview/"/>
     
     
       <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
