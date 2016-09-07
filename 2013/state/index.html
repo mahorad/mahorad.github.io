@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Flyweight Pattern | Mahan&#39;s Blog</title>
+    <title>State Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Design Patterns Overview
-DefinitionImprove Performance by Sharing Objects Instead of Creating Them.">
+DefinitionChange the Behavior According to the State. Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Flyweight Pattern">
+<meta property="og:title" content="State Pattern">
 <meta property="og:url" content="http://truelogician.com/2013/state/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
 <meta property="og:description" content="Design Patterns Overview
-DefinitionImprove Performance by Sharing Objects Instead of Creating Them.">
-<meta property="og:image" content="http://truelogician.com/images/patterns/flyweight-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T18:11:21.000Z">
+DefinitionChange the Behavior According to the State. Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/state-thumb.png">
+<meta property="og:updated_time" content="2016-09-06T19:33:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Flyweight Pattern">
+<meta name="twitter:title" content="State Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
-DefinitionImprove Performance by Sharing Objects Instead of Creating Them.">
-<meta name="twitter:image" content="http://truelogician.com/images/patterns/flyweight-thumb.png">
+DefinitionChange the Behavior According to the State. Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/state-thumb.png">
     
 
     
@@ -242,7 +242,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            Flyweight Pattern
+            State Pattern
         </h1>
     
 
@@ -252,7 +252,7 @@ ga('send', 'pageview');
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/2013/state/">
-            <time datetime="2012-09-23T21:21:17.000Z" itemprop="datePublished">2012-09-23</time>
+            <time datetime="2013-03-29T16:51:03.000Z" itemprop="datePublished">2013-03-29</time>
         </a>
     </div>
 
@@ -260,7 +260,7 @@ ga('send', 'pageview');
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
     </div>
 
                         
@@ -278,39 +278,14 @@ ga('send', 'pageview');
         
             
             <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Improve Performance by Sharing Objects Instead of Creating Them.</strong></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Change the Behavior According to the State.</strong> <em>Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.</em></p>
 <a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>Before identifying the elements for flyweight pattern, consider the following definitions:</p>
-<ul>
-<li><strong>Intrinsic State:</strong> A state in the object upon which we will keep a reference of that object (share the object).</li>
-<li><strong>Extrinsic State:</strong> Other states of the object that are not important to your activity at all.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    Object intrinsicState;</div><div class="line">    <span class="comment">/*  extrinsic states... */</span></div><div class="line"></div><div class="line">    Product(Object intrinsicState) &#123;</div><div class="line">        <span class="keyword">this</span>.intrinsicState = intrinsicState;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The factory where limited objects are kept and can be fetched by their intrinsic state.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> HashMap&lt;Object, IProduct&gt; products = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> IProduct <span class="title">create</span><span class="params">(Object intrinsicState)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!products.containsKey(intrinsicState))</div><div class="line">            products.put(intrinsicState, <span class="keyword">new</span> Product(intrinsicState));</div><div class="line">        <span class="keyword">return</span> products.get(intrinsicState);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The client uses the factory to either create or fetch previously created product. The client can change any extrinsic states of the <strong><em>same instance</em></strong> of the fetched product and use it as suited.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    List&lt;IProduct&gt; products = <span class="keyword">new</span> Vector&lt;&gt;();</div><div class="line"></div><div class="line">    Client() &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;</div><div class="line">            Object intrinsicState = getFromLimitedIntrinsicStates();</div><div class="line">            products.add(ProductFactory.create(intrinsicState));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>This pattern reduces the amount of memory consumption by sharing the objects that are similar in some way rather than creating new ones.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>A governmental application shall be put to smoke test for it’s limitations while processing massive amount of data. Your task is to create an in-memory database (Collections) with many records to make the test closer to reality. This collection does not need to contain unique items as long as it contains many of them.</p>
-<p>Imagine this in-memory database table called ‘JobsTable’ that needs to be populated with at least around 100,000 ‘Job’ object.</p>
-<ul>
-<li>Let’s first define the notion of ‘Job’ and ‘MockJob’. Notice that job title is the Job’s intrinsic state of the ‘Job’.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IJob</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockJob</span> <span class="keyword">implements</span> <span class="title">IJob</span> </span>&#123;</div><div class="line">    String title;</div><div class="line">    <span class="keyword">double</span> salary;</div><div class="line">    String risk;</div><div class="line"></div><div class="line">    MockJob(String title) &#123;</div><div class="line">        <span class="keyword">this</span>.title = title;</div><div class="line">        salary = <span class="number">1000</span>d;</div><div class="line">        risk = <span class="string">"LOW"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The ‘JobFactory’ stores jobs based on their title. We will end up with limited amount of instances in memory.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> HashMap&lt;String, IJob&gt; jobs;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> IJob <span class="title">create</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (jobs.containsKey(title))</div><div class="line">            <span class="keyword">return</span> jobs.get(title);</div><div class="line">        IJob job = <span class="keyword">new</span> MockJob(title);</div><div class="line">        jobs.put(title, job);</div><div class="line">        <span class="keyword">return</span> job;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The database table implementation, in our example, which keeps references to those limited instances in a ‘Vector’.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobsTable</span> </span>&#123;</div><div class="line">    List&lt;IJob&gt; jobs = <span class="keyword">new</span> Vector&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addJob</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        jobs.add(JobFactory.create(title));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Finally, our unit test will look something like this.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span> </span>&#123;</div><div class="line"></div><div class="line">    SystemUnderTest sut;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">smokeTest</span><span class="params">()</span> </span>&#123;</div><div class="line">        JobsTable table = <span class="keyword">new</span> JobsTable();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</div><div class="line">            String title = getRandomTitle();</div><div class="line">            table.addJob(title);</div><div class="line">        &#125;</div><div class="line">        sut.process(table);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    String[] titles = <span class="keyword">new</span> String[] &#123;</div><div class="line">        <span class="string">"Engineer"</span>, <span class="string">"Doctor"</span>, <span class="string">"Worker"</span>, <span class="string">"Teacher"</span></div><div class="line">    &#125;;</div><div class="line">    <span class="function">String <span class="title">getRandomTitle</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="comment">// a random title from the titles array;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>A proxy class is a class that limits access to another class for security reasons.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line">### Important Benefits</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## Example</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
+<pre><code class="java">
+</code></pre>
 <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
         
@@ -322,7 +297,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2013/state/" data-id="cisrstg9v001dxqrootmgcnvg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2013/state/" data-id="cissgbnkm003mbnroud3xig59" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -399,19 +374,19 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2012/proxy/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Proxy Pattern
+                    Introduction to Akka
                 
             </div>
         </a>
     
     
-        <a href="/2012/flyweight/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2012/proxy/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Flyweight Pattern</div>
+            <div class="article-nav-title">Proxy Pattern</div>
         </a>
     
 </nav>
@@ -502,6 +477,25 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2013/state/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/patterns/state-thumb.png)" alt="State Pattern" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a></p>
+                            <p class="item-title"><a href="/2013/state/" class="title">State Pattern</a></p>
+                            <p class="item-date"><time datetime="2013-03-29T16:51:03.000Z" itemprop="datePublished">2013-03-29</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2012/proxy/" class="thumbnail">
     
     
@@ -518,25 +512,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2013/state/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/images/patterns/flyweight-thumb.png)" alt="Flyweight Pattern" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a></p>
-                            <p class="item-title"><a href="/2013/state/" class="title">Flyweight Pattern</a></p>
-                            <p class="item-date"><time datetime="2012-09-23T21:21:17.000Z" itemprop="datePublished">2012-09-23</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -546,7 +521,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">categories</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">20</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">19</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">18</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">9</span></li></ul></li></ul></li></ul></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">20</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">19</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">18</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">8</span></li></ul></li></ul></li></ul></li></ul>
         </div>
     </div>
 
@@ -555,7 +530,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 

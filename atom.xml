@@ -259,14 +259,55 @@
   </entry>
   
   <entry>
+    <title>State Pattern</title>
+    <link href="http://truelogician.com/2013/state/"/>
+    <id>http://truelogician.com/2013/state/</id>
+    <published>2013-03-29T16:51:03.000Z</published>
+    <updated>2016-09-06T19:33:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Change the Behavior According to the State.</strong> <em>Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.</em></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>A proxy class is a class that limits access to another class for security reasons.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line">### Important Benefits</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## Example</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
+<pre><code class="java">
+</code></pre>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Change the Behavior According to the State.&lt;/strong&gt; &lt;em&gt;Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
+    
+      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
+    
+      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
+    
+      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Proxy Pattern</title>
     <link href="http://truelogician.com/2012/proxy/"/>
     <id>http://truelogician.com/2012/proxy/</id>
     <published>2012-11-09T17:11:26.000Z</published>
-    <updated>2016-09-06T18:14:30.000Z</updated>
+    <updated>2016-09-06T19:00:25.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>.</strong> <em>.</em></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Limit Access to a Sensitive Class’s Properties and Behaviors.</strong> <em>Wraps an Object In Order to Control Access to It.</em></p>
 <a id="more"></a>
 <h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
 <h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line"></div><div class="line">### Important Benefits</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## Example</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">``` java</div></pre></td></tr></table></figure>
@@ -279,73 +320,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;.&lt;/strong&gt; &lt;em&gt;.&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Flyweight Pattern</title>
-    <link href="http://truelogician.com/2013/state/"/>
-    <id>http://truelogician.com/2013/state/</id>
-    <published>2012-09-23T21:21:17.000Z</published>
-    <updated>2016-09-06T18:11:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Improve Performance by Sharing Objects Instead of Creating Them.</strong></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>Before identifying the elements for flyweight pattern, consider the following definitions:</p>
-<ul>
-<li><strong>Intrinsic State:</strong> A state in the object upon which we will keep a reference of that object (share the object).</li>
-<li><strong>Extrinsic State:</strong> Other states of the object that are not important to your activity at all.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    Object intrinsicState;</div><div class="line">    <span class="comment">/*  extrinsic states... */</span></div><div class="line"></div><div class="line">    Product(Object intrinsicState) &#123;</div><div class="line">        <span class="keyword">this</span>.intrinsicState = intrinsicState;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The factory where limited objects are kept and can be fetched by their intrinsic state.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> HashMap&lt;Object, IProduct&gt; products = <span class="keyword">new</span> HashMap&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> IProduct <span class="title">create</span><span class="params">(Object intrinsicState)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (!products.containsKey(intrinsicState))</div><div class="line">            products.put(intrinsicState, <span class="keyword">new</span> Product(intrinsicState));</div><div class="line">        <span class="keyword">return</span> products.get(intrinsicState);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The client uses the factory to either create or fetch previously created product. The client can change any extrinsic states of the <strong><em>same instance</em></strong> of the fetched product and use it as suited.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    List&lt;IProduct&gt; products = <span class="keyword">new</span> Vector&lt;&gt;();</div><div class="line"></div><div class="line">    Client() &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;</div><div class="line">            Object intrinsicState = getFromLimitedIntrinsicStates();</div><div class="line">            products.add(ProductFactory.create(intrinsicState));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>This pattern reduces the amount of memory consumption by sharing the objects that are similar in some way rather than creating new ones.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>A governmental application shall be put to smoke test for it’s limitations while processing massive amount of data. Your task is to create an in-memory database (Collections) with many records to make the test closer to reality. This collection does not need to contain unique items as long as it contains many of them.</p>
-<p>Imagine this in-memory database table called ‘JobsTable’ that needs to be populated with at least around 100,000 ‘Job’ object.</p>
-<ul>
-<li>Let’s first define the notion of ‘Job’ and ‘MockJob’. Notice that job title is the Job’s intrinsic state of the ‘Job’.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IJob</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MockJob</span> <span class="keyword">implements</span> <span class="title">IJob</span> </span>&#123;</div><div class="line">    String title;</div><div class="line">    <span class="keyword">double</span> salary;</div><div class="line">    String risk;</div><div class="line"></div><div class="line">    MockJob(String title) &#123;</div><div class="line">        <span class="keyword">this</span>.title = title;</div><div class="line">        salary = <span class="number">1000</span>d;</div><div class="line">        risk = <span class="string">"LOW"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The ‘JobFactory’ stores jobs based on their title. We will end up with limited amount of instances in memory.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> HashMap&lt;String, IJob&gt; jobs;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> IJob <span class="title">create</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (jobs.containsKey(title))</div><div class="line">            <span class="keyword">return</span> jobs.get(title);</div><div class="line">        IJob job = <span class="keyword">new</span> MockJob(title);</div><div class="line">        jobs.put(title, job);</div><div class="line">        <span class="keyword">return</span> job;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The database table implementation, in our example, which keeps references to those limited instances in a ‘Vector’.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JobsTable</span> </span>&#123;</div><div class="line">    List&lt;IJob&gt; jobs = <span class="keyword">new</span> Vector&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addJob</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        jobs.add(JobFactory.create(title));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Finally, our unit test will look something like this.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span> </span>&#123;</div><div class="line"></div><div class="line">    SystemUnderTest sut;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">smokeTest</span><span class="params">()</span> </span>&#123;</div><div class="line">        JobsTable table = <span class="keyword">new</span> JobsTable();</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; i++) &#123;</div><div class="line">            String title = getRandomTitle();</div><div class="line">            table.addJob(title);</div><div class="line">        &#125;</div><div class="line">        sut.process(table);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    String[] titles = <span class="keyword">new</span> String[] &#123;</div><div class="line">        <span class="string">"Engineer"</span>, <span class="string">"Doctor"</span>, <span class="string">"Worker"</span>, <span class="string">"Teacher"</span></div><div class="line">    &#125;;</div><div class="line">    <span class="function">String <span class="title">getRandomTitle</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="comment">// a random title from the titles array;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Improve Performance by Sharing Objects Instead of Creating Them.&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Limit Access to a Sensitive Class’s Properties and Behaviors.&lt;/strong&gt; &lt;em&gt;Wraps an Object In Order to Control Access to It.&lt;/em&gt;&lt;/p&gt;
     
     </summary>
     

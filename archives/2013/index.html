@@ -3,23 +3,14 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Adapter Pattern | Mahan&#39;s Blog</title>
+    <title>Archive: 2013 | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Design Patterns Overview
-DefinitionCreate Adaptability Among Different Interfaces. Adapt an Existing Class to Work With Others Without Modifying It.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Adapter Pattern">
-<meta property="og:url" content="http://truelogician.com/2011/adapter/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Mahan's Blog">
+<meta property="og:url" content="http://truelogician.com/archives/2013/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
-<meta property="og:description" content="Design Patterns Overview
-DefinitionCreate Adaptability Among Different Interfaces. Adapt an Existing Class to Work With Others Without Modifying It.">
-<meta property="og:image" content="http://truelogician.com/images/patterns/adapter-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T13:30:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Adapter Pattern">
-<meta name="twitter:description" content="Design Patterns Overview
-DefinitionCreate Adaptability Among Different Interfaces. Adapt an Existing Class to Work With Others Without Modifying It.">
-<meta name="twitter:image" content="http://truelogician.com/images/patterns/adapter-thumb.png">
+<meta name="twitter:title" content="Mahan's Blog">
     
 
     
@@ -234,209 +225,50 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-2011/adapter" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
+            <section id="main"><div class="timeline timeline-wrap">
+    
+            <div class="timeline-row timeline-row-major">
+                <span class="node"><i class="fa fa-calendar"></i></span>
+                <h1 class="title">2013</h1>
+            </div>
         
-        
-            <header class="article-header">
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            Adapter Pattern
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2013/state/">State Pattern</a>
         </h1>
     
 
-                
-                    <div class="article-meta">
-                        
+                <div class="article-meta">
+                    
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2011/adapter/">
-            <time datetime="2011-11-28T21:12:55.000Z" itemprop="datePublished">2011-11-28</time>
+        <a href="/2013/state/">
+            <time datetime="2013-03-29T16:51:03.000Z" itemprop="datePublished">2013-03-29</time>
         </a>
     </div>
 
 
-                        
+                    
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
     </div>
 
-                        
+                    
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
     </div>
 
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Create Adaptability Among Different Interfaces.</strong> <em>Adapt an Existing Class to Work With Others Without Modifying It.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The product definition.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>A different class that needs to be used like an IProduct.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">procedureA</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">procedureB</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The adapter which on one hand implements the IProduct and on the other hand has the adaptee.</li>
-<li>Note that Adapter selects the correct corresponding method from the adaptee.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    Adaptee adaptee;</div><div class="line">    Adapter(Adaptee adaptee) &#123; <span class="keyword">this</span>.adaptee = adaptee; &#125;</div><div class="line">    <span class="comment">// imagine that operation shall be mapped to procedureB</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123; adaptee.procedureB(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Create an adapter and pass an instance of the class that needs to be adapted. It will behave as if it is a product.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Adapter adapter = <span class="keyword">new</span> Adapter(<span class="keyword">new</span> Adaptee());</div><div class="line">        adapter.operation();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>Allows you to translate the behaviors in one family of classes to not-completely-different behaviors in another family of classes.</li>
-</ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose that you’ve been assigned to update the code behind the user profile of a legacy code in a social networking company. The legacy code will be running in some regions of the world, however the company wants to update user profiles in some small regions.</p>
-<ul>
-<li>The new code for the profile looks very simple. Two methods to update and also sign out the owner of it.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IModernProfile</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Object[] props)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signOut</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The legacy profile, like it or not, has much more granular methods and behaviors.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LegacyProfile</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">closeCurrentSession</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">closeDatabaseConnections</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setFullName</span><span class="params">(String fullName)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUserAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUserAddress</span><span class="params">(String address)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Since we cannot change its source code directly, we can write an adapter that implements the new profile interface and accepts an instance of the old one.</li>
-<li>Notice that the adapter will map actions between the adapter and the adaptee.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ModernProfileAdapter</span> <span class="keyword">implements</span> <span class="title">IModernProfile</span> </span>&#123;</div><div class="line">    LegacyProfile legacyProfile;</div><div class="line">    ModernProfileAdapter(LegacyProfile legacyProfile) &#123;</div><div class="line">        <span class="keyword">this</span>.legacyProfile = legacyProfile;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Object[] props)</span> </span>&#123;</div><div class="line">        legacyProfile.setUsername(props[<span class="number">0</span>].toString());</div><div class="line">        legacyProfile.setFullName(props[<span class="number">1</span>].toString());</div><div class="line">        legacyProfile.setUserAge(toInt(props[<span class="number">2</span>]));</div><div class="line">        legacyProfile.setUserAddress(props[<span class="number">3</span>].toString());</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signOut</span><span class="params">()</span> </span>&#123;</div><div class="line">        legacyProfile.closeDatabaseConnections();</div><div class="line">        legacyProfile.closeCurrentSession();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Finally, we’re now able to use the legacy profile as if it’s a modern profile.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ModernProfileAdapter profileAdapter =</div><div class="line">            <span class="keyword">new</span> ModernProfileAdapter(<span class="keyword">new</span> LegacyProfile());</div><div class="line">        profileAdapter.update</div><div class="line">            (<span class="keyword">new</span> Object[]</div><div class="line">            &#123;</div><div class="line">                <span class="string">"john12"</span>, <span class="string">"John Doe"</span>, <span class="number">33</span>, <span class="string">"1234 XYZ Street"</span></div><div class="line">            &#125;);</div><div class="line">        profileAdapter.signOut();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://truelogician.com/2011/adapter/" data-id="cissgbnic000abnrohypggr8e" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="http://truelogician.com/2011/adapter/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2011/adapter/">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2011/facade/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    Facade Pattern
-                
+                </div>
             </div>
-        </a>
+        </div>
     
-    
-        <a href="/2011/decorator/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Decorator Pattern</div>
-        </a>
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
-    
-    </section>
-
+</div>
 </section>
             
                 <aside id="sidebar">
@@ -616,13 +448,11 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/2011/adapter/';
-        
-        this.page.identifier = '2011/adapter';
+        this.page.identifier = 'undefined';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
+        s.src = '//' + 'mahansblog' + '.disqus.com/count.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
