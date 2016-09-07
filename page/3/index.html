@@ -3,23 +3,14 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Builder Pattern | Mahan&#39;s Blog</title>
+    <title>Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Design Patterns Overview
-DefinitionSimplify Creation of Objects Which Need Many Properties for Creation.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Builder Pattern">
-<meta property="og:url" content="http://truelogician.com/2011/builder/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Mahan's Blog">
+<meta property="og:url" content="http://truelogician.com/page/3/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
-<meta property="og:description" content="Design Patterns Overview
-DefinitionSimplify Creation of Objects Which Need Many Properties for Creation.">
-<meta property="og:image" content="http://truelogician.com/images/patterns/builder-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T13:31:07.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Builder Pattern">
-<meta name="twitter:description" content="Design Patterns Overview
-DefinitionSimplify Creation of Objects Which Need Many Properties for Creation.">
-<meta name="twitter:image" content="http://truelogician.com/images/patterns/builder-thumb.png">
+<meta name="twitter:title" content="Mahan's Blog">
     
 
     
@@ -234,15 +225,26 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-2011/builder" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main">
+    <article id="post-2010/design-patterns" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
+        
+            
+	
+		<a href="/2010/design-patterns/" itemprop="url">
+            <img src="/images/patterns/header.jpg" class="article-banner" />
+        </a>
+	
+
+
+
         
         
             <header class="article-header">
                 
     
-        <h1 class="article-title" itemprop="name">
-            Builder Pattern
+        <h1 itemprop="name">
+            <a class="article-title" href="/2010/design-patterns/">Design Patterns Cookbook</a>
         </h1>
     
 
@@ -251,8 +253,8 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2011/builder/">
-            <time datetime="2011-03-19T21:37:18.000Z" itemprop="datePublished">2011-03-19</time>
+        <a href="/2010/design-patterns/">
+            <time datetime="2010-09-07T18:52:07.000Z" itemprop="datePublished">2010-09-07</time>
         </a>
     </div>
 
@@ -260,7 +262,7 @@ ga('send', 'pageview');
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a>
     </div>
 
                         
@@ -276,39 +278,10 @@ ga('send', 'pageview');
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Simplify Creation of Objects Which Need Many Properties for Creation.</strong></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The product definition along with its required/optional properties.</li>
-<li>Notice it uses the passed ‘builder’ object to propagate its property values.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    String  propertyA;</div><div class="line">    <span class="keyword">int</span>     propertyB;</div><div class="line">    <span class="keyword">boolean</span> propertyC;</div><div class="line"></div><div class="line">    Product(Builder builder) &#123;</div><div class="line">        propertyA = builder.propertyA;</div><div class="line">        propertyB = builder.propertyB;</div><div class="line">        propertyC = builder.propertyC;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The builder which almost maps the properties of the product.</li>
-<li>Notice the setter method return a ‘Builder’ to allow chaining methods.<ul>
-<li>Enforce the product’s required properties in the builder too.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</div><div class="line">    String  propertyA;</div><div class="line">    <span class="keyword">int</span>     propertyB;</div><div class="line">    <span class="keyword">boolean</span> propertyC;</div><div class="line"></div><div class="line">    <span class="function">Builder <span class="title">setPropertyA</span><span class="params">(String value)</span> </span>&#123;</div><div class="line">        propertyA = value;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">Builder <span class="title">setPropertyB</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</div><div class="line">        propertyB = value;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">Builder <span class="title">setPropertyC</span><span class="params">(<span class="keyword">boolean</span> value)</span> </span>&#123;</div><div class="line">        propertyC = value;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function">Product <span class="title">build</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Product(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The build director which could be optional to have.</li>
-<li>It uses the ‘Builder’ to instantiate certain products.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BuildDirector</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">static</span> Product <span class="title">buildAbc123True</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Builder()</div><div class="line">                .setPropertyA(<span class="string">"abc"</span>)</div><div class="line">                .setPropertyB(<span class="number">123</span>)</div><div class="line">                .setPropertyC(<span class="keyword">true</span>)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">static</span> Product <span class="title">buildDef456False</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Builder()</div><div class="line">                .setPropertyA(<span class="string">"def"</span>)</div><div class="line">                .setPropertyB(<span class="number">456</span>)</div><div class="line">                .setPropertyC(<span class="keyword">false</span>)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>It is now possible to use the build director to create specific products or simply ask the builder to assign the product’s properties and build it.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Product p1 = BuildDirector.buildAbc123True();</div><div class="line">        Product p2 = BuildDirector.buildDef456False();</div><div class="line"></div><div class="line">        Product p3 = <span class="keyword">new</span> Builder()</div><div class="line">                .setPropertyA(<span class="string">"xyz"</span>)</div><div class="line">                .setPropertyB(<span class="number">789</span>)</div><div class="line">                .setPropertyC(<span class="keyword">true</span>)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Hiding from clients the creation of all side-objects and logics that are probably required for an instantiation. Hence, only the builder will know the specifics of this creation and no one else.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Keeping in mind that the following code is merely an example, let’s imaging that we need to create our own Socket class. Well, one might come up with many properties when designing a sophisticated object such as this. Note that two of these properties however, are mandatory for instantiation and as a result are part of the socket builder constructor.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Socket</span> </span>&#123;</div><div class="line"></div><div class="line">    InetAddress addr;</div><div class="line">    <span class="keyword">int</span> port;</div><div class="line">    <span class="keyword">boolean</span> keepAlive;</div><div class="line">    ComplexProperty complexProperty;</div><div class="line">    <span class="keyword">long</span> timeout;</div><div class="line">    <span class="function"><span class="keyword">long</span> sendBufferSize</span></div><div class="line"></div><div class="line">    <span class="title">Socket</span><span class="params">(SocketBuilder builder)</span> &#123;</div><div class="line">        <span class="keyword">this</span>.addr = builder.addr;</div><div class="line">        <span class="keyword">this</span>.port = builder.port;</div><div class="line">        <span class="keyword">this</span>.keepAlive = builder.keepAlive;</div><div class="line">        <span class="keyword">this</span>.complexProperty = builder.complexProperty;</div><div class="line">        <span class="keyword">this</span>.socketChannel = builder.socketChannel;</div><div class="line">        <span class="keyword">this</span>.timeout = builder.timeout;</div><div class="line">        <span class="keyword">this</span>.sendBufferSize = builder.sendBufferSize;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>The builder class. Note that how builder tries to hide the complexity of object creation within ‘setComplexProperty()’ method.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SocketBuilder</span> </span>&#123;</div><div class="line"></div><div class="line">    InetAddress addr;</div><div class="line">    <span class="keyword">int</span> port;</div><div class="line">    <span class="keyword">boolean</span> keepAlive;</div><div class="line">    <span class="keyword">boolean</span> complexProperty;</div><div class="line">    <span class="keyword">long</span> timeout;</div><div class="line">    <span class="function"><span class="keyword">long</span> sendBufferSize</span></div><div class="line"></div><div class="line">    <span class="title">SocketBuilder</span><span class="params">(InetAddress addr, <span class="keyword">int</span> port)</span> &#123;</div><div class="line">        <span class="keyword">this</span>.addr = addr;</div><div class="line">        <span class="keyword">this</span>.port = port;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function">Builder <span class="title">setKeepAlive</span><span class="params">(<span class="keyword">boolean</span> value)</span> </span>&#123;</div><div class="line">        keepAlive = value;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">Builder <span class="title">setComplexProperty</span><span class="params">(String simpleValue)</span> </span>&#123;</div><div class="line">        <span class="comment">/*</span></div><div class="line">        performing complex actions on simpleValue to</div><div class="line">        create the complexValue needed for the property</div><div class="line">        */</div><div class="line">        complexProperty = complexValue;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">Builder <span class="title">setTimeout</span><span class="params">(<span class="keyword">long</span> value)</span> </span>&#123;</div><div class="line">        timeout = value;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">Builder <span class="title">setSendBufferSize</span><span class="params">(<span class="keyword">long</span> value)</span> </span>&#123;</div><div class="line">        sendBufferSize = value;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function">Product <span class="title">build</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Socket(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>And finally the builder class which can either be used in a director or the client code.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SocketDirector</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> InetAddress host = InetAddress.getByName(<span class="string">"127.0.0.1"</span>);</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> Product <span class="title">buildHostSocket</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SocketBuilder(host, <span class="number">8080</span>)</div><div class="line">                .setKeepAlive(<span class="keyword">true</span>)</div><div class="line">                .setTimeout(<span class="number">0</span>)</div><div class="line">                .setSendBufferSize(<span class="number">1024</span>)</div><div class="line">                .setComplexProperty(<span class="string">"F42"</span>);</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-
+            <p><div align="justify"><br>Even after reading the original GoF book and <a href="http://goo.gl/f4osja">“Head First Design Patterns”</a> (which is one of the best book in this field), as well as many articles, I still found it very daunting and hard to grasp the gist of each pattern and apply the most suitable one for a certain scenario. All the examples and UML diagrams do help understanding the pattern, but deep down, developers are far better at reading code; specially code snippets.<br></div></p>
+            <p class="article-more-link">
+                <a href="/2010/design-patterns/#more">Read More</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -318,7 +291,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2011/builder/" data-id="cist2bzxd000h4vroxox6nyvq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2010/design-patterns/" data-id="cist2bzwo00034vroq0p4j094" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -386,48 +359,19 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2011/builder/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2011/builder/">Comments</a>
+        <a href="http://truelogician.com/2010/design-patterns/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2010/design-patterns/">Comments</a>
     
 
         </footer>
     </div>
     
-        
-<nav id="article-nav">
-    
-        <a href="/2011/prototype/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    Prototype Pattern
-                
-            </div>
-        </a>
-    
-    
-        <a href="/2011/singleton/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Singleton Pattern</div>
-        </a>
-    
-</nav>
-
-
-    
 </article>
 
 
-    
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
 
-    
-    </section>
-
+    <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
 </section>
             
                 <aside id="sidebar">
@@ -607,13 +551,11 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/2011/builder/';
-        
-        this.page.identifier = '2011/builder';
+        this.page.identifier = 'undefined';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
+        s.src = '//' + 'mahansblog' + '.disqus.com/count.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
