@@ -3,14 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tag: Tutorials | Mahan&#39;s Blog</title>
+    <title>State Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Mahan's Blog">
-<meta property="og:url" content="http://truelogician.com/tags/Tutorials/page/3/index.html">
+    <meta name="description" content="Design Patterns Overview
+DefinitionChange the Behavior According to the State. Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="State Pattern">
+<meta property="og:url" content="http://truelogician.com/2013/state/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="Design Patterns Overview
+DefinitionChange the Behavior According to the State. Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/state-thumb.png">
+<meta property="og:updated_time" content="2016-09-08T22:48:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mahan's Blog">
+<meta name="twitter:title" content="State Pattern">
+<meta name="twitter:description" content="Design Patterns Overview
+DefinitionChange the Behavior According to the State. Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/state-thumb.png">
     
 
     
@@ -225,90 +234,212 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#Tutorials</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-2013/state" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2010/strategy/">Strategy Pattern</a>
+        <h1 class="article-title" itemprop="name">
+            State Pattern
         </h1>
     
 
-                <div class="article-meta">
-                    
+                
+                    <div class="article-meta">
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2010/strategy/">
-            <time datetime="2010-09-07T20:14:58.000Z" itemprop="datePublished">2010-09-07</time>
+        <a href="/2013/state/">
+            <time datetime="2013-03-29T16:51:03.000Z" itemprop="datePublished">2013-03-29</time>
         </a>
     </div>
 
 
-                    
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
         <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
     </div>
 
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
     </div>
 
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                    </div>
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2010/design-patterns/">Design Patterns Cookbook</a>
-        </h1>
-    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Change the Behavior According to the State.</strong> <em>Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.</em></p>
+<a id="more"></a>
+<p>Using this pattern you can create a static state machine.</p>
+<p><strong><em>What is a State Machine?</em></strong></p>
+<p>One of the most concise definitions can be found in  <a href="http://www.oxforddictionaries.com/definition/english/state-machine" target="_blank" rel="external">Oxford Dictionaries</a> web page.</p>
+<blockquote>
+<p>A state machine is a device which can be in one of a set number of stable conditions depending on its previous condition and on the present values of its inputs.</p>
+</blockquote>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>The definition of ‘State’. A state can be asked to make transitions to other states. The following state definition; for instance, can make up to 3 transitions.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The definition of a ‘StateMachine’. In our case it can only be in stateA or stateB.</li>
+<li>Note that there are two sets of methods:<ul>
+<li><strong>Those intended to be used by states:</strong> They only change the machine’s current state.</li>
+<li><strong>Those intended to be used by clients:</strong> They ask current state to make a certain transition.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateMachine</span> </span>&#123;</div><div class="line">    IState stateA;</div><div class="line">    IState stateB;</div><div class="line"></div><div class="line">    IState currentState;</div><div class="line"></div><div class="line">    <span class="comment">/* used by client */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action1</span><span class="params">()</span> </span>&#123; currentState.makeTransition1(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action2</span><span class="params">()</span> </span>&#123; currentState.makeTransition2(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action3</span><span class="params">()</span> </span>&#123; currentState.makeTransition3(); &#125;</div><div class="line"></div><div class="line">    <span class="comment">/* used by states */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoStateA</span><span class="params">()</span> </span>&#123; currentState = stateA; &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoStateB</span><span class="params">()</span> </span>&#123; currentState = stateB; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Concrete implementations of the ‘State’.<ul>
+<li>Notice that they can access the state machine on which they operate.</li>
+<li>For each of their transitions, they define next state of the machine.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateA</span> <span class="keyword">implements</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    StateMachine machine;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span> </span>&#123; machine.gotoStateA(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span> </span>&#123; machine.gotoStateB(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span> </span>&#123; machine.gotoStateB(); &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateB</span> <span class="keyword">implements</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    StateMachine machine;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span> </span>&#123; machine.gotoStateA(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span> </span>&#123; machine.gotoStateB(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span> </span>&#123; machine.gotoStateA(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The state pattern client can only access the state machine’s actions. Accordingly, the machine will take over corresponding states.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        StateMachine machine = <span class="keyword">new</span> StateMachine();</div><div class="line">        machine.action3();</div><div class="line">        machine.action1();</div><div class="line">        machine.action2();</div><div class="line">        machine.action1();</div><div class="line">        machine.action2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Creating a clean implementation of a state machine together with states and transitions.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Let’s implement the <a href="https://en.wikipedia.org/wiki/Finite-state_machine#Example:_coin-operated_turnstile" target="_blank" rel="external">Wikipedia’s example</a> of a state machine. Before going through the code take look at <a href="https://en.wikipedia.org/wiki/Finite-state_machine#/media/File:Turnstile_state_machine_colored.svg" target="_blank" rel="external">its state diagram</a> to understand the involved states and transitions.</p>
+<p>According to the diagram, there are two possible transitions: inserting a coin or pushing the handle. As a result, our definition of a state will look like this:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">coin</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">State</span> <span class="keyword">implements</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Turnstile machine;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">State</span><span class="params">(Turnstile machine)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.machine = machine;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Our turnstile state machine contains two states and provides appropriate methods for clients and also the states.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Turnstile</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> IState locked = <span class="keyword">new</span> Locked(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">private</span> IState unlocked = <span class="keyword">new</span> Unlocked(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IState currentState = locked;</div><div class="line"></div><div class="line">    <span class="comment">/* used by client */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertCoin</span><span class="params">()</span> </span>&#123; currentState.coin(); &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pushHandle</span><span class="params">()</span> </span>&#123; currentState.push(); &#125;</div><div class="line"></div><div class="line">    <span class="comment">/* used by states */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoUnlocked</span><span class="params">()</span> </span>&#123; currentState = unlocked;   &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoLocked</span><span class="params">()</span>   </span>&#123; currentState = locked;   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The locked and unlocked states both determine turnstile’s next state based on the transition.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Locked</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Locked</span><span class="params">(Turnstile machine)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(machine);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">coin</span><span class="params">()</span> </span>&#123; machine.gotoUnlocked(); &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Unlocked</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Unlocked</span><span class="params">(Turnstile machine)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(machine);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">coin</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">()</span> </span>&#123; machine.gotoLocked();  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Finally, a client can create a turnstile, invoke any of the two available behaviors and watch the state changes accordingly.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Turnstile turnstile = <span class="keyword">new</span> Turnstile();</div><div class="line">        turnstile.pushHandle();</div><div class="line">        turnstile.insertCoin();</div><div class="line">        turnstile.pushHandle();</div><div class="line">        turnstile.pushHandle();</div><div class="line">        turnstile.insertCoin();</div><div class="line">        turnstile.pushHandle();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2010/design-patterns/">
-            <time datetime="2010-09-07T18:52:07.000Z" itemprop="datePublished">2010-09-07</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Design-Patterns/">Design-Patterns</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
-    </div>
-
-                </div>
-            </div>
+        
         </div>
-    
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
 </div>
 
-    <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/tags/Tutorials/page/2/">&laquo; Prev</a><a class="page-number" href="/tags/Tutorials/">1</a><a class="page-number" href="/tags/Tutorials/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+    <a data-url="http://truelogician.com/2013/state/" data-id="cisuxe5pk0011ogroxbk6v5mo" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2013/state/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2013/state/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Introduction to Akka
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2012/proxy/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Proxy Pattern (Protection Proxy)</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
@@ -488,11 +619,13 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-        this.page.identifier = 'undefined';
+            this.page.url = 'http://truelogician.com/2013/state/';
+        
+        this.page.identifier = '2013/state';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
-        s.src = '//' + 'mahansblog' + '.disqus.com/count.js';
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();

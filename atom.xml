@@ -259,6 +259,80 @@
   </entry>
   
   <entry>
+    <title>State Pattern</title>
+    <link href="http://truelogician.com/2013/state/"/>
+    <id>http://truelogician.com/2013/state/</id>
+    <published>2013-03-29T16:51:03.000Z</published>
+    <updated>2016-09-08T22:48:06.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Change the Behavior According to the State.</strong> <em>Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.</em></p>
+<a id="more"></a>
+<p>Using this pattern you can create a static state machine.</p>
+<p><strong><em>What is a State Machine?</em></strong></p>
+<p>One of the most concise definitions can be found in  <a href="http://www.oxforddictionaries.com/definition/english/state-machine" target="_blank" rel="external">Oxford Dictionaries</a> web page.</p>
+<blockquote>
+<p>A state machine is a device which can be in one of a set number of stable conditions depending on its previous condition and on the present values of its inputs.</p>
+</blockquote>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>The definition of ‘State’. A state can be asked to make transitions to other states. The following state definition; for instance, can make up to 3 transitions.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>The definition of a ‘StateMachine’. In our case it can only be in stateA or stateB.</li>
+<li>Note that there are two sets of methods:<ul>
+<li><strong>Those intended to be used by states:</strong> They only change the machine’s current state.</li>
+<li><strong>Those intended to be used by clients:</strong> They ask current state to make a certain transition.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateMachine</span> </span>&#123;</div><div class="line">    IState stateA;</div><div class="line">    IState stateB;</div><div class="line"></div><div class="line">    IState currentState;</div><div class="line"></div><div class="line">    <span class="comment">/* used by client */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action1</span><span class="params">()</span> </span>&#123; currentState.makeTransition1(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action2</span><span class="params">()</span> </span>&#123; currentState.makeTransition2(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action3</span><span class="params">()</span> </span>&#123; currentState.makeTransition3(); &#125;</div><div class="line"></div><div class="line">    <span class="comment">/* used by states */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoStateA</span><span class="params">()</span> </span>&#123; currentState = stateA; &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoStateB</span><span class="params">()</span> </span>&#123; currentState = stateB; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Concrete implementations of the ‘State’.<ul>
+<li>Notice that they can access the state machine on which they operate.</li>
+<li>For each of their transitions, they define next state of the machine.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateA</span> <span class="keyword">implements</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    StateMachine machine;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span> </span>&#123; machine.gotoStateA(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span> </span>&#123; machine.gotoStateB(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span> </span>&#123; machine.gotoStateB(); &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StateB</span> <span class="keyword">implements</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    StateMachine machine;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span> </span>&#123; machine.gotoStateA(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span> </span>&#123; machine.gotoStateB(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span> </span>&#123; machine.gotoStateA(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The state pattern client can only access the state machine’s actions. Accordingly, the machine will take over corresponding states.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        StateMachine machine = <span class="keyword">new</span> StateMachine();</div><div class="line">        machine.action3();</div><div class="line">        machine.action1();</div><div class="line">        machine.action2();</div><div class="line">        machine.action1();</div><div class="line">        machine.action2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Creating a clean implementation of a state machine together with states and transitions.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Let’s implement the <a href="https://en.wikipedia.org/wiki/Finite-state_machine#Example:_coin-operated_turnstile" target="_blank" rel="external">Wikipedia’s example</a> of a state machine. Before going through the code take look at <a href="https://en.wikipedia.org/wiki/Finite-state_machine#/media/File:Turnstile_state_machine_colored.svg" target="_blank" rel="external">its state diagram</a> to understand the involved states and transitions.</p>
+<p>According to the diagram, there are two possible transitions: inserting a coin or pushing the handle. As a result, our definition of a state will look like this:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">coin</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">State</span> <span class="keyword">implements</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Turnstile machine;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">State</span><span class="params">(Turnstile machine)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.machine = machine;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Our turnstile state machine contains two states and provides appropriate methods for clients and also the states.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Turnstile</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> IState locked = <span class="keyword">new</span> Locked(<span class="keyword">this</span>);</div><div class="line">    <span class="keyword">private</span> IState unlocked = <span class="keyword">new</span> Unlocked(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">    <span class="keyword">private</span> IState currentState = locked;</div><div class="line"></div><div class="line">    <span class="comment">/* used by client */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertCoin</span><span class="params">()</span> </span>&#123; currentState.coin(); &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pushHandle</span><span class="params">()</span> </span>&#123; currentState.push(); &#125;</div><div class="line"></div><div class="line">    <span class="comment">/* used by states */</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoUnlocked</span><span class="params">()</span> </span>&#123; currentState = unlocked;   &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoLocked</span><span class="params">()</span>   </span>&#123; currentState = locked;   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The locked and unlocked states both determine turnstile’s next state based on the transition.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Locked</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Locked</span><span class="params">(Turnstile machine)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(machine);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">coin</span><span class="params">()</span> </span>&#123; machine.gotoUnlocked(); &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Unlocked</span> <span class="keyword">extends</span> <span class="title">State</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Unlocked</span><span class="params">(Turnstile machine)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(machine);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">coin</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">()</span> </span>&#123; machine.gotoLocked();  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Finally, a client can create a turnstile, invoke any of the two available behaviors and watch the state changes accordingly.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Turnstile turnstile = <span class="keyword">new</span> Turnstile();</div><div class="line">        turnstile.pushHandle();</div><div class="line">        turnstile.insertCoin();</div><div class="line">        turnstile.pushHandle();</div><div class="line">        turnstile.pushHandle();</div><div class="line">        turnstile.insertCoin();</div><div class="line">        turnstile.pushHandle();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Change the Behavior According to the State.&lt;/strong&gt; &lt;em&gt;Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
+    
+      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
+    
+      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
+    
+      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Proxy Pattern (Protection Proxy)</title>
     <link href="http://truelogician.com/2012/proxy/"/>
     <id>http://truelogician.com/2012/proxy/</id>
@@ -1289,65 +1363,6 @@
     
       &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Receive topic updates from publisher by subscribing to them.&lt;/strong&gt; &lt;em&gt;Objects/subscribers are notified of an event when it happens or a topic when it’s published.&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Strategy Pattern</title>
-    <link href="http://truelogician.com/2010/strategy/"/>
-    <id>http://truelogician.com/2010/strategy/</id>
-    <published>2010-09-07T20:14:58.000Z</published>
-    <updated>2016-09-06T13:30:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Adding Behavior at Runtime.</strong> <em>Strategy pattern encapsulates Interchangeable Behaviors and Uses Delegation to Decide Which One to Use.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The actual behavior (strategy) interface and concrete implementations.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BehaviorA</span> <span class="keyword">implements</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BehaviorB</span> <span class="keyword">implements</span> <span class="title">IBehavior</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">behave</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The class that owns the behavior (called context)</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    IBehavior behavior;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>In the following snippet, the product is initiated with BehaviorA; however, at some point during runtime its behavior is changed to BehaviorB.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Product p = <span class="keyword">new</span> Product();</div><div class="line">        p.behavior = <span class="keyword">new</span> BehaviorA();</div><div class="line">        <span class="comment">// after a while</span></div><div class="line">        <span class="keyword">if</span> (<span class="comment">/*shall change behavior?*/</span>)</div><div class="line">            p.behavior = <span class="keyword">new</span> BehaviorB();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>Composition over inheritance:<ul>
-<li>The interchangeability of the behavior for the product class and its <em>derivations</em>.</li>
-</ul>
-</li>
-<li>Causes the behavior independence from superclass or subclasses.</li>
-<li>Allows the behavior vary independently from the <em>clients</em> that use it.</li>
-</ul>
-<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Imagine there is a class called ‘Animal’. Also imaging that we want to provide the ‘Movement’ capability for it. Obviously this ability comes in different flavors for different animals. So, we know that we need an interface to define the generality of the behavior.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMovement</span> </span>&#123; <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>; &#125;</div></pre></td></tr></table></figure>
-<p>In such case, the ‘Animal’ is called a “context class” and ‘Movability’ is called “behavior”.<br>One way to do it, is to define an interface ‘IMovement’ and implement it within the ‘Animal’ class.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> <span class="keyword">implements</span> <span class="title">IMovement</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementations*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Although this could also be one solution, due to reasons partly mentioned below, it’s better if we do NOT inherit the behavior but instead, own it:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</div><div class="line">    IMovement movement;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Adding Behavior at Runtime.&lt;/strong&gt; &lt;em&gt;Strategy pattern encapsulates Interchangeable Behaviors and Uses Delegation to Decide Which One to Use.&lt;/em&gt;&lt;/p&gt;
     
     </summary>
     
