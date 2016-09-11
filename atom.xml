@@ -259,11 +259,71 @@
   </entry>
   
   <entry>
+    <title>Chain of Responsibility Pattern</title>
+    <link href="http://truelogician.com/2013/chain/"/>
+    <id>http://truelogician.com/2013/chain/</id>
+    <published>2013-05-03T17:15:28.000Z</published>
+    <updated>2016-09-11T22:08:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Pass a Product to a Chain of Processors and Each Will Do Its Job.</strong></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>Define your ‘Product’ how ever you want.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>A chain is created out of links which satisfy at least 2 basic behaviors.<ul>
+<li>They can process a given ‘Product’ object.</li>
+<li>They know about the next link in the chain.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Now let’s define a few links for our chain; each of which might or might not process the passed product.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkA</span> <span class="keyword">implements</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    ILink nextLink;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span> </span>&#123; nextLink = link; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span> </span>&#123;</div><div class="line">        <span class="comment">/* perform process 'A' on the product. or not! */</span></div><div class="line">        <span class="keyword">if</span> (nextLink != <span class="keyword">null</span>) nextLink.process(product);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkB</span> <span class="keyword">implements</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    ILink nextLink;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span> </span>&#123; nextLink = link; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span> </span>&#123;</div><div class="line">        <span class="comment">/* perform process 'B' on the product. or not! */</span></div><div class="line">        <span class="keyword">if</span> (nextLink != <span class="keyword">null</span>) nextLink.process(product);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkC</span> <span class="keyword">implements</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    ILink nextLink;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span> </span>&#123; nextLink = link; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span> </span>&#123;</div><div class="line">        <span class="comment">/* perform process 'C' on the product. or not! */</span></div><div class="line">        <span class="keyword">if</span> (nextLink != <span class="keyword">null</span>) nextLink.process(product);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Now that the product and the chain links exist, the client needs only to weave the links together to make a chain and pass a product to its first link.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ILink linkA = <span class="keyword">new</span> LinkA();</div><div class="line">        ILink linkB = <span class="keyword">new</span> LinkB();</div><div class="line">        ILink linkC = <span class="keyword">new</span> LinkC();</div><div class="line"></div><div class="line">        <span class="comment">/* creating a chain by introducing</span></div><div class="line">           the next link of each link.</div><div class="line">         */</div><div class="line">        linkA.setNextLink(linkB);</div><div class="line">        linkB.setNextLink(linkC);</div><div class="line"></div><div class="line">        linkA.process(<span class="keyword">new</span> Product());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>This pattern decouples commands/handlers (e.g ‘Link’) and allows them to have their own independent logic.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose that you’re developing a module for the local post office to send out notifications to recipients when they receive a package. This notification message shall be sent by mail, sms and email. Accordingly our Message object could be designed as follows.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>&#123;</div><div class="line">    String notificationContent;</div><div class="line">    String recipientPhone;</div><div class="line">    String recipientMail;</div><div class="line">    String recipientAddress;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The chain’s ‘Link’ interface is called ‘INotification’ and each implementation contains logic to send a message in a specific way.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sms</span> <span class="keyword">implements</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    INotification next;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span> </span>&#123; next = n; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        <span class="comment">/* send a SMS message to the given number */</span></div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span>) next.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Email</span> <span class="keyword">implements</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    INotification next;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span> </span>&#123; next = n; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        <span class="comment">/* send an email to the given mail address */</span></div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span>) next.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">implements</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    INotification next;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span> </span>&#123; next = n; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        <span class="comment">/* print &amp; mail to the given postal address */</span></div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span>) next.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The client instantiates and links the notifiers to create a chain and finally passes the message to the first link of the chain. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        INotification sms = <span class="keyword">new</span> Sms();</div><div class="line">        INotification mail = <span class="keyword">new</span> Email();</div><div class="line">        INotification post = <span class="keyword">new</span> Post();</div><div class="line"></div><div class="line">        sms.setNext(mail);</div><div class="line">        mail.setNext(post);</div><div class="line"></div><div class="line">        Message message = <span class="keyword">new</span> Message();</div><div class="line">        <span class="comment">/* set message properties to math recipient */</span></div><div class="line">        sms.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Pass a Product to a Chain of Processors and Each Will Do Its Job.&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
+    
+      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
+    
+      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
+    
+      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
     <title>State Pattern</title>
     <link href="http://truelogician.com/2013/state/"/>
     <id>http://truelogician.com/2013/state/</id>
     <published>2013-03-29T16:51:03.000Z</published>
-    <updated>2016-09-08T22:51:16.000Z</updated>
+    <updated>2016-09-09T07:59:11.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Change the Behavior According to the State.</strong> <em>Encapsulate State-Based Behaviors and Use Delegation to Switch Between Behaviors.</em></p>
@@ -279,10 +339,10 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IState</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition1</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition2</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">makeTransition3</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>The definition of a ‘StateMachine’. In our case it can only be in stateA or stateB.</li>
-<li>Note that there are two sets of methods:<ul>
-<li><strong>Those intended to be used by states:</strong> They only change the machine’s current state.</li>
-<li><strong>Those intended to be used by clients:</strong> They ask current state to make a certain transition.</li>
+<li>The definition of a ‘StateMachine’ (aka Context). In our case it can only be in stateA or stateB.</li>
+<li>Note that in order to improve code clarity I’ve grouped methods into two sets:<ul>
+<li><strong>Those intended to be used by states:</strong> These methods only change the machine’s current state.</li>
+<li><strong>Those intended to be used by clients:</strong> These methods ask current state for a certain transition.</li>
 </ul>
 </li>
 </ul>
@@ -1305,74 +1365,6 @@
       <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
     
       <category term="Creational" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Creational/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Observer Pattern</title>
-    <link href="http://truelogician.com/2010/observer/"/>
-    <id>http://truelogician.com/2010/observer/</id>
-    <published>2010-10-18T19:11:19.000Z</published>
-    <updated>2016-09-06T13:30:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Receive topic updates from publisher by subscribing to them.</strong> <em>Objects/subscribers are notified of an event when it happens or a topic when it’s published.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The topic (also called Context/Event/Observable) and its properties.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ITopic</span> </span>&#123; <span class="comment">/* properties */</span> &#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The subscriber/observer interface and its concrete class. Notice how the topic/context is received.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(ITopic topic)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subscriber</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(ITopic topic)</span> </span>&#123;</div><div class="line">        <span class="comment">/* implementation */</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The publisher interface and its concrete class that at least does the following 3 actions:<ul>
-<li><strong>subscribe:</strong> Adds the subscriber to the subscriber’s list.</li>
-<li><strong>unsubscribe:</strong> Removes the subscriber from the subscriber’s list.</li>
-<li><strong>publish:</strong> Notifies all subscribers in the list by invoking their <em>onReceived(topic)</em> method.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPublisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(ITopic topic)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The snippet below demonstrate two subscribers that register themselves to receive topics/events from a publisher. At some point in time when the topic is ready (or the event is happened) the publisher notifies all subscribers about that.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        <span class="comment">// create a publisher &amp; subscriber</span></div><div class="line">        Publisher  pub  = <span class="keyword">new</span> Publisher();</div><div class="line">        Subscriber sub1 = <span class="keyword">new</span> Subscriber();</div><div class="line">        Subscriber sub2 = <span class="keyword">new</span> Subscriber();</div><div class="line">        <span class="comment">// subscribe to receive topics/events</span></div><div class="line">        pub.subscribe(sub1);</div><div class="line">        pub.subscribe(sub2);</div><div class="line">        <span class="comment">// now let's say some event happened and</span></div><div class="line">        <span class="comment">// we want to notify all subscribers</span></div><div class="line">        pub.publish(<span class="keyword">new</span> Topic());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Publishers and subscribers are loosely coupled since publisher knows nothing about subscribers except that they implement the Subscriber’s interface by which they can be notified.</p>
-<h1 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h1><p>Imagine that an e-commerce system can receive a purchase order in the ‘OrderService’ class. As soon as the order is received, a confirmation mail shall be sent to user, the item shall be fetched from the inventory and finally the purchase amount shall be sent to accounting system. In this case, all these units should subscribe to the ‘OrderService’ class to be notified when an order is received.</p>
-<ul>
-<li>Let’s first define the topic which is an order in our case.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">implements</span> <span class="title">ITopic</span> </span>&#123;</div><div class="line">    String userEmail;</div><div class="line">    String itemId;</div><div class="line">    <span class="keyword">double</span> price;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Accordingly, the subscribers will look like this.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inventory</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* fetch item using order.itemId */</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Confirmation</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* send email using order.userMail */</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Accounting</span> <span class="keyword">implements</span> <span class="title">ISubscriber</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onReceived</span><span class="params">(Order order)</span> </span>&#123;<span class="comment">/* proceed using order.price */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Also, the OrderService will look like below</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderService</span> <span class="keyword">implements</span> <span class="title">Publisher</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">(ISubscriber subscriber)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="comment">// Let's say we receive orders from clients here</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onOrderReceived</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        publish(order);</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">publish</span><span class="params">(Order order)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (subscriber : subscribers)</div><div class="line">            subscriber.onReceived(order)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Receive topic updates from publisher by subscribing to them.&lt;/strong&gt; &lt;em&gt;Objects/subscribers are notified of an event when it happens or a topic when it’s published.&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
       <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>

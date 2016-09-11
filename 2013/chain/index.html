@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Singleton Pattern | Mahan&#39;s Blog</title>
+    <title>Chain of Responsibility Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Design Patterns Overview
-DefinitionMaking Only One Object of a Class to Be Available for All. Making Only One Object of a Class to Be Available for All.">
+DefinitionPass a Product to a Chain of Processors and Each Will Do Its Job.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Singleton Pattern">
-<meta property="og:url" content="http://truelogician.com/2011/singleton/index.html">
+<meta property="og:title" content="Chain of Responsibility Pattern">
+<meta property="og:url" content="http://truelogician.com/2013/chain/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
 <meta property="og:description" content="Design Patterns Overview
-DefinitionMaking Only One Object of a Class to Be Available for All. Making Only One Object of a Class to Be Available for All.">
-<meta property="og:image" content="http://truelogician.com/images/patterns/singleton-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T13:32:06.000Z">
+DefinitionPass a Product to a Chain of Processors and Each Will Do Its Job.">
+<meta property="og:image" content="http://truelogician.com/images/patterns/chain-thumb.png">
+<meta property="og:updated_time" content="2016-09-11T22:08:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Singleton Pattern">
+<meta name="twitter:title" content="Chain of Responsibility Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
-DefinitionMaking Only One Object of a Class to Be Available for All. Making Only One Object of a Class to Be Available for All.">
-<meta name="twitter:image" content="http://truelogician.com/images/patterns/singleton-thumb.png">
+DefinitionPass a Product to a Chain of Processors and Each Will Do Its Job.">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/chain-thumb.png">
     
 
     
@@ -234,7 +234,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-2011/singleton" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2013/chain" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -242,7 +242,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            Singleton Pattern
+            Chain of Responsibility Pattern
         </h1>
     
 
@@ -251,8 +251,8 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2011/singleton/">
-            <time datetime="2011-02-21T08:49:21.000Z" itemprop="datePublished">2011-02-21</time>
+        <a href="/2013/chain/">
+            <time datetime="2013-05-03T17:15:28.000Z" itemprop="datePublished">2013-05-03</time>
         </a>
     </div>
 
@@ -260,7 +260,7 @@ ga('send', 'pageview');
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
     </div>
 
                         
@@ -278,16 +278,33 @@ ga('send', 'pageview');
         
             
             <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Making Only One Object of a Class to Be Available for All.</strong> <em>Making Only One Object of a Class to Be Available for All.</em></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Pass a Product to a Chain of Processors and Each Will Do Its Job.</strong></p>
 <a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>There are different ways to define a singleton. The snippet below presents one of the simplest thread-safe approaches that is not too complicated to confuse you and also not too simple to ignore the complexities it might require in real implementation.</p>
-<ul>
-<li>A class with a private constructor and a private instance of itself that can be assigned only once.</li>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li>Define your ‘Product’ how ever you want.</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</div><div class="line">    <span class="comment">// constructor</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (singleton != <span class="keyword">null</span>) <span class="keyword">return</span> singleton;</div><div class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</div><div class="line">            <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">                singleton = <span class="keyword">new</span> Singleton();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> singleton;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;<span class="comment">/*do sth.*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>After defining the singleton, all other classes can only access the very same instance of it across the virtual machine (JVM) as shown below.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Singleton singleton = Singleton.getInstance();</div><div class="line">        singleton.operation();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Disadvantages of singletons are far more than their benefits. They reduce testability in great deal and introduce unnecessary coupling throughout the system. A singleton can yield best results in a situation where various parts of an application concurrently try to access a shared resource. An example of a shared resource would be Logger, Print Spooler, etc.<br>In general, the use of singletons are only encouraged through the dependency injection.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>A chain is created out of links which satisfy at least 2 basic behaviors.<ul>
+<li>They can process a given ‘Product’ object.</li>
+<li>They know about the next link in the chain.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>Now let’s define a few links for our chain; each of which might or might not process the passed product.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkA</span> <span class="keyword">implements</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    ILink nextLink;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span> </span>&#123; nextLink = link; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span> </span>&#123;</div><div class="line">        <span class="comment">/* perform process 'A' on the product. or not! */</span></div><div class="line">        <span class="keyword">if</span> (nextLink != <span class="keyword">null</span>) nextLink.process(product);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkB</span> <span class="keyword">implements</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    ILink nextLink;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span> </span>&#123; nextLink = link; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span> </span>&#123;</div><div class="line">        <span class="comment">/* perform process 'B' on the product. or not! */</span></div><div class="line">        <span class="keyword">if</span> (nextLink != <span class="keyword">null</span>) nextLink.process(product);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinkC</span> <span class="keyword">implements</span> <span class="title">ILink</span> </span>&#123;</div><div class="line">    ILink nextLink;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLink</span><span class="params">(ILink link)</span> </span>&#123; nextLink = link; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Product product)</span> </span>&#123;</div><div class="line">        <span class="comment">/* perform process 'C' on the product. or not! */</span></div><div class="line">        <span class="keyword">if</span> (nextLink != <span class="keyword">null</span>) nextLink.process(product);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Now that the product and the chain links exist, the client needs only to weave the links together to make a chain and pass a product to its first link.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ILink linkA = <span class="keyword">new</span> LinkA();</div><div class="line">        ILink linkB = <span class="keyword">new</span> LinkB();</div><div class="line">        ILink linkC = <span class="keyword">new</span> LinkC();</div><div class="line"></div><div class="line">        <span class="comment">/* creating a chain by introducing</span></div><div class="line">           the next link of each link.</div><div class="line">         */</div><div class="line">        linkA.setNextLink(linkB);</div><div class="line">        linkB.setNextLink(linkC);</div><div class="line"></div><div class="line">        linkA.process(<span class="keyword">new</span> Product());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>This pattern decouples commands/handlers (e.g ‘Link’) and allows them to have their own independent logic.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose that you’re developing a module for the local post office to send out notifications to recipients when they receive a package. This notification message shall be sent by mail, sms and email. Accordingly our Message object could be designed as follows.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>&#123;</div><div class="line">    String notificationContent;</div><div class="line">    String recipientPhone;</div><div class="line">    String recipientMail;</div><div class="line">    String recipientAddress;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The chain’s ‘Link’ interface is called ‘INotification’ and each implementation contains logic to send a message in a specific way.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sms</span> <span class="keyword">implements</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    INotification next;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span> </span>&#123; next = n; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        <span class="comment">/* send a SMS message to the given number */</span></div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span>) next.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Email</span> <span class="keyword">implements</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    INotification next;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span> </span>&#123; next = n; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        <span class="comment">/* send an email to the given mail address */</span></div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span>) next.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">implements</span> <span class="title">INotification</span> </span>&#123;</div><div class="line">    INotification next;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(INotification n)</span> </span>&#123; next = n; &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(Message message)</span> </span>&#123;</div><div class="line">        <span class="comment">/* print &amp; mail to the given postal address */</span></div><div class="line">        <span class="keyword">if</span> (next != <span class="keyword">null</span>) next.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The client instantiates and links the notifiers to create a chain and finally passes the message to the first link of the chain. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        INotification sms = <span class="keyword">new</span> Sms();</div><div class="line">        INotification mail = <span class="keyword">new</span> Email();</div><div class="line">        INotification post = <span class="keyword">new</span> Post();</div><div class="line"></div><div class="line">        sms.setNext(mail);</div><div class="line">        mail.setNext(post);</div><div class="line"></div><div class="line">        Message message = <span class="keyword">new</span> Message();</div><div class="line">        <span class="comment">/* set message properties to math recipient */</span></div><div class="line">        sms.send(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
         
@@ -299,7 +316,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2011/singleton/" data-id="cisz69t00000t3nrouchl74go" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2013/chain/" data-id="cisz69t0700153nrot8ak2aze" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -367,7 +384,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2011/singleton/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2011/singleton/">Comments</a>
+        <a href="http://truelogician.com/2013/chain/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2013/chain/">Comments</a>
     
 
         </footer>
@@ -376,19 +393,19 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2011/builder/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Builder Pattern
+                    Introduction to Akka
                 
             </div>
         </a>
     
     
-        <a href="/2010/abstract-factory/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2013/state/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Abstract Factory Pattern</div>
+            <div class="article-nav-title">State Pattern</div>
         </a>
     
 </nav>
@@ -588,9 +605,9 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/2011/singleton/';
+            this.page.url = 'http://truelogician.com/2013/chain/';
         
-        this.page.identifier = '2011/singleton';
+        this.page.identifier = '2013/chain';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
