@@ -259,6 +259,62 @@
   </entry>
   
   <entry>
+    <title>Memento Pattern</title>
+    <link href="http://truelogician.com/2013/memento/"/>
+    <id>http://truelogician.com/2013/memento/</id>
+    <published>2013-09-28T19:48:03.000Z</published>
+    <updated>2016-09-15T12:06:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Create a Restore Point to Revert Object State.</strong> <em>Store an object’s state at some point in time in order to restore it later.</em></p>
+<a id="more"></a>
+<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
+<li><strong>The ‘Memento’:</strong> Memento is an immutable object that holds a state. Think of it as a <small><strong><em>‘Snapshot’</em></strong></small> of the system state at a certain moment.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Memento</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> Object state;</div><div class="line">    Memento(Object state) &#123; <span class="keyword">this</span>.state = state; &#125;</div><div class="line">    <span class="function">Object <span class="title">getState</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> state; &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>The ‘Originator’:</strong> Originator also contains the state, but this is the current mutable state of the system.<ul>
+<li><small>void setState(Object state)</small>: Overrides the system’s current state.</li>
+<li><small>Memento create()</small>: Provides a snapshot of the system’s current state.</li>
+<li><small>Object restore(Memento memento)</small>: Returns the state of a certain snapshot.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Originator</span> </span>&#123;</div><div class="line">    Object state;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setState</span><span class="params">(Object state)</span> </span>&#123; <span class="keyword">this</span>.state = state; &#125;</div><div class="line">    <span class="function">Memento <span class="title">create</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">new</span> Memento(state); &#125;</div><div class="line">    <span class="function">Object <span class="title">restore</span><span class="params">(Memento memento)</span> </span>&#123; <span class="keyword">return</span> memento.getState(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><strong>The ‘Caretaker’:</strong> Caretaker acts as the memory required for maintaining a history of system’s saved snapshots. It’s possible to fetch or add (or perhapse remove) a snapshot.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Caretaker</span> </span>&#123;</div><div class="line">    List&lt;Memento&gt; mementos = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(Memento memento)</span> </span>&#123; mementos.add(memento); &#125;</div><div class="line">    <span class="function">Memento <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123; <span class="keyword">return</span> mementos.get(index); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Since none of the above entities goes under major chanes in production code, desinging a separate example seems almost redundant. Accordingly, the following client code is designed in a way to be both self-explanatory and stand for the pattern’s example.</p>
+<p>Imagine you’re about to create a simple text editor with undo/redo features. Also suppose that system saves a snapshot of the editor contents every two words.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Object state;</div><div class="line">        Caretaker caretaker = <span class="keyword">new</span> Caretaker();</div><div class="line">        Originator originator = <span class="keyword">new</span> Originator();</div><div class="line"></div><div class="line">        originator.setState(<span class="string">"This"</span>);</div><div class="line">        originator.setState(<span class="string">"This is"</span>);</div><div class="line">        <span class="comment">// save a snapshot of current state</span></div><div class="line">        Memento memento1 = originator.create();</div><div class="line">        caretaker.add(memento1);</div><div class="line">        System.out.println(<span class="string">"[[STATE]]"</span>);</div><div class="line">        System.out.println(memento1.getState() + <span class="string">"\n"</span>);</div><div class="line"></div><div class="line">        originator.setState(<span class="string">"This is a"</span>);</div><div class="line">        originator.setState(<span class="string">"This is a sentence."</span>);</div><div class="line">        <span class="comment">// save a snapshot of current state</span></div><div class="line">        Memento memento2 = originator.create();</div><div class="line">        caretaker.add(memento2);</div><div class="line">        System.out.println(<span class="string">"[[STATE]]"</span>);</div><div class="line">        System.out.println(memento2.getState() + <span class="string">"\n"</span>);</div><div class="line"></div><div class="line">        <span class="comment">// undo to previous snapshot</span></div><div class="line">        state = originator.restore(caretaker.get(<span class="number">0</span>));</div><div class="line">        System.out.println(<span class="string">"[[UNDO]]"</span>);</div><div class="line">        System.out.println(state + <span class="string">"\n"</span>);</div><div class="line">        <span class="comment">// you might want to change current state</span></div><div class="line">        originator.setState(state);</div><div class="line"></div><div class="line">        <span class="comment">// redo to latest snapshot</span></div><div class="line">        state = originator.restore(caretaker.get(<span class="number">1</span>));</div><div class="line">        System.out.println(<span class="string">"[[REDO]]"</span>);</div><div class="line">        System.out.println(state);</div><div class="line">        <span class="comment">// you might want to change current state</span></div><div class="line">        originator.setState(state);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Using this pattern allows for restoring an object’s state to one of its previous ones.</p>
+<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Create a Restore Point to Revert Object State.&lt;/strong&gt; &lt;em&gt;Store an object’s state at some point in time in order to restore it later.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
+    
+      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
+    
+      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
+    
+      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
+    
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mediator Pattern</title>
     <link href="http://truelogician.com/2013/mediator/"/>
     <id>http://truelogician.com/2013/mediator/</id>
@@ -1316,49 +1372,6 @@
     
       &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Simplify Creation of Objects Which Need Many Properties for Creation.&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Creational" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Creational/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Singleton Pattern</title>
-    <link href="http://truelogician.com/2011/singleton/"/>
-    <id>http://truelogician.com/2011/singleton/</id>
-    <published>2011-02-21T08:49:21.000Z</published>
-    <updated>2016-09-06T13:32:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Making Only One Object of a Class to Be Available for All.</strong> <em>Making Only One Object of a Class to Be Available for All.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><p>There are different ways to define a singleton. The snippet below presents one of the simplest thread-safe approaches that is not too complicated to confuse you and also not too simple to ignore the complexities it might require in real implementation.</p>
-<ul>
-<li>A class with a private constructor and a private instance of itself that can be assigned only once.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</div><div class="line">    <span class="comment">// constructor</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (singleton != <span class="keyword">null</span>) <span class="keyword">return</span> singleton;</div><div class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</div><div class="line">            <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</div><div class="line">                singleton = <span class="keyword">new</span> Singleton();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> singleton;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;<span class="comment">/*do sth.*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>After defining the singleton, all other classes can only access the very same instance of it across the virtual machine (JVM) as shown below.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Singleton singleton = Singleton.getInstance();</div><div class="line">        singleton.operation();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Disadvantages of singletons are far more than their benefits. They reduce testability in great deal and introduce unnecessary coupling throughout the system. A singleton can yield best results in a situation where various parts of an application concurrently try to access a shared resource. An example of a shared resource would be Logger, Print Spooler, etc.<br>In general, the use of singletons are only encouraged through the dependency injection.</p>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Making Only One Object of a Class to Be Available for All.&lt;/strong&gt; &lt;em&gt;Making Only One Object of a Class to Be Available for All.&lt;/em&gt;&lt;/p&gt;
     
     </summary>
     
