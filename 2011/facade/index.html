@@ -14,7 +14,7 @@ DefinitionCreate a Simplified Interface to a Set of Classes. Create a Cohesive C
 <meta property="og:description" content="Design Patterns Overview
 DefinitionCreate a Simplified Interface to a Set of Classes. Create a Cohesive Class Is Easier to Read, Test, Understand and Use by Grouping Methods with Common Tasks from a S">
 <meta property="og:image" content="http://truelogician.com/images/patterns/facade-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T13:31:51.000Z">
+<meta property="og:updated_time" content="2016-09-18T15:27:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Facade Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
@@ -237,6 +237,14 @@ ga('send', 'pageview');
             <section id="main"><article id="post-2011/facade" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
+            
+	
+		<img src="/images/patterns/facade-banner.png" class="article-banner" />
+	
+
+
+
+        
         
             <header class="article-header">
                 
@@ -300,7 +308,7 @@ ga('send', 'pageview');
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrderFacade</span> </span>&#123;</div><div class="line">    IAccounting accounting;</div><div class="line">    IInventory inventory;</div><div class="line">    IPostalService postalService;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">order</span><span class="params">(String order)</span> </span>&#123;</div><div class="line">        String itemId = <span class="string">"/*extract item id from order*/"</span>;</div><div class="line">        accounting.registerOrder(itemId);</div><div class="line">        inventory.transportToDispatch(itemId);</div><div class="line">        String userId = <span class="string">"/*extract user id from order*/"</span>;</div><div class="line">        postalService.dispatch(itemId, userId);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>As a result, the end user can now only access the required methods. </li>
+<li>As a result, the end user can now only access the required methods.</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">WebService</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">createOrder</span><span class="params">(String orderProperties)</span> </span>&#123;</div><div class="line">        OrderFacade facade = <span class="keyword">new</span> OrderFacade();</div><div class="line">        facade.order(orderProperties);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addToWishlist</span><span class="params">(String itemId)</span> </span>&#123;</div><div class="line">      <span class="comment">/*implementation*/</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
@@ -314,7 +322,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2011/facade/" data-id="cit8dk8xl000pn8ro6oxzy68q" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2011/facade/" data-id="cit8s5g9u000t5orouzy5jy10" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
