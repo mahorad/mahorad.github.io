@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Adapter Pattern | Mahan&#39;s Blog</title>
+    <title>Visitor Pattern | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="Design Patterns Overview
-DefinitionCreate Adaptability Among Different Interfaces. Adapt an Existing Class to Work With Others Without Modifying It.">
+DefinitionDefine an Operation for One Family of Classes, Push Its Various Implementations to Another Family of Classes. The Former Is Called ‘Visitable’ or ‘Element’ and the L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Adapter Pattern">
-<meta property="og:url" content="http://truelogician.com/2011/adapter/index.html">
+<meta property="og:title" content="Visitor Pattern">
+<meta property="og:url" content="http://truelogician.com/2013/visitor/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
 <meta property="og:description" content="Design Patterns Overview
-DefinitionCreate Adaptability Among Different Interfaces. Adapt an Existing Class to Work With Others Without Modifying It.">
-<meta property="og:image" content="http://truelogician.com/images/patterns/adapter-thumb.png">
-<meta property="og:updated_time" content="2016-09-06T13:30:54.000Z">
+DefinitionDefine an Operation for One Family of Classes, Push Its Various Implementations to Another Family of Classes. The Former Is Called ‘Visitable’ or ‘Element’ and the L">
+<meta property="og:image" content="http://truelogician.com/images/patterns/visitor-thumb.png">
+<meta property="og:updated_time" content="2016-09-18T08:42:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Adapter Pattern">
+<meta name="twitter:title" content="Visitor Pattern">
 <meta name="twitter:description" content="Design Patterns Overview
-DefinitionCreate Adaptability Among Different Interfaces. Adapt an Existing Class to Work With Others Without Modifying It.">
-<meta name="twitter:image" content="http://truelogician.com/images/patterns/adapter-thumb.png">
+DefinitionDefine an Operation for One Family of Classes, Push Its Various Implementations to Another Family of Classes. The Former Is Called ‘Visitable’ or ‘Element’ and the L">
+<meta name="twitter:image" content="http://truelogician.com/images/patterns/visitor-thumb.png">
     
 
     
@@ -234,7 +234,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-2011/adapter" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-2013/visitor" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -242,7 +242,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            Adapter Pattern
+            Visitor Pattern
         </h1>
     
 
@@ -251,8 +251,8 @@ ga('send', 'pageview');
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2011/adapter/">
-            <time datetime="2011-11-28T21:12:55.000Z" itemprop="datePublished">2011-11-28</time>
+        <a href="/2013/visitor/">
+            <time datetime="2013-11-21T21:01:56.000Z" itemprop="datePublished">2013-11-21</time>
         </a>
     </div>
 
@@ -260,7 +260,7 @@ ga('send', 'pageview');
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a>
+        <a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a>
     </div>
 
                         
@@ -278,44 +278,37 @@ ga('send', 'pageview');
         
             
             <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Create Adaptability Among Different Interfaces.</strong> <em>Adapt an Existing Class to Work With Others Without Modifying It.</em></p>
+<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Define an Operation for One Family of Classes, Push Its Various Implementations to Another Family of Classes.</strong> <em>The Former Is Called ‘Visitable’ or ‘Element’ and the Latter Is Known as ‘Visitor’.</em></p>
 <a id="more"></a>
 <h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The product definition.</li>
+<li>The ‘Visitable’ is a simple class; perhaps with properties and/or behaviors. Yet it needs to provide a new functionality with logic which differs based on certain factors. Therefore, let’s push that logic for different implementations to different handlers. This is basically done by receiving the handler as part of the method signature.</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IVisitable</span> </span>&#123;</div><div class="line">    <span class="comment">// contains some properties</span></div><div class="line"></div><div class="line">    <span class="comment">// the new functionality</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(IVisitor visitor)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>As mentioned above, the reason for receiving the handler/visitor of the operation is to separate the logic from ‘Visitable’ and eventually use it as part of fulfilling the functionality ( <small><strong>visitor.visit(this)</strong></small> ).</p>
+<p>In other words, each handler might handle a visitable, interpret its properties or use its behaviors in a certain way <small>(extracting implementations)</small>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitableA</span> <span class="keyword">implements</span> <span class="title">IVisitable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(IVisitor visitor)</span> </span>&#123; visitor.visit(<span class="keyword">this</span>); &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitableB</span> <span class="keyword">implements</span> <span class="title">IVisitable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(IVisitor visitor)</span> </span>&#123; visitor.visit(<span class="keyword">this</span>); &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitableC</span> <span class="keyword">implements</span> <span class="title">IVisitable</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">accept</span><span class="params">(IVisitor visitor)</span> </span>&#123; visitor.visit(<span class="keyword">this</span>); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
-<li>A different class that needs to be used like an IProduct.</li>
+<li>The ‘Visitor’ which contains the operation-logic on each and every ‘Visitable’.</li>
+<li>Notice that although the visitor/visitable return types are ‘void’, they are in fact arbitrary.<ul>
+<li>They however must be known prior to implementation or we will face many changes.</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">procedureA</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">procedureB</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The adapter which on one hand implements the IProduct and on the other hand has the adaptee.</li>
-<li>Note that Adapter selects the correct corresponding method from the adaptee.</li>
+</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    Adaptee adaptee;</div><div class="line">    Adapter(Adaptee adaptee) &#123; <span class="keyword">this</span>.adaptee = adaptee; &#125;</div><div class="line">    <span class="comment">// imagine that operation shall be mapped to procedureB</span></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123; adaptee.procedureB(); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Create an adapter and pass an instance of the class that needs to be adapted. It will behave as if it is a product.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Adapter adapter = <span class="keyword">new</span> Adapter(<span class="keyword">new</span> Adaptee());</div><div class="line">        adapter.operation();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IVisitor</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableA visitableA)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableB visitableB)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableC visitableC)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitorX</span> <span class="keyword">implements</span> <span class="title">IVisitor</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableA visitable)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableB visitable)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableC visitable)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">VisitorY</span> <span class="keyword">implements</span> <span class="title">IVisitor</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableA visitable)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableB visitable)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">visit</span><span class="params">(VisitableC visitable)</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Having the ‘Visitable’ and the ‘Visitor’ ready, in order to run the operation, it’s now enough to pass the desired visitor to the visitable.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IVisitor visitorX = <span class="keyword">new</span> VisitorX();</div><div class="line">        IVisitor visitorY = <span class="keyword">new</span> VisitorY();</div><div class="line"></div><div class="line">        IVisitable visitableC = <span class="keyword">new</span> VisitableC();</div><div class="line"></div><div class="line">        visitableC.accept(visitorX);</div><div class="line">        visitableC.accept(visitorY);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>Allows you to translate the behaviors in one family of classes to not-completely-different behaviors in another family of classes.</li>
+<li>Visitor pattern allows defining a new operation in ‘Visitable’ family with minimal changes in them.</li>
+<li>It pushes the operation’s logic to visitors and separates it from the visitable objects on which they operate.</li>
 </ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose that you’ve been assigned to update the code behind the user profile of a legacy code in a social networking company. The legacy code will be running in some regions of the world, however the company wants to update user profiles in some small regions.</p>
-<ul>
-<li>The new code for the profile looks very simple. Two methods to update and also sign out the owner of it.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IModernProfile</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Object[] props)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signOut</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The legacy profile, like it or not, has much more granular methods and behaviors.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LegacyProfile</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">closeCurrentSession</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">closeDatabaseConnections</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUsername</span><span class="params">(String username)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setFullName</span><span class="params">(String fullName)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUserAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setUserAddress</span><span class="params">(String address)</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Since we cannot change its source code directly, we can write an adapter that implements the new profile interface and accepts an instance of the old one.</li>
-<li>Notice that the adapter will map actions between the adapter and the adaptee.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ModernProfileAdapter</span> <span class="keyword">implements</span> <span class="title">IModernProfile</span> </span>&#123;</div><div class="line">    LegacyProfile legacyProfile;</div><div class="line">    ModernProfileAdapter(LegacyProfile legacyProfile) &#123;</div><div class="line">        <span class="keyword">this</span>.legacyProfile = legacyProfile;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Object[] props)</span> </span>&#123;</div><div class="line">        legacyProfile.setUsername(props[<span class="number">0</span>].toString());</div><div class="line">        legacyProfile.setFullName(props[<span class="number">1</span>].toString());</div><div class="line">        legacyProfile.setUserAge(toInt(props[<span class="number">2</span>]));</div><div class="line">        legacyProfile.setUserAddress(props[<span class="number">3</span>].toString());</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">signOut</span><span class="params">()</span> </span>&#123;</div><div class="line">        legacyProfile.closeDatabaseConnections();</div><div class="line">        legacyProfile.closeCurrentSession();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Finally, we’re now able to use the legacy profile as if it’s a modern profile.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ModernProfileAdapter profileAdapter =</div><div class="line">            <span class="keyword">new</span> ModernProfileAdapter(<span class="keyword">new</span> LegacyProfile());</div><div class="line">        profileAdapter.update</div><div class="line">            (<span class="keyword">new</span> Object[]</div><div class="line">            &#123;</div><div class="line">                <span class="string">"john12"</span>, <span class="string">"John Doe"</span>, <span class="number">33</span>, <span class="string">"1234 XYZ Street"</span></div><div class="line">            &#125;);</div><div class="line">        profileAdapter.signOut();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Note:</strong> Every time a new visitor is added, all existing visitors must provide support for it. In case there exist a lot of visitors/visitable classes, it might seem inconvenient over time as the system expands.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>A graphics software contains a set of definitions for geometrical shapes such as circle, rectangle, triangle and etc; each of which holds its own behaviors/specs. Imagine that you’re requested to provide various measurement information about them. measurements such as calculating surface, perimeter, finding shape’s center or etc.</p>
+<p>One way is to define measurements in the ‘IShape’ and implement them in the concrete classes.<br>There is another way though, which is to extract these measurements logic to another family of classes.<br>Let’s proceed with the latter approach and add the measuring functionality to all shapes.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IShape</span> </span>&#123;</div><div class="line">    <span class="comment">// a shape's common behaviors &amp; specs</span></div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(IMeasurer visitor)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">IShape</span> </span>&#123;</div><div class="line">    <span class="comment">// circle specs like center &amp; radius</span></div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(IMeasurer m)</span> </span>&#123; <span class="keyword">return</span> m.measure(<span class="keyword">this</span>); &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">IShape</span> </span>&#123;</div><div class="line">    <span class="comment">// rect specs like corner, width &amp; height</span></div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(IMeasurer m)</span> </span>&#123; <span class="keyword">return</span> m.measure(<span class="keyword">this</span>); &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> <span class="keyword">implements</span> <span class="title">IShape</span> </span>&#123;</div><div class="line">    <span class="comment">// triangle specs like sides &amp; angles</span></div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(IMeasurer m)</span> </span>&#123; <span class="keyword">return</span> m.measure(<span class="keyword">this</span>); &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Let’s go ahead and define and implement logic for different types of measurements. Here, our calculation includes finding surface and perimeter amount.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IMeasurer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Circle circle)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Rectangle rectangle)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Triangle triangle)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Surface</span> <span class="keyword">implements</span> <span class="title">IMeasurer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Circle circle)</span> </span>&#123;<span class="comment">/*return circle surface*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Rectangle rectangle)</span> </span>&#123;<span class="comment">/*return rect surface*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Triangle triangle)</span> </span>&#123;<span class="comment">/*return triangle surface*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Perimeter</span> <span class="keyword">implements</span> <span class="title">IMeasurer</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Circle circle)</span> </span>&#123;<span class="comment">/*return circle perimeter*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Rectangle rectangle)</span> </span>&#123;<span class="comment">/*return rect perimeter*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">measure</span><span class="params">(Triangle triangle)</span> </span>&#123;<span class="comment">/*return triangle perimeter*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Now, it’s possible to pass a measurer to a shape and ask for its calculation.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IMeasurer surface = <span class="keyword">new</span> Surface();</div><div class="line">        IMeasurer perimeter = <span class="keyword">new</span> Perimeter();</div><div class="line"></div><div class="line">        IShape triangle = <span class="keyword">new</span> Triangle();</div><div class="line">        IShape circle = <span class="keyword">new</span> Circle();</div><div class="line"></div><div class="line">        <span class="keyword">double</span> triangleSurface = triangle.measure(surface);</div><div class="line">        <span class="keyword">double</span> circlePerimeter = circle.measure(perimeter);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 
         
@@ -327,7 +320,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2011/adapter/" data-id="cit8dk8xc000cn8ro2mws9z8i" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2013/visitor/" data-id="cit8dk8y2001ln8rox7f9mkpr" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -395,7 +388,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="http://truelogician.com/2011/adapter/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2011/adapter/">Comments</a>
+        <a href="http://truelogician.com/2013/visitor/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2013/visitor/">Comments</a>
     
 
         </footer>
@@ -404,19 +397,19 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2011/facade/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2014/introduction-to-akka/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    Facade Pattern
+                    Introduction to Akka
                 
             </div>
         </a>
     
     
-        <a href="/2011/decorator/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2013/memento/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">Decorator Pattern</div>
+            <div class="article-nav-title">Memento Pattern</div>
         </a>
     
 </nav>
@@ -616,9 +609,9 @@ ga('send', 'pageview');
     <script>
     var disqus_config = function () {
         
-            this.page.url = 'http://truelogician.com/2011/adapter/';
+            this.page.url = 'http://truelogician.com/2013/visitor/';
         
-        this.page.identifier = '2011/adapter';
+        this.page.identifier = '2013/visitor';
     };
     (function() { 
         var d = document, s = d.createElement('script');  
