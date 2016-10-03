@@ -316,9 +316,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -372,9 +372,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -457,9 +457,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -528,9 +528,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -588,9 +588,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -662,9 +662,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -736,9 +736,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -747,7 +747,7 @@
     <link href="http://truelogician.com/2012/conditionals/"/>
     <id>http://truelogician.com/2012/conditionals/</id>
     <published>2012-10-18T15:14:36.000Z</published>
-    <updated>2016-10-03T05:39:55.000Z</updated>
+    <updated>2016-10-03T21:18:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>Since switches and if-statements are the most common control flow statements in many languages and are widely used throughout the code, removing the unnecessarily used ones will have a huge impact on the general readability of the code.</p>
 <a id="more"></a>
@@ -777,10 +777,14 @@
     
       <category term="Object-Oriented Design" scheme="http://truelogician.com/categories/Object-Oriented-Design/"/>
     
-      <category term="Refactoring" scheme="http://truelogician.com/categories/Object-Oriented-Design/Refactoring/"/>
+      <category term="Software Craftsmanship" scheme="http://truelogician.com/categories/Object-Oriented-Design/Software-Craftsmanship/"/>
     
     
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Clean Code" scheme="http://truelogician.com/tags/Clean-Code/"/>
+    
+      <category term="Refactoring" scheme="http://truelogician.com/tags/Refactoring/"/>
     
       <category term="Design for Testability" scheme="http://truelogician.com/tags/Design-for-Testability/"/>
     
@@ -789,10 +793,6 @@
       <category term="Separation of Concerns" scheme="http://truelogician.com/tags/Separation-of-Concerns/"/>
     
       <category term="Replacing Conditionals" scheme="http://truelogician.com/tags/Replacing-Conditionals/"/>
-    
-      <category term="Clean Code" scheme="http://truelogician.com/tags/Clean-Code/"/>
-    
-      <category term="Refactoring" scheme="http://truelogician.com/tags/Refactoring/"/>
     
   </entry>
   
@@ -856,9 +856,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -926,9 +926,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -979,9 +979,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1034,9 +1034,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1135,9 +1135,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1193,9 +1193,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1264,9 +1264,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1321,9 +1321,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1384,9 +1384,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
