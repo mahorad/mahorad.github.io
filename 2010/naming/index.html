@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Mahan's Blog">
 <meta property="og:description" content="Since code is read many times more than is written, then code readability becomes of extremely high importance among developers. Naming among other readability factors becomes the coder’s crucial task">
 <meta property="og:image" content="http://truelogician.com/images/refactoring/naming.jpg">
-<meta property="og:updated_time" content="2016-10-03T22:14:48.000Z">
+<meta property="og:updated_time" content="2016-10-03T22:20:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Better Naming Practices">
 <meta name="twitter:description" content="Since code is read many times more than is written, then code readability becomes of extremely high importance among developers. Naming among other readability factors becomes the coder’s crucial task">
@@ -308,7 +308,7 @@ ga('send', 'pageview');
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Person</span> &#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">string</span> _name;</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">string</span> Name &#123;</div><div class="line">    <span class="keyword">get</span> &#123; <span class="keyword">return</span> _name; &#125;</div><div class="line">    <span class="keyword">set</span> &#123; _name = <span class="keyword">value</span>; &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Person</span>(<span class="params"><span class="keyword">string</span> name</span>) </span>&#123;</div><div class="line">    _name = name;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>However, some of them such as adding ‘I’ prefix to indicate an interface were adapted soon after learning and experiencing. The fact that interfaces in each namespace are grouped together and that a class can be distinguished from its interface by a quick glance to the explorer is very convincing. But then again, some consider them redundant; as uncle bob states in his book ‘Clean Code’:   </p>
 <blockquote>
-<p>Leave interfaces unadorned. Encode either the interface or the implementation.</p>
+<p>Leave interfaces unadorned.</p>
 </blockquote>
 <p>If possible, do NOT use verbs for class names and as for method names, you may usually want to start them with a verb. Look how the following snippet easily conveys its intent.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">orderService.process(order);</div><div class="line">mailClient.sendConfirmation(message, recipient);</div></pre></td></tr></table></figure>
@@ -329,7 +329,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2010/naming/" data-id="citum7osv0017s59vqgxg8x15" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2010/naming/" data-id="citumfha4000v9h9vem3pce98" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
