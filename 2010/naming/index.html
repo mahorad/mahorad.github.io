@@ -5,17 +5,17 @@
     
     <title>Better Naming Practices | Mahan&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="A clean code shall not require any additional descriptions; since the code is dynamic; it is changed, refactored and improved over time. Comments on the contrary, are usually forgotten and rarely upda">
+    <meta name="description" content="Since code is read many times more than is written, then code readability becomes of extremely high importance among developers. Naming among other readability factors becomes the coder’s crucial task">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Better Naming Practices">
 <meta property="og:url" content="http://truelogician.com/2010/naming/index.html">
 <meta property="og:site_name" content="Mahan's Blog">
-<meta property="og:description" content="A clean code shall not require any additional descriptions; since the code is dynamic; it is changed, refactored and improved over time. Comments on the contrary, are usually forgotten and rarely upda">
+<meta property="og:description" content="Since code is read many times more than is written, then code readability becomes of extremely high importance among developers. Naming among other readability factors becomes the coder’s crucial task">
 <meta property="og:image" content="http://truelogician.com/images/refactoring/naming.jpg">
-<meta property="og:updated_time" content="2016-10-03T21:43:00.000Z">
+<meta property="og:updated_time" content="2016-10-03T22:14:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Better Naming Practices">
-<meta name="twitter:description" content="A clean code shall not require any additional descriptions; since the code is dynamic; it is changed, refactored and improved over time. Comments on the contrary, are usually forgotten and rarely upda">
+<meta name="twitter:description" content="Since code is read many times more than is written, then code readability becomes of extremely high importance among developers. Naming among other readability factors becomes the coder’s crucial task">
 <meta name="twitter:image" content="http://truelogician.com/images/refactoring/naming.jpg">
     
 
@@ -282,10 +282,10 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>A clean code shall not require any additional descriptions; since the code is dynamic; it is changed, refactored and improved over time. Comments on the contrary, are usually forgotten and rarely updated.</p>
-<p>Accordingly, use of proper descriptive naming eliminates the need for code comments and makes the code narrate itself. Use names that reveal the true purpose behind what they are supposed to serve which in turn will result into more readable, understandable and more manageable code.</p>
+            <p>Since code is read many times more than is written, then code readability becomes of extremely high importance among developers. Naming among other readability factors becomes the coder’s crucial task that needs more attention and scrutiny.  </p>
 <a id="more"></a>
-<p>Variables are usually data containers. So, in case the contained data is quantifiable try to be clear about what is the content what is its unit of measurement.</p>
+<p>The following is written from personal views and readings in form of tips and/or suggestions with hope of illuminating this topic from angles that you might have not been considered before.</p>
+<h3 id="Tips-Suggestions"><a href="#Tips-Suggestions" class="headerlink" title="Tips / Suggestions"></a>Tips / Suggestions</h3><p>Variables are usually data containers. So, in case the contained data is quantifiable try to be clear about what is the content what is its unit of measurement.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">long</span> intervalInMillis = <span class="number">3500</span>;</div></pre></td></tr></table></figure>
 <p>A kind of poor variable names are those abbreviated Unix names since they are usually mis-informative.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">String cd;</div><div class="line"><span class="keyword">int</span> sco;</div><div class="line"><span class="keyword">double</span> ps;</div></pre></td></tr></table></figure>
@@ -306,7 +306,7 @@ ga('send', 'pageview');
 <p>I guess this one is mostly a matter of developers taste but I’ve seen conventional prefixes/suffixes (such as Android ‘m’ prefix for member variables or ‘_‘ prefix in C# for the same reason) that never earned importance in code clarity in my personal view.</p>
 <p>Adding a couple of ‘this’ keywords might not affect coding time or the readability, but those prefixes/suffixes will gradually become clutter over time as they don’t play a crucial role in code clarity.</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Person</span> &#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">string</span> _name;</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">string</span> Name &#123;</div><div class="line">    <span class="keyword">get</span> &#123; <span class="keyword">return</span> _name; &#125;</div><div class="line">    <span class="keyword">set</span> &#123; _name = <span class="keyword">value</span>; &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Person</span>(<span class="params"><span class="keyword">string</span> name</span>) </span>&#123;</div><div class="line">    _name = name;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>However, some of them such as adding ‘I’ prefix to indicate an interface were adapted soon after learning and experiencing. The fact that interfaces in each namespace are grouped together and that a class can be distinguished from its interface by a quick glance to the explorer is very convincing. But then again, some consider them redundant; as uncle bob states:   </p>
+<p>However, some of them such as adding ‘I’ prefix to indicate an interface were adapted soon after learning and experiencing. The fact that interfaces in each namespace are grouped together and that a class can be distinguished from its interface by a quick glance to the explorer is very convincing. But then again, some consider them redundant; as uncle bob states in his book ‘Clean Code’:   </p>
 <blockquote>
 <p>Leave interfaces unadorned. Encode either the interface or the implementation.</p>
 </blockquote>
@@ -317,6 +317,8 @@ ga('send', 'pageview');
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  Point(<span class="keyword">double</span> x, <span class="keyword">double</span> y) &#123;...&#125;</div><div class="line">  Point(<span class="keyword">double</span> radian, <span class="keyword">double</span> distance) &#123;...&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>might be more readable during instantiation with the following static factory methods.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Point</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;...&#125;</div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">Point</span><span class="params">(<span class="keyword">double</span> radian, <span class="keyword">double</span> distance)</span> </span>&#123;...&#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">inCartesian</span><span class="params">(<span class="keyword">double</span> x, <span class="keyword">double</span> y)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Point(x, y);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="title">inPolar</span><span class="params">(<span class="keyword">double</span> radian, <span class="keyword">double</span> distance)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Point(radian, distance);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>A clean code shall not require any additional descriptions; since the code is dynamic; it is changed, refactored and improved over time. Comments on the contrary, are usually forgotten and rarely updated.</p>
+<p>Use of proper descriptive naming greatly helps eliminating the need for comments and allows the code to narrate itself. Accordingly, use names that reveal the true purpose behind what the logic is supposed to serve which in turn will result into more readable, understandable and more manageable code.</p>
 
         
         </div>
@@ -327,7 +329,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://truelogician.com/2010/naming/" data-id="citul21i000076i9v0a7ryvcm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://truelogician.com/2010/naming/" data-id="citum7osv0017s59vqgxg8x15" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

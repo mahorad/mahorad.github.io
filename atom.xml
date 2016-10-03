@@ -784,10 +784,6 @@
     
       <category term="Object-Oriented Design" scheme="http://truelogician.com/tags/Object-Oriented-Design/"/>
     
-      <category term="Clean Code" scheme="http://truelogician.com/tags/Clean-Code/"/>
-    
-      <category term="Refactoring" scheme="http://truelogician.com/tags/Refactoring/"/>
-    
       <category term="Design for Testability" scheme="http://truelogician.com/tags/Design-for-Testability/"/>
     
       <category term="Single Responsibility" scheme="http://truelogician.com/tags/Single-Responsibility/"/>
@@ -795,6 +791,10 @@
       <category term="Separation of Concerns" scheme="http://truelogician.com/tags/Separation-of-Concerns/"/>
     
       <category term="Replacing Conditionals" scheme="http://truelogician.com/tags/Replacing-Conditionals/"/>
+    
+      <category term="Clean Code" scheme="http://truelogician.com/tags/Clean-Code/"/>
+    
+      <category term="Refactoring" scheme="http://truelogician.com/tags/Refactoring/"/>
     
   </entry>
   
