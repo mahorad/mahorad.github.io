@@ -137,6 +137,60 @@
   </entry>
   
   <entry>
+    <title>Reactive Extensions Basics</title>
+    <link href="http://truelogician.com/2015/rxbasics/"/>
+    <id>http://truelogician.com/2015/rxbasics/</id>
+    <published>2015-02-09T17:15:36.000Z</published>
+    <updated>2016-12-24T08:58:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br>The Reactive Extensions (Rx in short) are the libraries provided for a set of programming languages with the aim of simplifying development of asynchronous, event-based applications using streams (observable) and LINQ-style query operators.<br></div>
+
+<a id="more"></a>
+<p><a href="http://www.reactivemanifesto.org/" target="_blank" rel="external">Reactive manifesto</a> is a document describing reactive systems and the standards of quality software applications or components and is based on four primary concepts of responsiveness, resilience, elasticity and message driven. The reactive extensions libraries enable developers to easily create reactive programs that cater for those principles in essence.</p>
+<p>The following and the rest of the series tries to have a brief overview of the main features of reactive extensions in RxJava.</p>
+<h3 id="Observables"><a href="#Observables" class="headerlink" title="Observables"></a>Observables</h3><p>Observables are the building blocks of reactive systems. An Observable is an event stream; a sequence of events or data transmitted by a producer (Observable) to a consumer (Observer). It can be used in replace of a List, Iterable, or Stream. Think of an Observable as a pipeline of data flowing from one end to another.</p>
+<p>Additionally, the concepts of upstream, downstream, hot and cold observables are repeatedly used and worth mentioning beforehand.</p>
+<p>An upstream is the source stream from which we are receiving data while a downstream is the destination stream to which we are sending data.</p>
+<p>Cold observables are those that never begin to emit events unless at least one interested party is subscribed to them. This means that each subscriber of a cold Observable receives a full copy of the same stream top to bottom. Hot Observables are those that push the events downstream regardless of any subscription. As a result of this, events may get lost and subscribers might receive the events from various parts of the observable stream.</p>
+<h3 id="Core-Interfaces"><a href="#Core-Interfaces" class="headerlink" title="Core Interfaces"></a>Core Interfaces</h3><p>At the core of RxJava, there is the Observable type which represents a stream of data or events to be received by an Observer over time.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Observable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">  <span class="function">Subscription <span class="title">subscribe</span><span class="params">(Observer o)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>An Observer can connect to Observable through Subscription and can receive three kinds of events.</p>
+<ul>
+<li>Data or events: are pushed via the onNext() method.</li>
+<li>Exceptions: are pushed via the onError() method.</li>
+<li>Stream Completion is notified via the onCompleted() method.</li>
+</ul>
+<p>After the first exception occurrence or the stream completion, the underlying Observable stream is finished immediately and cannot be reused any more and no further events can be sent over that stream. Accordingly, these events (exception and completion) are called terminal events.<br>In case of infinite streams, the terminal events might never occur if the stream is infinite and does not fail.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Observer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onNext</span><span class="params">(T t)</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The Subscriber wraps the Observer to provide the ability of unsubscribe from the Observable stream.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Subscriber</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Observer</span>&lt;<span class="title">T</span>&gt;, <span class="title">Subscription</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onNext</span><span class="params">(T t)</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable t)</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span></span>;</div><div class="line">  ...</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">unsubscribe</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setProducer</span><span class="params">(Producer p)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Comparison-of-Non-Reactive-amp-Reactive-Systems"><a href="#Comparison-of-Non-Reactive-amp-Reactive-Systems" class="headerlink" title="Comparison of Non-Reactive &amp; Reactive Systems"></a>Comparison of Non-Reactive &amp; Reactive Systems</h3><h4 id="Pull-vs-Push"><a href="#Pull-vs-Push" class="headerlink" title="Pull vs. Push"></a>Pull vs. Push</h4><p>In traditional approaches, items are pulled gradually from the source to be processed. However, the main intent of Observable is to push the data or events (Observable can be used with pulling too). In fact, this shift from pull-base to push-base processing could be considered the whole point of RxJava.</p>
+<h4 id="Sync-vs-Async"><a href="#Sync-vs-Async" class="headerlink" title="Sync vs. Async"></a>Sync vs. Async</h4><p>Non reactive systems tend to consume source data synchronously while blocking the requesting thread. Reactive components, however, use the fire and forget approach as a result being push-based. Note that an Observable can be used asynchronously or synchronously. They are synchronous by default as they block the subscribing thread and emit events via onNext().</p>
+<p>Using callbacks which is a common pattern to achieve asynchronicity has its own few drawbacks including the hassle of coordinating them, their tendency to be nested to create a Christmas tree code as well as sever refactoring a callback-based API into RxJava.</p>
+<p>Despite being asynchronous, an Observable stream is always serialized and thread-safe meaning that onNext(), onCompleted() or onError() cannot concurrently execute (e.g. onNext() will not be invoked from different threads).</p>
+<h4 id="Eager-vs-Lazy"><a href="#Eager-vs-Lazy" class="headerlink" title="Eager vs. Lazy"></a>Eager vs. Lazy</h4><p>Traditional systems are mainly eager. This means that evaluations will occur regardless of an subscriber’s presence.<br>In contrast, laziness implies postponing the evaluations and computations until they are certainly asked by a subscriber/client.<br>This is a very useful feature while performing calculation and stream composition.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;The Reactive Extensions (Rx in short) are the libraries provided for a set of programming languages with the aim of simplifying development of asynchronous, event-based applications using streams (observable) and LINQ-style query operators.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Reactive" scheme="http://truelogician.com/categories/Reactive/"/>
+    
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Reactive Programming" scheme="http://truelogician.com/tags/Reactive-Programming/"/>
+    
+      <category term="Reactive Extensions" scheme="http://truelogician.com/tags/Reactive-Extensions/"/>
+    
+      <category term="RxJava" scheme="http://truelogician.com/tags/RxJava/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Introduction to Akka</title>
     <link href="http://truelogician.com/2014/introduction-to-akka/"/>
     <id>http://truelogician.com/2014/introduction-to-akka/</id>
@@ -361,9 +415,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -417,9 +471,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -502,9 +556,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -573,9 +627,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -633,9 +687,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -707,9 +761,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -781,9 +835,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -903,9 +957,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -973,9 +1027,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1026,9 +1080,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1081,9 +1135,9 @@
       <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1182,9 +1236,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1240,9 +1294,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
     
   </entry>
   
@@ -1311,66 +1365,9 @@
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
     
     
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
       <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Decorator Pattern</title>
-    <link href="http://truelogician.com/2011/decorator/"/>
-    <id>http://truelogician.com/2011/decorator/</id>
-    <published>2011-09-24T09:27:03.000Z</published>
-    <updated>2016-09-18T15:25:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Provide New Abilities/Behaviors at Runtime.</strong> <em>Wrapping an Object (Through Composition) In Order to Provide Additional Abilities</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The product definition and one concrete class to show the pattern use later on.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation1</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation2</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation1</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation2</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The definition of a ‘Decorator’ along various derivations; each of them modifies the given product’s behaviors and abilities in a certain way.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    IProduct product;</div><div class="line">    Decorator(IProduct product) &#123; <span class="keyword">this</span>.product = product; &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation1</span><span class="params">()</span> </span>&#123; product.operation1(); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation2</span><span class="params">()</span> </span>&#123; product.operation2(); &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DecoratorX</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</div><div class="line">    DecoratorX(IProduct product) &#123; <span class="keyword">super</span>(product); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation1</span><span class="params">()</span> </span>&#123;<span class="comment">/*modified implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation2</span><span class="params">()</span> </span>&#123;<span class="comment">/*modified implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DecoratorY</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</div><div class="line">    DecoratorY(IProduct product) &#123; <span class="keyword">super</span>(product); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation1</span><span class="params">()</span> </span>&#123;<span class="comment">/*modified implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operation2</span><span class="params">()</span> </span>&#123;<span class="comment">/*modified implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Once decorators are in place, create an instance of the base product and then wrap them with the new decorators. It is basically like an onion with the base product at the core which is wrapped by layers of decorators around one another.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IProduct customProduct =</div><div class="line">            <span class="keyword">new</span> DecoratorX(<span class="keyword">new</span> DecoratorY(<span class="keyword">new</span> Product()));</div><div class="line">        customProduct.operation1();</div><div class="line">        customProduct.operation2();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>It simplifies the code while it is more flexible than inheritance and above all it gives us the ability to extend the old code with the new code instead of rewriting it.</li>
-<li>It allows the behavior to be extended without the need to modify the existing code. You can wrap a component with any number of decorators.</li>
-</ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose that we are about to create a logger that logs text messages to file. So, the basic logger only appends given strings to a file.</p>
-<p>However, many of our developer users also demanded us to equip the logs with the current timestamp. Our test department users also requested the logs to be colorful, since they open the logs with an enhanced text editor and they want errors and warning to stand out.</p>
-<p>Accordingly, the product would be a ‘Logger’ as defined below.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ILogger</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span></span>;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span> <span class="keyword">implements</span> <span class="title">ILogger</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;<span class="comment">/* log to file */</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Based on the demands, instead of modifying the base logger, we could introduce two decorators to improve the base logger.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">ILogger</span> </span>&#123;</div><div class="line">    ILogger logger;</div><div class="line">    Decorator(ILogger logger) &#123; <span class="keyword">this</span>.logger = logger; &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123; logger.log(message); &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TimeDecorator</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</div><div class="line">    TimeDecorator(ILogger logger) &#123; <span class="keyword">super</span>(logger); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        String timestamp = <span class="string">"&lt;formatted-timestamp-of-current-moment&gt;"</span>;</div><div class="line">        String timestampedMessage =</div><div class="line">                String.format(<span class="string">"Timestamp %s: %s"</span>, timestamp, message);</div><div class="line">        <span class="keyword">super</span>.log(timestampedMessage);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorDecorator</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</div><div class="line">    ColorDecorator(ILogger logger) &#123; <span class="keyword">super</span>(logger); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">log</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.log(toColored(message));</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">toColored</span><span class="params">(String message)</span> </span>&#123;</div><div class="line">        String template = <span class="string">"&lt;font color=\"%s\"&gt;%s&lt;/font&gt;"</span>;</div><div class="line">        <span class="keyword">if</span> (message.startsWith(<span class="string">"Error"</span>))</div><div class="line">            <span class="keyword">return</span> String.format(template, <span class="string">"red"</span>, message);</div><div class="line">        <span class="keyword">if</span> (message.startsWith(<span class="string">"Warning"</span>))</div><div class="line">            <span class="keyword">return</span> String.format(template, <span class="string">"yellow"</span>, message);</div><div class="line">        <span class="keyword">return</span> String.format(template, <span class="string">"green"</span> message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Now, the client is able to equip the base logger with any amount of decorators and use it.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Logger simpleLogger = <span class="keyword">new</span> Logger();</div><div class="line">        ColorDecorator colorLogger = <span class="keyword">new</span> ColorDecorator(simpleLogger);</div><div class="line">        ILogger timedColorLogger = <span class="keyword">new</span> TimeDecorator(colorLogger);</div><div class="line"></div><div class="line">        timedColorLogger.log(<span class="string">"Error: invalid id"</span>);</div><div class="line">        timedColorLogger.log(<span class="string">"Warning: address not defined"</span>);</div><div class="line"></div><div class="line">        simpleLogger.log(<span class="string">"application started"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Provide New Abilities/Behaviors at Runtime.&lt;/strong&gt; &lt;em&gt;Wrapping an Object (Through Composition) In Order to Provide Additional Abilities&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
-    
-    
       <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
     
   </entry>
   
