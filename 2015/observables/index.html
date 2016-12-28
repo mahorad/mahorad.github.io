@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Observables &amp; Subscriptions | Mahan&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Now that we are familiar with reactive programming concepts and that Observable resides at the core of it, let’s find out about the ways we can create and use simple observables.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Observables & Subscriptions">
+<meta property="og:url" content="http://truelogician.com/2015/observables/index.html">
+<meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="Now that we are familiar with reactive programming concepts and that Observable resides at the core of it, let’s find out about the ways we can create and use simple observables.">
+<meta property="og:image" content="http://truelogician.com/images/rx/header-observables.png">
+<meta property="og:updated_time" content="2016-12-28T15:04:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Observables & Subscriptions">
+<meta name="twitter:description" content="Now that we are familiar with reactive programming concepts and that Observable resides at the core of it, let’s find out about the ways we can create and use simple observables.">
+<meta name="twitter:image" content="http://truelogician.com/images/rx/header-observables.png">
+    
+
+    
+        <link rel="alternate" href="atom.xml" title="Mahan&#39;s Blog" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/logo.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83022248-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Mahan&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Mahan Rad</h2>
+            <h3 id="title">Senior Software Engineer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Sweden</span>
+            <a id="follow" target="_blank" href="https://github.com/mahorad/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                33
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                26
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/mahorad" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.linkedin.com/in/mahorad" target="_blank" title="linkedin" class=tooltip>
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://plus.google.com/+MahanRad" target="_blank" title="google-plus" class=tooltip>
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/mahan_h" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://soundcloud.com/mahorad" target="_blank" title="soundcloud" class=tooltip>
+                            <i class="fa fa-soundcloud"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        <div class="base-info profile-block">
+            <h2 id="name">About</h2>
+            <h3 align="justify">Mahan is a senior software engineer, a tech. enthusiast, an <a href="https://goo.gl/ScgBXS">Oracle certified professional</a>, a Java dev. veteran and software consultant at <a href="http://combitech.com">Combitech.</a></h3>
+            <h3 align="center"><br/><img src="/css/images/oracle.png" /></h3></h3>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-2015/observables" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="/images/rx/header-observables.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Observables &amp; Subscriptions
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/observables/">
+            <time datetime="2015-03-02T21:17:36.000Z" itemprop="datePublished">2015-03-02</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Reactive/">Reactive</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Observable/">Observable</a>, <a class="tag-link" href="/tags/Reactive-Extensions/">Reactive Extensions</a>, <a class="tag-link" href="/tags/Reactive-Programming/">Reactive Programming</a>, <a class="tag-link" href="/tags/RxJava/">RxJava</a>, <a class="tag-link" href="/tags/Subscriber/">Subscriber</a>, <a class="tag-link" href="/tags/Subscription/">Subscription</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <div align="justify"><br>Now that we are familiar with reactive programming concepts and that Observable resides at the core of it, let’s find out about the ways we can create and use simple observables.<br></div>
+
+<a id="more"></a>
+<h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><p>As mentioned earlier, observables are lazy by default and accordingly in order to begin seeing observables outputs there should be at least one subscriber such as the one mentioned below.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Observable&lt;T&gt; obsevable = <span class="comment">//...</span></div><div class="line">observable.subscribe(</div><div class="line">        (i) -&gt; System.out.println(i),</div><div class="line">        (e) -&gt; System.out.println(e),</div><div class="line">        ( ) -&gt; System.out.println(<span class="string">"completed"</span>)</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>Notice that the event callback is invoked each time upstream pushes an event to downstream and that the callback will not be invoked from more than one thread at a time. In the output given for each snippet, the thread name on which the code being executed is mentioned.</p>
+<h2 id="1-Observables"><a href="#1-Observables" class="headerlink" title="1- Observables"></a>1- Observables</h2><h3 id="Factory-Methods"><a href="#Factory-Methods" class="headerlink" title="Factory Methods"></a>Factory Methods</h3><p>There are a few factory methods to create fixed Observables. Except interval(interval, unit) method, the rest of factory methods execute on the client thread meaning that they block the client thread until all events are received.</p>
+<h4 id="Observable-just-value"><a href="#Observable-just-value" class="headerlink" title="Observable.just(value)"></a>Observable.just(value)</h4><p>This method creates an Observable instance that only emits the given values and then completes afterward.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Observable&lt;String&gt; observable =</div><div class="line">  Observable.just(<span class="string">"hello world!"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[main] - hello world!</div><div class="line">[main] - completed</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Observable&lt;String&gt; observable =</div><div class="line">  Observable.just(<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[main] - one</div><div class="line">[main] - two</div><div class="line">[main] - three</div><div class="line">[main] - completed</div></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; observable =</div><div class="line">  Observable.just(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[main] - 1</div><div class="line">[main] - 2</div><div class="line">[main] - 3</div><div class="line">[main] - completed</div></pre></td></tr></table></figure>
+<h4 id="Observable-from-values"><a href="#Observable-from-values" class="headerlink" title="Observable.from(values)"></a>Observable.from(values)</h4><p>This method creates an Observable<t> from the given collection and emits its values.</t></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; fibonacci =</div><div class="line">  Observable.from(<span class="keyword">new</span> Integer[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">8</span> &#125;);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[main] - 1</div><div class="line">[main] - 2</div><div class="line">[main] - 3</div><div class="line">[main] - 5</div><div class="line">[main] - 8</div><div class="line">[main] - completed</div></pre></td></tr></table></figure>
+<h4 id="Observable-range-from-n"><a href="#Observable-range-from-n" class="headerlink" title="Observable.range(from, n)"></a>Observable.range(from, n)</h4><p>Produces an Observable and emits n integer numbers starting from <em>‘from’</em>. For example, range(5, 3) will emit 5, 6, and 7 and then complete normally.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; observable =</div><div class="line">  Observable.range(<span class="number">10</span>, <span class="number">5</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[main] - 10</div><div class="line">[main] - 11</div><div class="line">[main] - 12</div><div class="line">[main] - 13</div><div class="line">[main] - 14</div><div class="line">[main] - 15</div><div class="line">[main] - completed</div></pre></td></tr></table></figure>
+<h4 id="Observable-interval-interval-unit"><a href="#Observable-interval-interval-unit" class="headerlink" title="Observable.interval(interval, unit)"></a>Observable.interval(interval, unit)</h4><p>This factory method creates a cold observable that emits long numbers starting from zero and a fixed delay between each number including the first one. Notice that since numbers are emitted on the computation thread, in order to see some results, you need to block the main thread.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Long&gt; observable =</div><div class="line">  Observable.interval(<span class="number">2</span>, TimeUnit.SECONDS);</div><div class="line">  <span class="comment">// 1, 2, 3, 4, 5, ...</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[RxComputationScheduler-2] - 0</div><div class="line">[RxComputationScheduler-2] - 1</div><div class="line">[RxComputationScheduler-2] - 2</div><div class="line">...</div></pre></td></tr></table></figure>
+<h4 id="Observable-create-…"><a href="#Observable-create-…" class="headerlink" title="Observable.create(…)"></a>Observable.create(…)</h4><p>Use this method, if you need more control over unsubscribes as well as production and consumption of events. The following snippet rapidly produces integers starting from zero.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; observable = Observable.create(</div><div class="line">  subscriber -&gt; &#123;</div><div class="line">    Runnable r = () -&gt; &#123;</div><div class="line">      <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">      <span class="keyword">while</span> (!subscriber.isUnsubscribed())</div><div class="line">        subscriber.onNext(i++);</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">new</span> Thread(r).start();</div><div class="line">  &#125;);</div><div class="line">  pause(<span class="number">1</span>);</div><div class="line">  subscription.unsubscribe();</div><div class="line">  pause(<span class="number">0</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[Thread-0] - 0</div><div class="line">[Thread-0] - 1</div><div class="line">[Thread-0] - 2</div><div class="line">[Thread-0] - 3</div><div class="line">[Thread-0] - 4</div><div class="line">[Thread-0] - 5</div><div class="line">[Thread-0] - 6</div></pre></td></tr></table></figure>
+<p>When creating observables by create() method, in order to avoid sending unnecessary events when there are no subscribers, check the isUnsubscribed() as often as possible.<br>Also notice that these custom implementations of Observable should ensure that events coming from multiple threads are called in a serialized fashion.</p>
+<h4 id="Observable-fromCallable-…"><a href="#Observable-fromCallable-…" class="headerlink" title="Observable.fromCallable(…)"></a>Observable.fromCallable(…)</h4><p>This factory method creates an Observable from the value that is returned by another method (callable). The following snippet create a product Observable by fetching the product by its ID. This method is semantically the same as create() but much more concise.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function">Observable&lt;Product&gt; <span class="title">load</span><span class="params">(<span class="keyword">int</span> productId)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> Observable.fromCallable(() -&gt; findById(productId));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Composing-Observables"><a href="#Composing-Observables" class="headerlink" title="Composing Observables"></a>Composing Observables</h3><p>while composing observables, we can:</p>
+<ul>
+<li>A: Wait for corresponding events, process them and emit the results.</li>
+</ul>
+<p>In the following example the corresponding events of the first two Observable are added and emitted as the third one.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; one = Observable.range(<span class="number">10</span>, <span class="number">100</span>);</div><div class="line">Observable&lt;Long&gt; two = Observable.interval(<span class="number">2</span>, SECONDS);</div><div class="line">Observable</div><div class="line">  .zip(one, two,</div><div class="line">    (l1, l2) -&gt; l1 + l2)</div><div class="line">  .subscribe(log::info);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[RxComputationScheduler-2] - 10 <span class="comment"># 10 + 0</span></div><div class="line">[RxComputationScheduler-2] - 12 <span class="comment"># 11 + 1</span></div><div class="line">[RxComputationScheduler-2] - 14 <span class="comment"># 12 + 2</span></div><div class="line">[RxComputationScheduler-2] - 16 <span class="comment"># 13 + 3</span></div><div class="line">[RxComputationScheduler-2] - 18 <span class="comment"># 14 + 4</span></div><div class="line">...</div></pre></td></tr></table></figure>
+<ul>
+<li>B: Compose a stream from the first two Observable which emits events they are arrive.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; one = Observable.range(<span class="number">10</span>, <span class="number">2</span>);</div><div class="line">Observable&lt;Long&gt; two = Observable.interval(<span class="number">1</span>, SECONDS);</div><div class="line">Observable</div><div class="line">  .merge(one, two)</div><div class="line">  .subscribe(log::info);</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[main] - 10</div><div class="line">[main] - 11</div><div class="line">[RxComputationScheduler-1] - 0</div><div class="line">[RxComputationScheduler-1] - 1</div><div class="line">[RxComputationScheduler-1] - 2</div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="2-Subscriptions"><a href="#2-Subscriptions" class="headerlink" title="2- Subscriptions"></a>2- Subscriptions</h2><p>As stated earlier, having a reference to a subscriber instance together with using add() method we can be notified of unsubscribe and perform suitable action. We only need to attach the unsubscribe action to a subscription and add it to the list of subscriber’s subscriptions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Subscription onUnsubscribe =</div><div class="line">  Subscriptions.create(() -&gt; in.close());</div><div class="line">subscriber.add(onUnsubscribe);</div></pre></td></tr></table></figure>
+<p>It is important to unsubscribe from an Observable as soon as you no longer want to receive more events and Subscription provides just a way to do that using unsubscribe() method.</p>
+<h3 id="Multiple-Subscribers"><a href="#Multiple-Subscribers" class="headerlink" title="Multiple Subscribers"></a>Multiple Subscribers</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; o1 =</div><div class="line">  Observable.create(subscriber -&gt; &#123;</div><div class="line">    log.info(<span class="string">"generating values"</span>);</div><div class="line">    subscriber.onNext(<span class="number">1</span>);</div><div class="line">    subscriber.onNext(<span class="number">2</span>);</div><div class="line">    subscriber.onNext(<span class="number">3</span>);</div><div class="line">  &#125;);</div><div class="line">o1.subscribe(log::info);</div><div class="line">o1.subscribe(log::info);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[main] - generating values</div><div class="line">[main] - 1</div><div class="line">[main] - 2</div><div class="line">[main] - 3</div><div class="line">[main] - generating values</div><div class="line">[main] - 1</div><div class="line">[main] - 2</div><div class="line">[main] - 3</div></pre></td></tr></table></figure>
+<h4 id="Unsubscribing-from-Outside"><a href="#Unsubscribing-from-Outside" class="headerlink" title="Unsubscribing from Outside."></a>Unsubscribing from Outside.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Long&gt; one =</div><div class="line">  Observable.interval(<span class="number">1</span>, TimeUnit.SECONDS);</div><div class="line">Subscription subscription = one.subscribe(log::info);</div><div class="line"></div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">  Thread.currentThread().sleep(<span class="number">2000</span>);</div><div class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">  e.printStackTrace();</div><div class="line">&#125;</div><div class="line">subscription.unsubscribe();</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[RxComputationScheduler-1] - 0</div><div class="line">[RxComputationScheduler-1] - 1</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+<h4 id="Unsubscribing-from-Inside"><a href="#Unsubscribing-from-Inside" class="headerlink" title="Unsubscribing from Inside."></a>Unsubscribing from Inside.</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; one =</div><div class="line">  Observable.from(<span class="keyword">new</span> Integer[] &#123; -<span class="number">2</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;);</div><div class="line"></div><div class="line">Subscriber&lt;Integer&gt; subscriber = <span class="keyword">new</span> Subscriber&lt;Integer&gt;() &#123;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Integer i)</span> </span>&#123;</div><div class="line">      <span class="keyword">if</span> (i == <span class="number">0</span>)</div><div class="line">          unsubscribe();</div><div class="line">      log.info(i);</div><div class="line">  &#125;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123; &#125;</div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">      log.info(<span class="string">"completed"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">one.subscribe(subscriber);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[main] - -2</div><div class="line">[main] - -1</div><div class="line">[main] - 0</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+<h2 id="Sharing-an-Observable"><a href="#Sharing-an-Observable" class="headerlink" title="Sharing an Observable"></a>Sharing an Observable</h2><h3 id="ConnectableObservable"><a href="#ConnectableObservable" class="headerlink" title="ConnectableObservable"></a>ConnectableObservable</h3><p>Sometimes multiple subscribers are interested in your observable and you might none of them to miss any early emitted events. Without ConnectableObservable, hot observables will emit items and late subscribers might lose some of them.</p>
+<p>A ConnectableObservable is an Observable that emits events to subscribers only when its connect() method is invoked. When this happens, a dedicated subscriber is assigned to the upstream which emits exactly the same sequence of events to all downstream subscribers. It ensures that the upstream Observable has at most one Subscriber as it opens only one subscription to the original Observable.</p>
+<p>The following code tries to make a comparison between normal observable and a connectable observable with two subscribers. Notice how in case of ConnectableObservable, both subscribers experience the same events at the same time.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; observable = Observable.create(</div><div class="line">  subscriber -&gt; &#123;</div><div class="line">    log.info(<span class="string">"connecting..."</span>);</div><div class="line">    Runnable r = () -&gt; &#123;</div><div class="line">      subscriber.onNext(<span class="number">1</span>);</div><div class="line">      subscriber.onNext(<span class="number">2</span>);</div><div class="line">      subscriber.onNext(<span class="number">3</span>);</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">new</span> Thread(r).start();</div><div class="line">    Subscription s = Subscriptions.create(</div><div class="line">      () -&gt; log.info(<span class="string">"disconnecting..."</span>)</div><div class="line">    );</div><div class="line">    subscriber.add(s);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">log.info(<span class="string">"before subscription"</span>);</div><div class="line"></div><div class="line">Subscription sub1 = observable.subscribe(i -&gt; log.info(<span class="string">"sub1: "</span> + i));</div><div class="line">log.info(<span class="string">"sub1 subscribed"</span>);</div><div class="line"></div><div class="line">Subscription sub2 = observable.subscribe(i -&gt; log.info(<span class="string">"sub2: "</span> + i));</div><div class="line">log.info(<span class="string">"sub2 subscribed"</span>);</div><div class="line"></div><div class="line">sub1.unsubscribe();</div><div class="line">log.info(<span class="string">"sub1 unsubscribed"</span>);</div><div class="line">sub2.unsubscribe();</div><div class="line">log.info(<span class="string">"sub2 unsubscribed"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[main] - before subscription</div><div class="line"></div><div class="line">[main] - connecting...</div><div class="line">[Thread-0] - sub1: 1</div><div class="line">[Thread-0] - sub1: 2</div><div class="line">[Thread-0] - sub1: 3</div><div class="line">[main] - sub1 subscribed</div><div class="line"></div><div class="line">[main] - connecting...</div><div class="line">[main] - sub2 subscribed</div><div class="line">[Thread-1] - sub2: 1</div><div class="line">[Thread-1] - sub2: 2</div><div class="line">[Thread-1] - sub2: 3</div><div class="line"></div><div class="line">[main] - disconnecting...</div><div class="line">[main] - sub1 unsubscribed</div><div class="line"></div><div class="line">[main] - disconnecting...</div><div class="line">[main] - sub2 unsubscribed</div></pre></td></tr></table></figure>
+<hr>
+<p>The publish() operator converts a normal observable to a ConnectableObservable. Finally, the connect() method causes the ConnectableObservable to start emitting events.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// the same observable as previous example</span></div><div class="line"><span class="comment">// ...</span></div><div class="line">ConnectableObservable&lt;Integer&gt; shared = observable.publish();</div><div class="line"></div><div class="line">log.info(<span class="string">"before subscription"</span>);</div><div class="line"></div><div class="line">Subscription sub1 = shared.subscribe(s -&gt; log.info(<span class="string">"sub1: "</span> + s));</div><div class="line">log.info(<span class="string">"sub1 subscribed"</span>);</div><div class="line"></div><div class="line">Subscription sub2 = shared.subscribe(s -&gt; log.info(<span class="string">"sub2: "</span> + s));</div><div class="line">log.info(<span class="string">"sub2 subscribed"</span>);</div><div class="line"></div><div class="line">shared.connect();</div><div class="line"></div><div class="line">sub1.unsubscribe();</div><div class="line">log.info(<span class="string">"sub1 unsubscribed"</span>);</div><div class="line">sub2.unsubscribe();</div><div class="line">log.info(<span class="string">"sub2 unsubscribed"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[main] - before subscription</div><div class="line"></div><div class="line">[main] - sub1 subscribed</div><div class="line">[main] - sub2 subscribed</div><div class="line"></div><div class="line">[main] - connecting...</div><div class="line">[Thread-0] - sub1: 1</div><div class="line">[Thread-0] - sub2: 1</div><div class="line">[Thread-0] - sub1: 2</div><div class="line">[Thread-0] - sub2: 2</div><div class="line">[Thread-0] - sub1: 3</div><div class="line">[Thread-0] - sub2: 3</div><div class="line"></div><div class="line">[main] - sub1 unsubscribed</div><div class="line">[main] - sub2 unsubscribed</div></pre></td></tr></table></figure>
+<p>Notice and compare the threads on which subscribers receive the events.</p>
+<h3 id="publish-refCount-or-share"><a href="#publish-refCount-or-share" class="headerlink" title="publish().refCount() or share()"></a>publish().refCount() or share()</h3><p>The <strong>publish().refCount() duet</strong> is so commonly used for sharing observables that the alias of <strong>share()</strong> is created for them. share() basically subscribes to the upstream Observable and shares it if there is at least one active subscriber. It also unsubscribes from upstream as soon as the last active subscriber unsubscribes.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">Observable&lt;Integer&gt; observable = Observable.create(</div><div class="line">        subscriber -&gt; &#123;</div><div class="line"></div><div class="line">            log.info(<span class="string">"connecting..."</span>);</div><div class="line">            Runnable r = () -&gt; &#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    subscriber.onNext(<span class="number">1</span>);</div><div class="line">                    Thread.currentThread().sleep(<span class="number">1000</span>);</div><div class="line">                    subscriber.onNext(<span class="number">2</span>);</div><div class="line">                    Thread.currentThread().sleep(<span class="number">1000</span>);</div><div class="line">                    subscriber.onNext(<span class="number">3</span>);</div><div class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                    log.error(e);</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line">            <span class="keyword">new</span> Thread(r).start();</div><div class="line">            Subscription s = Subscriptions.create(</div><div class="line">                    () -&gt; log.info(<span class="string">"disconnecting..."</span>)</div><div class="line">            );</div><div class="line">            subscriber.add(s);</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        Observable&lt;Integer&gt; shared = observable.share();</div><div class="line"></div><div class="line">        log.info(<span class="string">"before subscription"</span>);</div><div class="line"></div><div class="line">        Subscription sub1 = shared.subscribe(s -&gt; log.info(<span class="string">"sub1: "</span> + s));</div><div class="line">        log.info(<span class="string">"sub1 subscribed"</span>);</div><div class="line"></div><div class="line">        pause(<span class="number">500</span>);</div><div class="line"></div><div class="line">        Subscription sub2 = shared.subscribe(s -&gt; log.info(<span class="string">"sub2: "</span> + s));</div><div class="line">        log.info(<span class="string">"sub2 subscribed"</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[main] - before subscription</div><div class="line">[main] - connecting...</div><div class="line">[main] - sub1 subscribed</div><div class="line">[Thread-0] - sub1: 1</div><div class="line">[main] - sub2 subscribed</div><div class="line">[Thread-0] - sub1: 2</div><div class="line">[Thread-0] - sub2: 2</div><div class="line">[Thread-0] - sub1: 3</div><div class="line">[Thread-0] - sub2: 3</div></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://truelogician.com/2015/observables/" data-id="cix92orfi0024pdroah3fuw7w" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2015/observables/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2015/observables/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2016/hexo-quick-start/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Creating a Blog by Hexo
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2015/rxbasics/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Reactive Extensions Basics</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/hexo-install-plugins/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/hexo/header-plugins.jpg)" alt="Enhance Your Hexo Blog" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Plugins/">Plugins</a></p>
+                            <p class="item-title"><a href="/2016/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
+                            <p class="item-date"><time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/hexo-quick-start/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/hexo/header-startup.png)" alt="Creating a Blog by Hexo" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Startup/">Startup</a></p>
+                            <p class="item-title"><a href="/2016/hexo-quick-start/" class="title">Creating a Blog by Hexo</a></p>
+                            <p class="item-date"><time datetime="2016-07-14T19:55:50.000Z" itemprop="datePublished">2016-07-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2015/observables/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/rx/header-observables.png)" alt="Observables &amp; Subscriptions" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Reactive/">Reactive</a></p>
+                            <p class="item-title"><a href="/2015/observables/" class="title">Observables &amp; Subscriptions</a></p>
+                            <p class="item-date"><time datetime="2015-03-02T21:17:36.000Z" itemprop="datePublished">2015-03-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2015/rxbasics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/rx/header-rx.png)" alt="Reactive Extensions Basics" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Reactive/">Reactive</a></p>
+                            <p class="item-title"><a href="/2015/rxbasics/" class="title">Reactive Extensions Basics</a></p>
+                            <p class="item-date"><time datetime="2015-02-09T17:15:36.000Z" itemprop="datePublished">2015-02-09</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2014/introduction-to-akka/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/akka/header-thumb.png)" alt="Introduction to Akka" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Software-Architecture/">Software Architecture</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Software-Architecture/Akka/">Akka</a></p>
+                            <p class="item-title"><a href="/2014/introduction-to-akka/" class="title">Introduction to Akka</a></p>
+                            <p class="item-date"><time datetime="2014-06-12T19:21:34.000Z" itemprop="datePublished">2014-06-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev-Tools/">Dev. Tools</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev-Tools/Git/">Git</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Object-Oriented-Design/">Object-Oriented Design</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Object-Oriented-Design/Software-Craftsmanship/">Software Craftsmanship</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Reactive/">Reactive</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">26</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">25</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">24</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">7</span></li></ul></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">July 2010</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-for-Testability/">Design for Testability</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev-Tools/">Dev. Tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naming-Practices/">Naming Practices</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Object-Oriented-Design/">Object-Oriented Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observable/">Observable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Extensions/">Reactive Extensions</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Programming/">Reactive Programming</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactoring/">Refactoring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Replacing-Conditionals/">Replacing Conditionals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Separation-of-Concerns/">Separation of Concerns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Single-Responsibility/">Single Responsibility</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Craftsmanship/">Software Craftsmanship</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Subscriber/">Subscriber</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Subscription/">Subscription</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Version-Control/">Version Control</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Actor-Model/" style="font-size: 10px;">Actor Model</a> <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Blogging/" style="font-size: 13.33px;">Blogging</a> <a href="/tags/Clean-Code/" style="font-size: 13.33px;">Clean Code</a> <a href="/tags/Design-for-Testability/" style="font-size: 10px;">Design for Testability</a> <a href="/tags/Design-Patterns/" style="font-size: 16.67px;">Design-Patterns</a> <a href="/tags/Dev-Tools/" style="font-size: 10px;">Dev. Tools</a> <a href="/tags/Distributed-Systems/" style="font-size: 10px;">Distributed-Systems</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a> <a href="/tags/Naming-Practices/" style="font-size: 10px;">Naming Practices</a> <a href="/tags/Object-Oriented-Design/" style="font-size: 13.33px;">Object-Oriented Design</a> <a href="/tags/Observable/" style="font-size: 10px;">Observable</a> <a href="/tags/Reactive-Extensions/" style="font-size: 13.33px;">Reactive Extensions</a> <a href="/tags/Reactive-Programming/" style="font-size: 13.33px;">Reactive Programming</a> <a href="/tags/Refactoring/" style="font-size: 13.33px;">Refactoring</a> <a href="/tags/Replacing-Conditionals/" style="font-size: 10px;">Replacing Conditionals</a> <a href="/tags/RxJava/" style="font-size: 13.33px;">RxJava</a> <a href="/tags/Separation-of-Concerns/" style="font-size: 10px;">Separation of Concerns</a> <a href="/tags/Single-Responsibility/" style="font-size: 10px;">Single Responsibility</a> <a href="/tags/Software-Craftsmanship/" style="font-size: 10px;">Software Craftsmanship</a> <a href="/tags/StaticWebsite/" style="font-size: 13.33px;">StaticWebsite</a> <a href="/tags/Subscriber/" style="font-size: 10px;">Subscriber</a> <a href="/tags/Subscription/" style="font-size: 10px;">Subscription</a> <a href="/tags/Tutorials/" style="font-size: 20px;">Tutorials</a> <a href="/tags/Version-Control/" style="font-size: 10px;">Version Control</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 Mahan Rad<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://truelogician.com/2015/observables/';
+        
+        this.page.identifier = '2015/observables';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
