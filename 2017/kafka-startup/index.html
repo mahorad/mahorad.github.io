@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Getting Started with Kafka | Mahan&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Kafka is Apache’s open-source platform for distributed stream processing in high throughput environments. In the following tutorial we will try to configure Apache Kafka and Zookeeper as well as demon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Getting Started with Kafka">
+<meta property="og:url" content="http://truelogician.com/2017/kafka-startup/index.html">
+<meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="Kafka is Apache’s open-source platform for distributed stream processing in high throughput environments. In the following tutorial we will try to configure Apache Kafka and Zookeeper as well as demon">
+<meta property="og:image" content="http://truelogician.com/images/kafka/basics-thumb.png">
+<meta property="og:updated_time" content="2017-03-16T18:23:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Getting Started with Kafka">
+<meta name="twitter:description" content="Kafka is Apache’s open-source platform for distributed stream processing in high throughput environments. In the following tutorial we will try to configure Apache Kafka and Zookeeper as well as demon">
+<meta name="twitter:image" content="http://truelogician.com/images/kafka/basics-thumb.png">
+    
+
+    
+        <link rel="alternate" href="atom.xml" title="Mahan&#39;s Blog" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/logo.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83022248-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Mahan&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Mahan Rad</h2>
+            <h3 id="title">Senior Software Engineer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Sweden</span>
+            <a id="follow" target="_blank" href="https://github.com/mahorad/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                35
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                31
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/mahorad" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.linkedin.com/in/mahorad" target="_blank" title="linkedin" class=tooltip>
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://plus.google.com/+MahanRad" target="_blank" title="google-plus" class=tooltip>
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/mahan_h" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://soundcloud.com/mahorad" target="_blank" title="soundcloud" class=tooltip>
+                            <i class="fa fa-soundcloud"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        <div class="base-info profile-block">
+            <h2 id="name">About</h2>
+            <h3 align="justify">Mahan is a senior software engineer, a tech. enthusiast, an <a href="https://goo.gl/ScgBXS">Oracle certified professional</a>, a Java dev. veteran and software consultant at <a href="http://combitech.com">Combitech.</a></h3>
+            <h3 align="center"><br/><img src="/css/images/oracle.png" /></h3></h3>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-2017/kafka-startup" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="/images/kafka/basics-header.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Getting Started with Kafka
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/kafka-startup/">
+            <time datetime="2017-02-11T21:18:29.000Z" itemprop="datePublished">2017-02-11</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Startup/">Startup</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Event-Sourcing/">Event Sourcing</a>, <a class="tag-link" href="/tags/Kafka/">Kafka</a>, <a class="tag-link" href="/tags/Messaging/">Messaging</a>, <a class="tag-link" href="/tags/Messaging-System/">Messaging System</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>, <a class="tag-link" href="/tags/Zookeeper/">Zookeeper</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <div align="justify"><br><a href="https://en.wikipedia.org/wiki/Apache_Kafka" target="_blank" rel="external">Kafka</a> is Apache’s open-source platform for <a href="http://kafka.apache.org/documentation.html#introduction" target="_blank" rel="external">distributed stream processing</a> in high throughput environments. In the following tutorial we will try to configure Apache Kafka and Zookeeper as well as demonstrating a basic and a fault tolerant messaging setup.<br></div>
+
+<a id="more"></a>
+<p>This post tries to cover the following areas on a Linux machine.</p>
+<ul>
+<li><a href="#kafka-introduction">Kafka Introduction</a></li>
+<li><a href="#setting-up-kafka">Setting up Kafka</a></li>
+<li><a href="#basic-messaging">Basic Messaging</a><ul>
+<li><a href="#running-a-zookeeper-server-instance">Running a Zookeeper Server Instance</a></li>
+<li><a href="#running-a-kafka-server-instance">Running a Kafka Server Instance</a></li>
+<li><a href="#creating-and-checking-topics">Creating and Checking Topics</a></li>
+<li><a href="#creating-producer-and-consumer">Creating Producer and Consumer</a></li>
+</ul>
+</li>
+<li><a href="#scaled-messaging">Scaled Messaging</a><ul>
+<li><a href="#creating-zookeeper-ensemble">Creating Zookeeper Ensemble</a></li>
+<li><a href="#setting-up-a-kafka-cluster">Setting up a Kafka Cluster</a></li>
+<li><a href="#creating-replicated-topics">Creating Replicated Topics</a></li>
+<li><a href="#testing-resiliency">Testing Resiliency</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="Kafka-Introduction"><a href="#Kafka-Introduction" class="headerlink" title="Kafka Introduction"></a>Kafka Introduction</h3><p>Kafka is a distributed publish/subscribe fault tolerant messaging system with partitioning and replication abilities that is based on distributed commit logs. It can handle high volumes of message streams (more than 1.5 million messages per second). Kafka heavily depends on the Apache Zookeeper maintain its internal states.</p>
+<p>In a nutshell, Zookeeper is a distributed key-value store used for maintaining configuration information, distributed synchronization, group services and etc. for various distributed applications.</p>
+<p><img src="/images/kafka/diagram.png" alt="A general view of Zookeeper and Kafka internals as well as their relationship"></p>
+<p>However, before diving into the installation and configuration, let’s go through the basic terminology and key facts about Apache Kafka.</p>
+<ul>
+<li><strong>Kafka Message:</strong> is an entity with a arrival timestamp, a unique id and the binary data payload.</li>
+<li><strong>Topic:</strong> is a logical concept; a named feed of messages to be exchanged.</li>
+<li><strong>Broker:</strong> is a software process or node by which Kafka manages topics.<ul>
+<li>They can be scaled out to achieve a higher load distribution, throughput and fault tolerance.</li>
+</ul>
+</li>
+<li><strong>Cluster:</strong> is a group of brokers (a leader and followers) on one or more hosts</li>
+<li><strong>Partition:</strong> is an immutable sequence of topic messages in a physical log file.<ul>
+<li>A broker could have one or more partitions.</li>
+<li>One partition cannot be split across machines.</li>
+</ul>
+</li>
+<li><strong>Message Offset:</strong> is a non-global zero-based immutable sequence-number of a message within a partition that is maintained by consumer.</li>
+<li><strong>Retention Policy:</strong> is Kafka’s configurable period during which the messages are retained by Kafka cluster for a topic.</li>
+<li><strong>Replication Factor:</strong> is the data redundancy factor by which Kafka replicates messages among brokers.  </li>
+<li><strong>In-Sync Replicas (ISR):</strong> is the number of in-sync brokers in a topic’s replica-set or quorum.</li>
+<li><strong>Producer &amp; consumer:</strong> entities interested in sending and receiving messages to and from topics.<ul>
+<li>Kafka won’t allow more than 2 consumers to read from the same partition simultaneously.</li>
+</ul>
+</li>
+<li><strong>Controller:</strong> is an elected broker within a cluster for carrying out administrative tasks (e.g. managing the states of partitions and replicas).</li>
+<li><strong>Partition Leader:</strong> is a broker responsible for recruiting workers for replicating and propagating messages.</li>
+<li><strong>Follower/Worker:</strong> is a broker that only replicates the leader.<ul>
+<li><ul>
+<li>A broker can simultaneously be the leader for one topic a worker for another topic.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Setting-up-Kafka"><a href="#Setting-up-Kafka" class="headerlink" title="Setting up Kafka"></a>Setting up Kafka</h3><p>Installing Kafka is as easy as <a href="https://kafka.apache.org/downloads" target="_blank" rel="external">downloading</a> and unzipping the archive into a folder.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span></div><div class="line">$ wget http://www-eu.apache.org/dist/kafka/0.10.2.0/kafka_2.12-0.10.2.0.tgz</div><div class="line">$ tar -xzvf kafka_2.12-0.10.2.0.tgz</div><div class="line">$ mv kafka_2.12-0.10.2.0 kafka</div></pre></td></tr></table></figure>
+<p>The above script switches to home directory, downloads and unzips kafka and finally removes version from folder name to simplify invocations.</p>
+<p>Inside kafka/ directory, the <strong>bin/</strong> is where all the Kafka and Zookeeper executables exist. Also, the <strong>config/</strong> folder as the name suggests, contains the configuration files for both Zookeeper and Kafka.</p>
+<h3 id="Basic-Messaging"><a href="#Basic-Messaging" class="headerlink" title="Basic Messaging"></a>Basic Messaging</h3><p>The following section demonstrates how to setup a producer/consumer messaging using a single Zookeeper node and a single Kafka broker.</p>
+<h4 id="Running-a-Zookeeper-Server-Instance"><a href="#Running-a-Zookeeper-Server-Instance" class="headerlink" title="Running a Zookeeper Server Instance"></a>Running a Zookeeper Server Instance</h4><p>In order to start a Kafka server instance, an instance of the Zookeeper server needs to be running. This is done using the following executable and the instance’s configuration.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zookeeper.properties</div></pre></td></tr></table></figure>
+<p>The instance can be shutdown using ctrl+c or the running the binary below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-stop.sh</div></pre></td></tr></table></figure>
+<p>Check the Zookeeper server using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ telnet localhost 2181</div></pre></td></tr></table></figure>
+<p>followed by a Zookeeper command like ‘<strong>stat</strong>‘ to produce a similar output as below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Trying 127.0.0.1...</div><div class="line">Connected to localhost.</div><div class="line">Escape character is <span class="string">'^]'</span>.</div><div class="line"><span class="built_in">stat</span></div><div class="line">Zookeeper version: 3.4.9-1757313, built on 08/23/2016 06:50 GMT</div><div class="line">Clients:</div><div class="line"> /127.0.0.1:48134[1](queued=0,recved=1107,sent=1109)</div><div class="line"> /127.0.0.1:41180[0](queued=0,recved=1,sent=0)</div><div class="line"></div><div class="line">Latency min/avg/max: 0/0/115</div><div class="line">Received: 1259</div><div class="line">Sent: 1264</div><div class="line">Connections: 2</div><div class="line">Outstanding: 0</div><div class="line">Zxid: 0x22</div><div class="line">Mode: standalone</div><div class="line">Node count: 21</div><div class="line">Connection closed by foreign host.</div></pre></td></tr></table></figure>
+<h4 id="Running-a-Kafka-Server-Instance"><a href="#Running-a-Kafka-Server-Instance" class="headerlink" title="Running a Kafka Server Instance"></a>Running a Kafka Server Instance</h4><p>Now that a Zookeeper server is up and running, a Kafka server can startup in the same fashion.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/server.properties</div></pre></td></tr></table></figure>
+<p>Again, a ctrl+c or the following binary stops the Kafka server.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-server-stop.sh</div></pre></td></tr></table></figure>
+<h4 id="Creating-and-Checking-Topics"><a href="#Creating-and-Checking-Topics" class="headerlink" title="Creating and Checking Topics"></a>Creating and Checking Topics</h4><p>Now let’s create a topic (named ‘TestTopic’) by passing the address to our running Zookeeper instance. Let’s also leave the description to ‘–partitions’ and ‘–replication-factor’ switches for later.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh \</div><div class="line">&gt; --create \</div><div class="line">&gt; --topic TestTopic \</div><div class="line">&gt; --zookeeper localhost:2181 \</div><div class="line">&gt; --partitions 1 \</div><div class="line">&gt; --replication-factor 1</div></pre></td></tr></table></figure>
+<p>Use the following commands in order to get the list and description of the created topics.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181</div><div class="line">$ sh kafka/bin/kafka-topics.sh --describe --zookeeper localhost:2181</div></pre></td></tr></table></figure>
+<h4 id="Creating-Producer-and-Consumer"><a href="#Creating-Producer-and-Consumer" class="headerlink" title="Creating Producer and Consumer"></a>Creating Producer and Consumer</h4><p>The only missing parts of the basic messaging is a producer and a consumer that can publish/receive messages on the topic that was created earlier. Let’s create a producer first.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-producer.sh \</div><div class="line">&gt; --broker-list localhost:9092 \</div><div class="line">&gt; --topic TestTopic</div></pre></td></tr></table></figure>
+<p>The above command creates a producer pointing it to where it can find one or more brokers to determine the leader for the given topic. After running the producer console program, it is possible to queue up messages (type and ‘Enter’) to be later fetched by consumer.</p>
+<p>Now let’s create a consumer for the ‘TestTopic’ topic that receives all the messages published on the topic previously (–from-beginning).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-consumer.sh \</div><div class="line">&gt; --bootstrap-server localhost:9092 \</div><div class="line">&gt; --from-beginning \</div><div class="line">&gt; --topic TestTopic</div></pre></td></tr></table></figure>
+<p>This shall show previously sent messages as well as messages that are sent now by the producer.</p>
+<h3 id="Scaled-Messaging"><a href="#Scaled-Messaging" class="headerlink" title="Scaled Messaging"></a>Scaled Messaging</h3><p>In basic producer-consumer communication, in case the Zookeeper node or Kafka broker is crashed, the whole messaging fails. However it’s possible to make it fault tolerant by introducing a Zookeeper ensemble (a cluster of Zookeeper nodes) together with a Kafka cluster with multiple brokers (3 Zookeeper nodes and 3 Kafka brokers).</p>
+<h4 id="Creating-Zookeeper-Ensemble"><a href="#Creating-Zookeeper-Ensemble" class="headerlink" title="Creating Zookeeper Ensemble"></a>Creating Zookeeper Ensemble</h4><p>If the Zookeeper and Kafka servers are still running from the previous section, stop them and head into ‘config/‘ folder in kafka installation directory. Create 3 files called ‘<em>zoo1.properties</em>‘, ‘<em>zoo2.properties</em>‘ and ‘<em>zoo3.properties</em>‘. Use the following content as a template and copy it to zoo2 and zoo3 and increment the corresponding values of ‘<strong>dataDir</strong>‘ and ‘<strong>clientPort</strong>‘.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># zoo1.properties</span></div><div class="line">tickTime=2000</div><div class="line">dataDir=/tmp/zookeeper/1</div><div class="line">clientPort=2181</div><div class="line">maxClientCnxns=0</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line"></div><div class="line">server.1=localhost:2888:3888</div><div class="line">server.2=localhost:2889:3889</div><div class="line">server.3=localhost:2890:3890</div></pre></td></tr></table></figure>
+<h6 id="Essential-Properties"><a href="#Essential-Properties" class="headerlink" title="Essential Properties"></a>Essential Properties</h6><ul>
+<li><strong>tickTime:</strong> The number of milliseconds to be considered as one tick.</li>
+<li><strong>dataDir:</strong> The server’s data directory.<ul>
+<li>Notice that the /tmp/zookeeper directory might be removed after each restart.</li>
+</ul>
+</li>
+<li><strong>clientPort:</strong> The port on which this server listens to client connections.</li>
+<li><strong>maxClientCnxns:</strong> Maximum amount of client connections allowed for this server.</li>
+<li><strong>initLimit:</strong> Maximum number of ticks for followers to connect and sync up with leader.</li>
+<li><strong>syncLimit:</strong> Maximum number of ticks for followers to sync up with Zookeeper.</li>
+<li><strong>server.x:</strong> The list of servers that create the Zookeeper ensemble.</li>
+</ul>
+<p>Also, for each of our servers that will run, we need to create a file called ‘myid’ in their data directory. This file basically consists of a single line and a single number of that machine’s id.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /tmp/zookeeper/1</div><div class="line">$ touch /tmp/zookeeper/1/myid</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'1'</span> &gt;&gt; /tmp/zookeeper/1/myid</div><div class="line"></div><div class="line">$ mkdir -p /tmp/zookeeper/2</div><div class="line">$ touch /tmp/zookeeper/2/myid</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'2'</span> &gt;&gt; /tmp/zookeeper/2/myid</div><div class="line"></div><div class="line">$ mkdir -p /tmp/zookeeper/3</div><div class="line">$ touch /tmp/zookeeper/3/myid</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'3'</span> &gt;&gt; /tmp/zookeeper/3/myid</div></pre></td></tr></table></figure>
+<p>Now let’s run the first Zookeeper server in our ensemble.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zoo1.properties</div></pre></td></tr></table></figure>
+<p>After running our server a couple of ‘<em>java.net.ConnectException: Connection refused</em>‘ will be thrown which imply that our server instance cannot connect to the other two (since they are not running yet). So ignore the warning and run the rest of them.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zoo2.properties</div><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zoo3.properties</div></pre></td></tr></table></figure>
+<p>As of this point, our Zookeeper ensemble with 3 server nodes shall be up and running.</p>
+<h4 id="Setting-up-a-Kafka-Cluster"><a href="#Setting-up-a-Kafka-Cluster" class="headerlink" title="Setting up a Kafka Cluster"></a>Setting up a Kafka Cluster</h4><p>Let’s now create a Kafka cluster with 3 broker inside it which is as easy as running 3 server instances with different configurations. So let’s create 3 properties files kafka-0, kafka-1 and kafka-2 that are only different in values of ‘<strong>broker.id</strong>‘, ‘<strong>port</strong>‘ and ‘<strong>log.dirs</strong>‘. As a result, increment those values for <em>kafka-1.properties</em> and <em>kafka-2.properties</em>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># kafka-0.properties</span></div><div class="line">broker.id=0</div><div class="line">port=9090</div><div class="line"></div><div class="line">num.network.threads=3</div><div class="line">num.io.threads=8</div><div class="line">socket.send.buffer.bytes=102400</div><div class="line">socket.receive.buffer.bytes=102400</div><div class="line">socket.request.max.bytes=104857600</div><div class="line"></div><div class="line">log.dirs=/tmp/kafka-logs/0</div><div class="line">num.partitions=1</div><div class="line">num.recovery.threads.per.data.dir=1</div><div class="line">log.retention.hours=168</div><div class="line"></div><div class="line">log.segment.bytes=1073741824</div><div class="line">log.retention.check.interval.ms=300000</div><div class="line"></div><div class="line">zookeeper.connect=localhost:2181,localhost:2182,localhost:2183</div><div class="line">zookeeper.connection.timeout.ms=6000</div></pre></td></tr></table></figure>
+<h6 id="Essential-Properties-1"><a href="#Essential-Properties-1" class="headerlink" title="Essential Properties"></a>Essential Properties</h6><ul>
+<li><strong>broker.id:</strong> The unique broker id for this server instance.</li>
+<li><strong>port:</strong> A <em>deprecated</em> property denoting the port to which this server listens and accepts connections.</li>
+<li><strong>log.dirs:</strong> The list of directories to maintain data logs.</li>
+<li><strong>zookeeper.connect:</strong> The list of nodes within the Zookeeper ensemble.</li>
+</ul>
+<p>After creating the properties files with proper content, it’s time to run the Kafka server instances.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/kafka-0.properties</div><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/kafka-1.properties</div><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/kafka-2.properties</div></pre></td></tr></table></figure>
+<h4 id="Creating-Replicated-Topics"><a href="#Creating-Replicated-Topics" class="headerlink" title="Creating Replicated Topics"></a>Creating Replicated Topics</h4><p>After having Zookeeper and Kafka brokers up and running, it’s now time to create a couple of topics that</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh \</div><div class="line">&gt; --create \</div><div class="line">&gt; --topic chat \</div><div class="line">&gt; --zookeeper localhost:2181,localhost:2182,localhost:2183 \</div><div class="line">&gt; --replication-factor 3 \</div><div class="line">&gt; --partitions 3</div><div class="line"></div><div class="line">$ sh kafka/bin/kafka-topics.sh</div><div class="line">&gt; --create \</div><div class="line">&gt; --topic event \</div><div class="line">&gt; --zookeeper localhost:2181,localhost:2182,localhost:2183 \</div><div class="line">&gt; --replication-factor 2 \</div><div class="line">&gt; --partitions 2</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh --describe --zookeeper localhost:2181</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Topic:chat	PartitionCount:1	ReplicationFactor:3	Configs:</div><div class="line">	Topic: chat	Partition: 0	Leader: 1	Replicas: 1,2,0	Isr: 1,2,0</div><div class="line">Topic:event	PartitionCount:1	ReplicationFactor:2	Configs:</div><div class="line">	Topic: event	Partition: 0	Leader: 0	Replicas: 0,1	Isr: 0,1</div></pre></td></tr></table></figure>
+<p>The output is the description of topics and their relation with existing brokers. The first two lines of output state that the topic ‘chat’ has one partition that is replicated among brokers 1,2 and 3 while all three of them are in sync at the moment (Isr: 1,2,0). The rest of the output demonstrate similar information for the ‘event’ topic. In order to get a better understanding, compare it with the diagram shown at the beginning of the post.</p>
+<h4 id="Testing-Resiliency"><a href="#Testing-Resiliency" class="headerlink" title="Testing Resiliency"></a>Testing Resiliency</h4><p>It’s now time to create one consumer and one producer for our ‘chat’ topic (the same will stand for the ‘event’ topic as well) and test how resilient our setup is.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-producer.sh \</div><div class="line">&gt; --broker-list localhost:9092 \</div><div class="line">&gt; --topic chat</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-consumer.sh \</div><div class="line">&gt; --bootstrap-server localhost:9092 \</div><div class="line">&gt; --from-beginning --topic chat</div></pre></td></tr></table></figure>
+<p>Try to send a few messages to ensure the setup works in the first place. According to the ‘chat’ topic description, broker1 is the topic leader. However, if that broker is killed, Kafka will elect another broker as the topic’s leader. Test this by killing broker 1 and issuing the topic description command which shall produce a similar output as below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Topic:chat      PartitionCount:1        ReplicationFactor:3     Configs:</div><div class="line">        Topic: chat     Partition: 0    Leader: 2       Replicas: 1,2,0 Isr: 2,0</div><div class="line">Topic:event     PartitionCount:1        ReplicationFactor:2     Configs:</div><div class="line">        Topic: event    Partition: 0    Leader: 0       Replicas: 0,1   Isr: 0</div></pre></td></tr></table></figure>
+<p>As can be seen, the producer and consumer are not affected and messages can still be passed; however, the topics are. The ‘chat’ topic has now the broker2 as its new leader and has only 2 ISRs while topic ‘event’ now owns only 1 ISR.</p>
+<p>To further test the setup resiliency, try to kill a Zookeeper node and see that messaging will not fail until all nodes are down.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://truelogician.com/2017/kafka-startup/" data-id="cj0cusy9g002d35rodbw0ekzc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2017/kafka-startup/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2017/kafka-startup/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2016/hexo-install-plugins/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Enhance Your Hexo Blog</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/kafka-startup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/kafka/basics-thumb.png)" alt="Getting Started with Kafka" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Startup/">Startup</a></p>
+                            <p class="item-title"><a href="/2017/kafka-startup/" class="title">Getting Started with Kafka</a></p>
+                            <p class="item-date"><time datetime="2017-02-11T21:18:29.000Z" itemprop="datePublished">2017-02-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/hexo-install-plugins/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/hexo/header-plugins.jpg)" alt="Enhance Your Hexo Blog" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Plugins/">Plugins</a></p>
+                            <p class="item-title"><a href="/2016/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
+                            <p class="item-date"><time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/hexo-quick-start/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/hexo/header-startup.png)" alt="Creating a Blog by Hexo" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Startup/">Startup</a></p>
+                            <p class="item-title"><a href="/2016/hexo-quick-start/" class="title">Creating a Blog by Hexo</a></p>
+                            <p class="item-date"><time datetime="2016-07-14T19:55:50.000Z" itemprop="datePublished">2016-07-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2015/flatmap/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/rx/header-flatmap.png)" alt="FlatMap" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Reactive/">Reactive</a></p>
+                            <p class="item-title"><a href="/2015/flatmap/" class="title">FlatMap</a></p>
+                            <p class="item-date"><time datetime="2015-04-26T19:46:12.000Z" itemprop="datePublished">2015-04-26</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2015/observables/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/rx/header-observables.png)" alt="Observables &amp; Subscriptions" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Reactive/">Reactive</a></p>
+                            <p class="item-title"><a href="/2015/observables/" class="title">Observables &amp; Subscriptions</a></p>
+                            <p class="item-date"><time datetime="2015-03-02T21:17:36.000Z" itemprop="datePublished">2015-03-02</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev-Tools/">Dev. Tools</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev-Tools/Git/">Git</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Object-Oriented-Design/">Object-Oriented Design</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Object-Oriented-Design/Software-Craftsmanship/">Software Craftsmanship</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Reactive/">Reactive</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">26</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">25</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">24</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">7</span></li></ul></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">July 2010</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-for-Testability/">Design for Testability</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev-Tools/">Dev. Tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Sourcing/">Event Sourcing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Messaging/">Messaging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Messaging-System/">Messaging System</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naming-Practices/">Naming Practices</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Object-Oriented-Design/">Object-Oriented Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observable/">Observable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Extensions/">Reactive Extensions</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Programming/">Reactive Programming</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactoring/">Refactoring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Replacing-Conditionals/">Replacing Conditionals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Separation-of-Concerns/">Separation of Concerns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Single-Responsibility/">Single Responsibility</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Craftsmanship/">Software Craftsmanship</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Subscriber/">Subscriber</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Subscription/">Subscription</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">35</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Version-Control/">Version Control</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Actor-Model/" style="font-size: 10px;">Actor Model</a> <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Blogging/" style="font-size: 12.5px;">Blogging</a> <a href="/tags/Clean-Code/" style="font-size: 12.5px;">Clean Code</a> <a href="/tags/Design-for-Testability/" style="font-size: 10px;">Design for Testability</a> <a href="/tags/Design-Patterns/" style="font-size: 17.5px;">Design-Patterns</a> <a href="/tags/Dev-Tools/" style="font-size: 10px;">Dev. Tools</a> <a href="/tags/Distributed-Systems/" style="font-size: 10px;">Distributed-Systems</a> <a href="/tags/Event-Sourcing/" style="font-size: 10px;">Event Sourcing</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hexo/" style="font-size: 12.5px;">Hexo</a> <a href="/tags/Kafka/" style="font-size: 10px;">Kafka</a> <a href="/tags/Messaging/" style="font-size: 10px;">Messaging</a> <a href="/tags/Messaging-System/" style="font-size: 10px;">Messaging System</a> <a href="/tags/Naming-Practices/" style="font-size: 10px;">Naming Practices</a> <a href="/tags/Object-Oriented-Design/" style="font-size: 12.5px;">Object-Oriented Design</a> <a href="/tags/Observable/" style="font-size: 10px;">Observable</a> <a href="/tags/Reactive-Extensions/" style="font-size: 15px;">Reactive Extensions</a> <a href="/tags/Reactive-Programming/" style="font-size: 15px;">Reactive Programming</a> <a href="/tags/Refactoring/" style="font-size: 12.5px;">Refactoring</a> <a href="/tags/Replacing-Conditionals/" style="font-size: 10px;">Replacing Conditionals</a> <a href="/tags/RxJava/" style="font-size: 15px;">RxJava</a> <a href="/tags/Separation-of-Concerns/" style="font-size: 10px;">Separation of Concerns</a> <a href="/tags/Single-Responsibility/" style="font-size: 10px;">Single Responsibility</a> <a href="/tags/Software-Craftsmanship/" style="font-size: 10px;">Software Craftsmanship</a> <a href="/tags/StaticWebsite/" style="font-size: 12.5px;">StaticWebsite</a> <a href="/tags/Subscriber/" style="font-size: 10px;">Subscriber</a> <a href="/tags/Subscription/" style="font-size: 10px;">Subscription</a> <a href="/tags/Tutorials/" style="font-size: 20px;">Tutorials</a> <a href="/tags/Version-Control/" style="font-size: 10px;">Version Control</a> <a href="/tags/Zookeeper/" style="font-size: 10px;">Zookeeper</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Mahan Rad<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://truelogician.com/2017/kafka-startup/';
+        
+        this.page.identifier = '2017/kafka-startup';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
