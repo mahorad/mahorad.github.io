@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Kafka, a Dive into Java Client API | Mahan&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp;amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kafka, a Dive into Java Client API">
+<meta property="og:url" content="http://truelogician.com/2017/kafka-java-api/index.html">
+<meta property="og:site_name" content="Mahan's Blog">
+<meta property="og:description" content="In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp;amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell">
+<meta property="og:image" content="http://truelogician.com/images/kafka/basics-thumb.png">
+<meta property="og:updated_time" content="2020-07-06T23:20:11.817Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kafka, a Dive into Java Client API">
+<meta name="twitter:description" content="In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp;amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell">
+<meta name="twitter:image" content="http://truelogician.com/images/kafka/basics-thumb.png">
+    
+
+    
+        <link rel="alternate" href="atom.xml" title="Mahan&#39;s Blog" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/css/images/logo.png" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/lightgallery/css/lightgallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-83022248-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Mahan&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">Mahan Rad</h2>
+            <h3 id="title">Senior Software Engineer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Sweden</span>
+            <a id="follow" target="_blank" href="https://github.com/mahorad/">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                38
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                34
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/mahorad" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.linkedin.com/in/mahorad" target="_blank" title="linkedin" class=tooltip>
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://plus.google.com/+MahanRad" target="_blank" title="google-plus" class=tooltip>
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/mahan_h" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://soundcloud.com/mahorad" target="_blank" title="soundcloud" class=tooltip>
+                            <i class="fa fa-soundcloud"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        <div class="base-info profile-block">
+            <h2 id="name">About</h2>
+            <h3 align="justify">Mahan is a senior software engineer, a tech. enthusiast, an <a href="https://goo.gl/ScgBXS">Oracle certified professional</a>.</h3>
+            <h3 align="center"><br/><img src="/css/images/oracle.png" /></h3></h3>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-2017/kafka-java-api" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="/images/kafka/basics-header.png" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Kafka, a Dive into Java Client API
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/kafka-java-api/">
+            <time datetime="2017-03-24T18:44:18.000Z" itemprop="datePublished">2017-03-24</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Java/">Java</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Apache/">Apache</a>, <a class="tag-link" href="/tags/Event-Sourcing/">Event Sourcing</a>, <a class="tag-link" href="/tags/Java/">Java</a>, <a class="tag-link" href="/tags/Kafka/">Kafka</a>, <a class="tag-link" href="/tags/Messaging/">Messaging</a>, <a class="tag-link" href="/tags/Messaging-System/">Messaging System</a>, <a class="tag-link" href="/tags/Producer/">Producer</a>, <a class="tag-link" href="/tags/Tutorials/">Tutorials</a>, <a class="tag-link" href="/tags/Zookeeper/">Zookeeper</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <div align="justify"><br>In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell programs. In this post we want to get our hands more into coding by creating and configuring a Kafka producer utilizing the Kafka’s Java API.<br></div>
+
+<a id="more"></a>
+<ul>
+<li>Creating Topic</li>
+<li>Producer<ul>
+<li>Properties Description</li>
+<li>Create and Dispatch</li>
+</ul>
+</li>
+<li>Consumer<ul>
+<li>Properties Description</li>
+<li>Create and Receive</li>
+</ul>
+</li>
+</ul>
+<h3 id="Creating-Topic"><a href="#Creating-Topic" class="headerlink" title="Creating Topic"></a>Creating Topic</h3><p>3 partitions<br>3 brokers<br>3 replication factor</p>
+<h3 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h3><h4 id="Properties-Description"><a href="#Properties-Description" class="headerlink" title="Properties Description"></a>Properties Description</h4><p>a Kafka producer can be instantiated using a set of properties among which a few of them are required. The producer owns an instance of the <code>ProducerConfig</code> class which contains the property keys to configure a producer.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">Properties props = <span class="keyword">new</span> Properties();</div><div class="line">props.put(<span class="string">"bootstrap.servers"</span>, <span class="string">"localhost:9092, localhost:9093"</span>);</div><div class="line"></div><div class="line">props.put(</div><div class="line">  <span class="string">"key.serializer"</span>,</div><div class="line">  <span class="string">"org.apache.kafka.common.serialization.StringSerializer"</span>);</div><div class="line">props.put(</div><div class="line">  <span class="string">"value.serializer"</span>,</div><div class="line">  <span class="string">"org.apache.kafka.common.serialization.StringSerializer"</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"acks"</span>, <span class="string">""</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"retry.backoff.ms"</span>, <span class="number">5</span>);</div><div class="line">props.put(<span class="string">"retries"</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"batch.size"</span>, <span class="number">16384</span>);</div><div class="line">props.put(<span class="string">"linger.ms"</span>, <span class="number">0</span>);</div><div class="line">props.put(<span class="string">"buffer.memory"</span>, <span class="number">33554432</span>);</div><div class="line">props.put(<span class="string">"max.block.ms"</span>, <span class="number">60000</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"max.in.flight.requests.per.connection"</span>, <span class="number">5</span>);</div><div class="line"></div><div class="line">props.put(</div><div class="line">  <span class="string">"partitioner.class"</span>,</div><div class="line">  <span class="string">"org.apache.kafka.clients.producer.internals.DefaultPartitioner"</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"client.id"</span>, <span class="string">""</span>);</div><div class="line">props.put(<span class="string">"max.request.size"</span>, <span class="number">1048576</span>);</div><div class="line">props.put(<span class="string">"request.timeout.ms"</span>, <span class="number">30000</span>);</div><div class="line">props.put(<span class="string">"timeout.ms"</span>, <span class="number">30000</span>);</div><div class="line">props.put(<span class="string">"compression.type"</span>, <span class="string">"none"</span>);</div></pre></td></tr></table></figure>
+<p><code>bootstrap.servers</code>:<br>The list of brokers from which the producer connects to the first available one in order to receive information about partitions, leaders and etc.</p>
+<p>“<code>key.serializer</code>“: The message-key serializer.</p>
+<p>“<code>value.serializer</code>“: The message-value serializer.</p>
+<p>“<code>acks</code>“:<br>This is the level of acknowledgement demanded by the producer for its sent messages. It could have one of the values mentioned below:</p>
+<ul>
+<li><strong><code>0</code></strong> Fire and Forget</li>
+<li><strong><code>1</code></strong> Leader acknowledged</li>
+<li><strong><code>2</code></strong> Quorum acknowledged</li>
+</ul>
+<p>“<code>retries</code>“:<br>how many times a producer shall retry sending a message before aborting</p>
+<p>“<code>retry.backoff.ms</code>“:<br>the wait period in milliseconds between retries</p>
+<p>“<code>batch.size</code>“:<br>number of bytes that can be buffered per each RecordBatch.<br>limit on the amount of records to be buffered<br>if this size is reached the batch is dispatched immediately.</p>
+<h5 id="Batching-Classes"><a href="#Batching-Classes" class="headerlink" title="Batching Classes"></a>Batching Classes</h5><ul>
+<li><code>RecordBatch</code> is a batch of <code>ProducerRecord</code>s to be sent to the broker that owns the assigned partition</li>
+<li><code>RecordAccumulator</code>s which are in-memory queue-like structure allows for micro-batching high-volume dispatches. it contains a collection of <code>RecordBatch</code>s.</li>
+<li><code>RecordBuffer</code> asdlfj</li>
+</ul>
+<p>“<code>linger.ms</code>“:<br>the amount of waiting time in milliseconds after which the batch content is dispatched</p>
+<p>“<code>buffer.memory</code>“:<br>the total number of bytes in memory to buffer records waiting to be send to the brokers</p>
+<p>“<code>max.block.ms</code>“:<br>the amount of time in milliseconds during which the send() method will be blocked<br>used to force the back pressure on the producer</p>
+<p>“<code>max.in.flight.requests.per.connection</code>“:<br>the amount of simultaneous requests that can be made before the confirmation is received</p>
+<h4 id="Dispatch"><a href="#Dispatch" class="headerlink" title="Dispatch"></a>Dispatch</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">KafkaProducer&lt;String, String&gt; producer = <span class="keyword">new</span> KafkaProducer&lt;&gt;(producerProperties);</div><div class="line">ProducerRecord&lt;String, String&gt; record = <span class="keyword">new</span> ProducerRecord&lt;&gt;(topic, messageText);</div><div class="line"></div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    producer.send(record);</div><div class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125; <span class="keyword">finally</span> &#123;</div><div class="line">    producer.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>when the send() method is invoked, it reaches out to cluster in order to receive information about partitions, topics and brokers. when the metadata is received, the send process goes through the following phases.</p>
+<ol>
+<li><strong>Serialization:</strong> using the defined serializers</li>
+<li><strong>Targeting Partition</strong>: determining to which partition the record shall be sent.</li>
+<li><strong>Record Accumulation:</strong> putting <code>ProducerRecord</code>s into <code>RecordAccumulator</code>s</li>
+<li><strong>Transmission:</strong> as well as receiving a <code>RecordMetadata</code> object with the receive statistics.</li>
+</ol>
+<h3 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h3><p>is a long running application<br>it always looks for and process new messages by polling the Kafka cluster<br>this loop shall be interrupted only for valid reasons<br>they can have only one thread an one poll-loop<br>it affects how much you can reasonable expect a kafka consumer to do<br>too much time on processing the records will have big implications<br>slow consumer does not have impact on the cluster, producer or other consumers<br>it forces parallelism of message consumption in another more scalable way</p>
+<h4 id="Why-polling"><a href="#Why-polling" class="headerlink" title="Why polling"></a>Why polling</h4><p>diversity of consumers<br>different needs<br>different capabilities<br>scalability in case of large number of consumers<br>less performance degradation<br>different consumption model<br>real-time processing<br>batch mode processing<br>Because Kafka consumers pull data from the topic, different consumers can consume the messages at different pace.<br>You can have one consumer processing the messages at real-time and another consumer processing the messages in batch mode</p>
+<h4 id="similar-to-creating-a-producer"><a href="#similar-to-creating-a-producer" class="headerlink" title="similar to creating a producer"></a>similar to creating a producer</h4><p>the consumer’s subscribe() method is used to subscribe to a topic<br>takes a collection of strings for a list of topics<br>can use an overload for passing regular expressions for batch-subscription (subscribing to a series of topics “my-*“)<br>subscription shall happen in a single action.<br>any subsequent call on the subscribe() method will overwrite the previous subscription</p>
+<h4 id="unsubscribe-method"><a href="#unsubscribe-method" class="headerlink" title="unsubscribe() method"></a>unsubscribe() method</h4><p>this cause unsubscribing from all topics.<br>the same effect can be achieved by subscribing to an empty list<br>automatic or dynamic partition assignment happens as a result of invoking subscribe()<br>enlisting the consumer to poll from all partitions<br>for multiple topics, the consumer will poll all partitions within those topics.<br>this could be a heavy action<br>the partition management is done behind the scene<br>when a new partition is added to an existing topic<br>the metadata about the cluster will have changed and will be sent to consumer<br>consumer realizes if any of its subscriptions is affected<br>automatically adds the new partition</p>
+<p><code>SubscriptionState</code> consumer maintains an internal object that manages its subscriptions<br>it contains all details related to the topics and partitions this consumer instance is subscribed or assigned to<br>it also plays an important role with the <code>ConsumerCoordinator</code> in managing the offsets</p>
+<h4 id="assign-method"><a href="#assign-method" class="headerlink" title="assign() method"></a>assign() method</h4><p>in contrast, a consumer my want to have full control over the partitions from which it will poll messages.</p>
+<p>it’s possible to assign the consumer to individual partitions using assign() method<br>in other words assigning specific partitions to a single consumer instance<br>the consumer will start polling from those partitions regardless of the topics to which they belong.<br>it takes a list of <code>TopicPartition</code>s and invoking it multiple times will have the same of overwrite effect.<br>a <code>TopicPartition</code> is a type safe data structure to represent individual partitions within a topic</p>
+<p>if a partition is added<br>the consumer will be notified as a result of the protocol for retrieving metadata from the cluster</p>
+<p>the list which is passed to the assign/subscribe method is used to create a <code>SubscriptionState</code> object</p>
+<h4 id="consumer-topic-interaction"><a href="#consumer-topic-interaction" class="headerlink" title="consumer-topic interaction"></a>consumer-topic interaction</h4><h4 id="poll-timeout"><a href="#poll-timeout" class="headerlink" title="poll(timeout)"></a>poll(timeout)</h4><p>timeout: representing the number of milliseconds that the client will spend polling the cluster for messages before returning<br>it specifies the amount of time the message retrieval cycle will take<br>when the timeout expires the batch of records are returned<br>added to an in-memory buffer<br>parsed<br>deserialized<br>grouped into <code>ConsumerRecord</code>s<br>by topic and partitioned</p>
+<p>this method or the polling action in general, is the most critical process in the entire consumer component is the poll loop<br>continuously polling brokers for data in a reliable fashion<br>it returns an object of type <code>ConsumerRecords</code> containing all the records it could retrieve from the broker<br>as a result of the poll operation the metadata about the cluster is also requested.<br>the communication toward the cluster is done when consumer’s <code>Fetcher</code> object communicates with the cluster through Consumer Network Client and TCP packets<br>particularly, a <code>Fetcher</code> object in the consumer is responsible for most of communcation between the consumer and the cluster<br>with the client open, the consumer starts sending heartbeats (to let the cluster know which consumers are connected)<br><code>Fetcher</code> should know what topics or individual partitions it should be asking for which is defined in the <code>SubscriptionState</code> object<br>when the timeout expires, <code>Fetcher</code> will return the grouped <code>ConsumerRecord</code>s<br>as a poll operation opens network resources, it’s a good idea to enclose it with structured exception handling and make sure it closes in the end.</p>
+<p>options for developing and configuring consumer applications at scale</p>
+<p><code>enable.auto.commit</code>: Kafka accepts the responsibility to decide when current position offsets are upgraded to full committed offsets (a blind approach, might not be a good choice in case of failures). Kafka does this using a frequence set via <code>auto.commit.interval</code></p>
+<p>single broker<br>two topics<br>three partitions per topic</p>
+<p>add new partition<br>kafka/bin/kafka-topics.sh –zookeeper localhost:2181 –alter –topic biology –partitions 4</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://truelogician.com/2017/kafka-java-api/" data-id="ckcb4nq9700013ermgnwrh74x" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://truelogician.com/2017/kafka-java-api/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://truelogician.com/2017/kafka-java-api/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/kafka-setup/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Messaging with Kafka</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/kafka-java-api/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/kafka/basics-thumb.png)" alt="Kafka, a Dive into Java Client API" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Java/">Java</a></p>
+                            <p class="item-title"><a href="/2017/kafka-java-api/" class="title">Kafka, a Dive into Java Client API</a></p>
+                            <p class="item-date"><time datetime="2017-03-24T18:44:18.000Z" itemprop="datePublished">2017-03-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/kafka-setup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/kafka/basics-thumb.png)" alt="Messaging with Kafka" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Startup/">Startup</a></p>
+                            <p class="item-title"><a href="/2017/kafka-setup/" class="title">Messaging with Kafka</a></p>
+                            <p class="item-date"><time datetime="2017-02-11T21:18:29.000Z" itemprop="datePublished">2017-02-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/kafka-startup/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/kafka/basics-thumb.png)" alt="Getting Started with Kafka" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Startup/">Startup</a></p>
+                            <p class="item-title"><a href="/2017/kafka-startup/" class="title">Getting Started with Kafka</a></p>
+                            <p class="item-date"><time datetime="2017-02-11T21:18:29.000Z" itemprop="datePublished">2017-02-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/kafka-basics/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/kafka/basics-thumb.png)" alt="Kafka, Absolute Basics" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Kafka/">Kafka</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Kafka/Startup/">Startup</a></p>
+                            <p class="item-title"><a href="/2017/kafka-basics/" class="title">Kafka, Absolute Basics</a></p>
+                            <p class="item-date"><time datetime="2017-01-03T18:12:54.000Z" itemprop="datePublished">2017-01-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/hexo-install-plugins/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/images/hexo/header-plugins.jpg)" alt="Enhance Your Hexo Blog" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Hexo/">Hexo</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hexo/Plugins/">Plugins</a></p>
+                            <p class="item-title"><a href="/2016/hexo-install-plugins/" class="title">Enhance Your Hexo Blog</a></p>
+                            <p class="item-date"><time datetime="2016-08-23T20:22:01.000Z" itemprop="datePublished">2016-08-23</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev-Tools/">Dev. Tools</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev-Tools/Git/">Git</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/">Hexo</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Plugins/">Plugins</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Hexo/Startup/">Startup</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/">Kafka</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Kafka/Startup/">Startup</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Object-Oriented-Design/">Object-Oriented Design</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Object-Oriented-Design/Software-Craftsmanship/">Software Craftsmanship</a><span class="category-list-count">2</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Reactive/">Reactive</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/">Software Architecture</a><span class="category-list-count">26</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Akka/">Akka</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/">Design Patterns</a><span class="category-list-count">25</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Overview/">Overview</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/">Types</a><span class="category-list-count">24</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Behavioral/">Behavioral</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Creational/">Creational</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Software-Architecture/Design-Patterns/Types/Structural/">Structural</a><span class="category-list-count">7</span></li></ul></li></ul></li></ul></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">September 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">August 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07/">July 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">May 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">March 2013</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/11/">November 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/10/">October 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">September 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/06/">June 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/03/">March 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/02/">February 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">January 2012</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">December 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/11/">November 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">September 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/07/">July 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/06/">June 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">April 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">March 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">February 2011</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/12/">December 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/11/">November 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/10/">October 2010</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/09/">September 2010</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">July 2010</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Actor-Model/">Actor Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache/">Apache</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blogging/">Blogging</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Clean-Code/">Clean Code</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-for-Testability/">Design for Testability</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Design-Patterns/">Design-Patterns</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dev-Tools/">Dev. Tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-Systems/">Distributed-Systems</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Event-Sourcing/">Event Sourcing</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/">Hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Messaging/">Messaging</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Messaging-System/">Messaging System</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naming-Practices/">Naming Practices</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Object-Oriented-Design/">Object-Oriented Design</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Observable/">Observable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Producer/">Producer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Extensions/">Reactive Extensions</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reactive-Programming/">Reactive Programming</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Refactoring/">Refactoring</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Replacing-Conditionals/">Replacing Conditionals</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/">RxJava</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Separation-of-Concerns/">Separation of Concerns</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Single-Responsibility/">Single Responsibility</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Craftsmanship/">Software Craftsmanship</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StaticWebsite/">StaticWebsite</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Subscriber/">Subscriber</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Subscription/">Subscription</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorials/">Tutorials</a><span class="tag-list-count">38</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Version-Control/">Version Control</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a><span class="tag-list-count">4</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Actor-Model/" style="font-size: 10px;">Actor Model</a> <a href="/tags/Akka/" style="font-size: 10px;">Akka</a> <a href="/tags/Apache/" style="font-size: 14px;">Apache</a> <a href="/tags/Blogging/" style="font-size: 12px;">Blogging</a> <a href="/tags/Clean-Code/" style="font-size: 12px;">Clean Code</a> <a href="/tags/Design-for-Testability/" style="font-size: 10px;">Design for Testability</a> <a href="/tags/Design-Patterns/" style="font-size: 18px;">Design-Patterns</a> <a href="/tags/Dev-Tools/" style="font-size: 10px;">Dev. Tools</a> <a href="/tags/Distributed-Systems/" style="font-size: 10px;">Distributed-Systems</a> <a href="/tags/Event-Sourcing/" style="font-size: 16px;">Event Sourcing</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Hexo/" style="font-size: 12px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Kafka/" style="font-size: 16px;">Kafka</a> <a href="/tags/Messaging/" style="font-size: 16px;">Messaging</a> <a href="/tags/Messaging-System/" style="font-size: 16px;">Messaging System</a> <a href="/tags/Naming-Practices/" style="font-size: 10px;">Naming Practices</a> <a href="/tags/Object-Oriented-Design/" style="font-size: 12px;">Object-Oriented Design</a> <a href="/tags/Observable/" style="font-size: 10px;">Observable</a> <a href="/tags/Producer/" style="font-size: 10px;">Producer</a> <a href="/tags/Reactive-Extensions/" style="font-size: 14px;">Reactive Extensions</a> <a href="/tags/Reactive-Programming/" style="font-size: 14px;">Reactive Programming</a> <a href="/tags/Refactoring/" style="font-size: 12px;">Refactoring</a> <a href="/tags/Replacing-Conditionals/" style="font-size: 10px;">Replacing Conditionals</a> <a href="/tags/RxJava/" style="font-size: 14px;">RxJava</a> <a href="/tags/Separation-of-Concerns/" style="font-size: 10px;">Separation of Concerns</a> <a href="/tags/Single-Responsibility/" style="font-size: 10px;">Single Responsibility</a> <a href="/tags/Software-Craftsmanship/" style="font-size: 10px;">Software Craftsmanship</a> <a href="/tags/StaticWebsite/" style="font-size: 12px;">StaticWebsite</a> <a href="/tags/Subscriber/" style="font-size: 10px;">Subscriber</a> <a href="/tags/Subscription/" style="font-size: 10px;">Subscription</a> <a href="/tags/Tutorials/" style="font-size: 20px;">Tutorials</a> <a href="/tags/Version-Control/" style="font-size: 10px;">Version Control</a> <a href="/tags/Zookeeper/" style="font-size: 16px;">Zookeeper</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2020 Mahan Rad<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://truelogician.com/2017/kafka-java-api/';
+        
+        this.page.identifier = '2017/kafka-java-api';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'mahansblog' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+    
+        <script src="/vendor/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-share.min.js"></script>
+        <script src="/vendor/lightgallery/js/lg-video.min.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

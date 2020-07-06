@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2017-03-16T18:23:18.000Z</updated>
+  <updated>2020-07-06T23:20:11.817Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -16,11 +16,224 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Kafka, a Dive into Java Client API</title>
+    <link href="http://truelogician.com/2017/kafka-java-api/"/>
+    <id>http://truelogician.com/2017/kafka-java-api/</id>
+    <published>2017-03-24T18:44:18.000Z</published>
+    <updated>2020-07-06T23:20:11.817Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br>In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell programs. In this post we want to get our hands more into coding by creating and configuring a Kafka producer utilizing the Kafka’s Java API.<br></div>
+
+<a id="more"></a>
+<ul>
+<li>Creating Topic</li>
+<li>Producer<ul>
+<li>Properties Description</li>
+<li>Create and Dispatch</li>
+</ul>
+</li>
+<li>Consumer<ul>
+<li>Properties Description</li>
+<li>Create and Receive</li>
+</ul>
+</li>
+</ul>
+<h3 id="Creating-Topic"><a href="#Creating-Topic" class="headerlink" title="Creating Topic"></a>Creating Topic</h3><p>3 partitions<br>3 brokers<br>3 replication factor</p>
+<h3 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h3><h4 id="Properties-Description"><a href="#Properties-Description" class="headerlink" title="Properties Description"></a>Properties Description</h4><p>a Kafka producer can be instantiated using a set of properties among which a few of them are required. The producer owns an instance of the <code>ProducerConfig</code> class which contains the property keys to configure a producer.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">Properties props = <span class="keyword">new</span> Properties();</div><div class="line">props.put(<span class="string">"bootstrap.servers"</span>, <span class="string">"localhost:9092, localhost:9093"</span>);</div><div class="line"></div><div class="line">props.put(</div><div class="line">  <span class="string">"key.serializer"</span>,</div><div class="line">  <span class="string">"org.apache.kafka.common.serialization.StringSerializer"</span>);</div><div class="line">props.put(</div><div class="line">  <span class="string">"value.serializer"</span>,</div><div class="line">  <span class="string">"org.apache.kafka.common.serialization.StringSerializer"</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"acks"</span>, <span class="string">""</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"retry.backoff.ms"</span>, <span class="number">5</span>);</div><div class="line">props.put(<span class="string">"retries"</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"batch.size"</span>, <span class="number">16384</span>);</div><div class="line">props.put(<span class="string">"linger.ms"</span>, <span class="number">0</span>);</div><div class="line">props.put(<span class="string">"buffer.memory"</span>, <span class="number">33554432</span>);</div><div class="line">props.put(<span class="string">"max.block.ms"</span>, <span class="number">60000</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"max.in.flight.requests.per.connection"</span>, <span class="number">5</span>);</div><div class="line"></div><div class="line">props.put(</div><div class="line">  <span class="string">"partitioner.class"</span>,</div><div class="line">  <span class="string">"org.apache.kafka.clients.producer.internals.DefaultPartitioner"</span>);</div><div class="line"></div><div class="line">props.put(<span class="string">"client.id"</span>, <span class="string">""</span>);</div><div class="line">props.put(<span class="string">"max.request.size"</span>, <span class="number">1048576</span>);</div><div class="line">props.put(<span class="string">"request.timeout.ms"</span>, <span class="number">30000</span>);</div><div class="line">props.put(<span class="string">"timeout.ms"</span>, <span class="number">30000</span>);</div><div class="line">props.put(<span class="string">"compression.type"</span>, <span class="string">"none"</span>);</div></pre></td></tr></table></figure>
+<p><code>bootstrap.servers</code>:<br>The list of brokers from which the producer connects to the first available one in order to receive information about partitions, leaders and etc.</p>
+<p>“<code>key.serializer</code>“: The message-key serializer.</p>
+<p>“<code>value.serializer</code>“: The message-value serializer.</p>
+<p>“<code>acks</code>“:<br>This is the level of acknowledgement demanded by the producer for its sent messages. It could have one of the values mentioned below:</p>
+<ul>
+<li><strong><code>0</code></strong> Fire and Forget</li>
+<li><strong><code>1</code></strong> Leader acknowledged</li>
+<li><strong><code>2</code></strong> Quorum acknowledged</li>
+</ul>
+<p>“<code>retries</code>“:<br>how many times a producer shall retry sending a message before aborting</p>
+<p>“<code>retry.backoff.ms</code>“:<br>the wait period in milliseconds between retries</p>
+<p>“<code>batch.size</code>“:<br>number of bytes that can be buffered per each RecordBatch.<br>limit on the amount of records to be buffered<br>if this size is reached the batch is dispatched immediately.</p>
+<h5 id="Batching-Classes"><a href="#Batching-Classes" class="headerlink" title="Batching Classes"></a>Batching Classes</h5><ul>
+<li><code>RecordBatch</code> is a batch of <code>ProducerRecord</code>s to be sent to the broker that owns the assigned partition</li>
+<li><code>RecordAccumulator</code>s which are in-memory queue-like structure allows for micro-batching high-volume dispatches. it contains a collection of <code>RecordBatch</code>s.</li>
+<li><code>RecordBuffer</code> asdlfj</li>
+</ul>
+<p>“<code>linger.ms</code>“:<br>the amount of waiting time in milliseconds after which the batch content is dispatched</p>
+<p>“<code>buffer.memory</code>“:<br>the total number of bytes in memory to buffer records waiting to be send to the brokers</p>
+<p>“<code>max.block.ms</code>“:<br>the amount of time in milliseconds during which the send() method will be blocked<br>used to force the back pressure on the producer</p>
+<p>“<code>max.in.flight.requests.per.connection</code>“:<br>the amount of simultaneous requests that can be made before the confirmation is received</p>
+<h4 id="Dispatch"><a href="#Dispatch" class="headerlink" title="Dispatch"></a>Dispatch</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">KafkaProducer&lt;String, String&gt; producer = <span class="keyword">new</span> KafkaProducer&lt;&gt;(producerProperties);</div><div class="line">ProducerRecord&lt;String, String&gt; record = <span class="keyword">new</span> ProducerRecord&lt;&gt;(topic, messageText);</div><div class="line"></div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    producer.send(record);</div><div class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125; <span class="keyword">finally</span> &#123;</div><div class="line">    producer.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>when the send() method is invoked, it reaches out to cluster in order to receive information about partitions, topics and brokers. when the metadata is received, the send process goes through the following phases.</p>
+<ol>
+<li><strong>Serialization:</strong> using the defined serializers</li>
+<li><strong>Targeting Partition</strong>: determining to which partition the record shall be sent.</li>
+<li><strong>Record Accumulation:</strong> putting <code>ProducerRecord</code>s into <code>RecordAccumulator</code>s</li>
+<li><strong>Transmission:</strong> as well as receiving a <code>RecordMetadata</code> object with the receive statistics.</li>
+</ol>
+<h3 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h3><p>is a long running application<br>it always looks for and process new messages by polling the Kafka cluster<br>this loop shall be interrupted only for valid reasons<br>they can have only one thread an one poll-loop<br>it affects how much you can reasonable expect a kafka consumer to do<br>too much time on processing the records will have big implications<br>slow consumer does not have impact on the cluster, producer or other consumers<br>it forces parallelism of message consumption in another more scalable way</p>
+<h4 id="Why-polling"><a href="#Why-polling" class="headerlink" title="Why polling"></a>Why polling</h4><p>diversity of consumers<br>different needs<br>different capabilities<br>scalability in case of large number of consumers<br>less performance degradation<br>different consumption model<br>real-time processing<br>batch mode processing<br>Because Kafka consumers pull data from the topic, different consumers can consume the messages at different pace.<br>You can have one consumer processing the messages at real-time and another consumer processing the messages in batch mode</p>
+<h4 id="similar-to-creating-a-producer"><a href="#similar-to-creating-a-producer" class="headerlink" title="similar to creating a producer"></a>similar to creating a producer</h4><p>the consumer’s subscribe() method is used to subscribe to a topic<br>takes a collection of strings for a list of topics<br>can use an overload for passing regular expressions for batch-subscription (subscribing to a series of topics “my-*“)<br>subscription shall happen in a single action.<br>any subsequent call on the subscribe() method will overwrite the previous subscription</p>
+<h4 id="unsubscribe-method"><a href="#unsubscribe-method" class="headerlink" title="unsubscribe() method"></a>unsubscribe() method</h4><p>this cause unsubscribing from all topics.<br>the same effect can be achieved by subscribing to an empty list<br>automatic or dynamic partition assignment happens as a result of invoking subscribe()<br>enlisting the consumer to poll from all partitions<br>for multiple topics, the consumer will poll all partitions within those topics.<br>this could be a heavy action<br>the partition management is done behind the scene<br>when a new partition is added to an existing topic<br>the metadata about the cluster will have changed and will be sent to consumer<br>consumer realizes if any of its subscriptions is affected<br>automatically adds the new partition</p>
+<p><code>SubscriptionState</code> consumer maintains an internal object that manages its subscriptions<br>it contains all details related to the topics and partitions this consumer instance is subscribed or assigned to<br>it also plays an important role with the <code>ConsumerCoordinator</code> in managing the offsets</p>
+<h4 id="assign-method"><a href="#assign-method" class="headerlink" title="assign() method"></a>assign() method</h4><p>in contrast, a consumer my want to have full control over the partitions from which it will poll messages.</p>
+<p>it’s possible to assign the consumer to individual partitions using assign() method<br>in other words assigning specific partitions to a single consumer instance<br>the consumer will start polling from those partitions regardless of the topics to which they belong.<br>it takes a list of <code>TopicPartition</code>s and invoking it multiple times will have the same of overwrite effect.<br>a <code>TopicPartition</code> is a type safe data structure to represent individual partitions within a topic</p>
+<p>if a partition is added<br>the consumer will be notified as a result of the protocol for retrieving metadata from the cluster</p>
+<p>the list which is passed to the assign/subscribe method is used to create a <code>SubscriptionState</code> object</p>
+<h4 id="consumer-topic-interaction"><a href="#consumer-topic-interaction" class="headerlink" title="consumer-topic interaction"></a>consumer-topic interaction</h4><h4 id="poll-timeout"><a href="#poll-timeout" class="headerlink" title="poll(timeout)"></a>poll(timeout)</h4><p>timeout: representing the number of milliseconds that the client will spend polling the cluster for messages before returning<br>it specifies the amount of time the message retrieval cycle will take<br>when the timeout expires the batch of records are returned<br>added to an in-memory buffer<br>parsed<br>deserialized<br>grouped into <code>ConsumerRecord</code>s<br>by topic and partitioned</p>
+<p>this method or the polling action in general, is the most critical process in the entire consumer component is the poll loop<br>continuously polling brokers for data in a reliable fashion<br>it returns an object of type <code>ConsumerRecords</code> containing all the records it could retrieve from the broker<br>as a result of the poll operation the metadata about the cluster is also requested.<br>the communication toward the cluster is done when consumer’s <code>Fetcher</code> object communicates with the cluster through Consumer Network Client and TCP packets<br>particularly, a <code>Fetcher</code> object in the consumer is responsible for most of communcation between the consumer and the cluster<br>with the client open, the consumer starts sending heartbeats (to let the cluster know which consumers are connected)<br><code>Fetcher</code> should know what topics or individual partitions it should be asking for which is defined in the <code>SubscriptionState</code> object<br>when the timeout expires, <code>Fetcher</code> will return the grouped <code>ConsumerRecord</code>s<br>as a poll operation opens network resources, it’s a good idea to enclose it with structured exception handling and make sure it closes in the end.</p>
+<p>options for developing and configuring consumer applications at scale</p>
+<p><code>enable.auto.commit</code>: Kafka accepts the responsibility to decide when current position offsets are upgraded to full committed offsets (a blind approach, might not be a good choice in case of failures). Kafka does this using a frequence set via <code>auto.commit.interval</code></p>
+<p>single broker<br>two topics<br>three partitions per topic</p>
+<p>add new partition<br>kafka/bin/kafka-topics.sh –zookeeper localhost:2181 –alter –topic biology –partitions 4</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp;amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell programs. In this post we want to get our hands more into coding by creating and configuring a Kafka producer utilizing the Kafka’s Java API.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Kafka" scheme="http://truelogician.com/categories/Kafka/"/>
+    
+      <category term="Java" scheme="http://truelogician.com/categories/Kafka/Java/"/>
+    
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Apache" scheme="http://truelogician.com/tags/Apache/"/>
+    
+      <category term="Kafka" scheme="http://truelogician.com/tags/Kafka/"/>
+    
+      <category term="Messaging" scheme="http://truelogician.com/tags/Messaging/"/>
+    
+      <category term="Zookeeper" scheme="http://truelogician.com/tags/Zookeeper/"/>
+    
+      <category term="Messaging System" scheme="http://truelogician.com/tags/Messaging-System/"/>
+    
+      <category term="Event Sourcing" scheme="http://truelogician.com/tags/Event-Sourcing/"/>
+    
+      <category term="Java" scheme="http://truelogician.com/tags/Java/"/>
+    
+      <category term="Producer" scheme="http://truelogician.com/tags/Producer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Messaging with Kafka</title>
+    <link href="http://truelogician.com/2017/kafka-setup/"/>
+    <id>http://truelogician.com/2017/kafka-setup/</id>
+    <published>2017-02-11T21:18:29.000Z</published>
+    <updated>2020-07-06T23:20:32.054Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br>In the previous post ‘<a href="this">Kafka: Absolute Basics</a>‘ a few essential concepts in Kafka were discussed. In this post we will go through setting up and configuring Apache Kafka together with Zookeeper on a Linux machine in order to form a plain producer/consumer setup in the first step and a simple fault tolerant messaging system in the next one.<br></div>
+
+<a id="more"></a>
+<p>This post tries to cover the following areas on a Linux machine.</p>
+<ul>
+<li><a href="#setting-up-kafka">Setting up Kafka</a></li>
+<li><a href="#basic-messaging">Basic Messaging</a> - <a href="#running-a-zookeeper-server-instance">Running a Zookeeper Server Instance</a> - <a href="#running-a-kafka-server-instance">Running a Kafka Server Instance</a> - <a href="#creating-and-checking-topics">Creating and Checking Topics</a> - <a href="#creating-producer-and-consumer">Creating Producer and Consumer</a></li>
+<li><a href="#scaled-messaging">Scaled Messaging</a> - <a href="#creating-zookeeper-ensemble">Creating Zookeeper Ensemble</a> - <a href="#setting-up-a-kafka-cluster">Setting up a Kafka Cluster</a> - <a href="#creating-replicated-topics">Creating Replicated Topics</a> - <a href="#testing-resiliency">Testing Resiliency</a></li>
+</ul>
+<h3 id="Setting-up-Kafka"><a href="#Setting-up-Kafka" class="headerlink" title="Setting up Kafka"></a>Setting up Kafka</h3><p><img src="/images/kafka/diagram.png" alt="A general view of Zookeeper and Kafka internals as well as their relationship"></p>
+<p>Installing Kafka is as easy as <a href="https://kafka.apache.org/downloads" target="_blank" rel="external">downloading</a> and unzipping the archive into a folder.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span></div><div class="line">$ wget http://www-eu.apache.org/dist/kafka/0.10.2.0/kafka_2.12-0.10.2.0.tgz</div><div class="line">$ tar -xzvf kafka_2.12-0.10.2.0.tgz</div><div class="line">$ mv kafka_2.12-0.10.2.0 kafka</div></pre></td></tr></table></figure>
+<p>The above script switches to home directory, downloads and unzips kafka and finally removes version from folder name to simplify invocations.</p>
+<p>Inside <code>kafka/</code> directory, the <code>bin/</code> is where all the Kafka and Zookeeper executables exist. Also, the <code>config/</code> folder as the name suggests, contains the configuration files for both Zookeeper and Kafka.</p>
+<h3 id="Basic-Messaging"><a href="#Basic-Messaging" class="headerlink" title="Basic Messaging"></a>Basic Messaging</h3><p>The following section demonstrates how to setup a producer/consumer messaging using a single Zookeeper node and a single Kafka broker.</p>
+<h4 id="Running-a-Zookeeper-Server-Instance"><a href="#Running-a-Zookeeper-Server-Instance" class="headerlink" title="Running a Zookeeper Server Instance"></a>Running a Zookeeper Server Instance</h4><p>In order to start a Kafka server instance, an instance of the Zookeeper server needs to be running. This is done using the following executable and the instance’s configuration.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zookeeper.properties</div></pre></td></tr></table></figure>
+<p>The instance can be shutdown using ctrl+c or the running the binary below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-stop.sh</div></pre></td></tr></table></figure>
+<p>Check the Zookeeper server using:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ telnet localhost 2181</div></pre></td></tr></table></figure>
+<p>followed by a Zookeeper command like <code>stat</code> to produce a similar output as below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Trying 127.0.0.1...</div><div class="line">Connected to localhost.</div><div class="line">Escape character is ^].</div><div class="line"><span class="built_in">stat</span></div><div class="line">Zookeeper version: 3.4.9-1757313, built on 08/23/2016 06:50 GMT</div><div class="line">Clients:</div><div class="line"> /127.0.0.1:48134[1](queued=0,recved=1107,sent=1109)</div><div class="line"> /127.0.0.1:41180[0](queued=0,recved=1,sent=0)</div><div class="line"></div><div class="line">Latency min/avg/max: 0/0/115</div><div class="line">Received: 1259</div><div class="line">Sent: 1264</div><div class="line">Connections: 2</div><div class="line">Outstanding: 0</div><div class="line">Zxid: 0x22</div><div class="line">Mode: standalone</div><div class="line">Node count: 21</div><div class="line">Connection closed by foreign host.</div></pre></td></tr></table></figure>
+<h4 id="Running-a-Kafka-Server-Instance"><a href="#Running-a-Kafka-Server-Instance" class="headerlink" title="Running a Kafka Server Instance"></a>Running a Kafka Server Instance</h4><p>Now that a Zookeeper server is up and running, a Kafka server can startup in the same fashion.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/server.properties</div></pre></td></tr></table></figure>
+<p>Again, a ctrl+c or the following binary stops the Kafka server.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-server-stop.sh</div></pre></td></tr></table></figure>
+<h4 id="Creating-and-Checking-Topics"><a href="#Creating-and-Checking-Topics" class="headerlink" title="Creating and Checking Topics"></a>Creating and Checking Topics</h4><p>Now let’s create a topic (named ‘TestTopic’) by passing the address to our running Zookeeper instance. Let’s also leave the description to <code>--partitions</code> and <code>--replication-factor</code> switches for later.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh \</div><div class="line">&gt; --create \</div><div class="line">&gt; --topic TestTopic \</div><div class="line">&gt; --zookeeper localhost:2181 \</div><div class="line">&gt; --partitions 1 \</div><div class="line">&gt; --replication-factor 1</div></pre></td></tr></table></figure>
+<p>Use the following commands in order to get the list and description of the created topics.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh --list --zookeeper localhost:2181</div><div class="line">$ sh kafka/bin/kafka-topics.sh --describe --zookeeper localhost:2181</div></pre></td></tr></table></figure>
+<h4 id="Creating-Producer-and-Consumer"><a href="#Creating-Producer-and-Consumer" class="headerlink" title="Creating Producer and Consumer"></a>Creating Producer and Consumer</h4><p>The only missing parts of the basic messaging is a producer and a consumer that can publish/receive messages on the topic that was created earlier. Let’s create a producer first.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-producer.sh \</div><div class="line">&gt; --broker-list localhost:9092 \</div><div class="line">&gt; --topic TestTopic</div></pre></td></tr></table></figure>
+<p>The above command creates a producer pointing it to where it can find one or more brokers to determine the leader for the given topic. After running the producer console program, it is possible to queue up messages (type and ‘Enter’) to be later fetched by consumer.</p>
+<p>Now let’s create a consumer for the ‘TestTopic’ topic that receives all the messages published on the topic previously (<code>--from-beginning</code>).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-consumer.sh \</div><div class="line">&gt; --bootstrap-server localhost:9092 \</div><div class="line">&gt; --from-beginning \</div><div class="line">&gt; --topic TestTopic</div></pre></td></tr></table></figure>
+<p>This shall show previously sent messages as well as messages that are sent now by the producer.</p>
+<h3 id="Scaled-Messaging"><a href="#Scaled-Messaging" class="headerlink" title="Scaled Messaging"></a>Scaled Messaging</h3><p>In basic producer-consumer communication, in case the Zookeeper node or Kafka broker is crashed, the whole messaging fails. However it’s possible to make it fault tolerant by introducing a Zookeeper ensemble (a cluster of Zookeeper nodes) together with a Kafka cluster with multiple brokers (3 Zookeeper nodes and 3 Kafka brokers).</p>
+<h4 id="Creating-Zookeeper-Ensemble"><a href="#Creating-Zookeeper-Ensemble" class="headerlink" title="Creating Zookeeper Ensemble"></a>Creating Zookeeper Ensemble</h4><p>If the Zookeeper and Kafka servers are still running from the previous section, stop them and head into ‘config/‘ folder in kafka installation directory. Create 3 files called <code>zoo1.properties</code>, <code>zoo2.properties</code> and <code>zoo3.properties</code>. Use the following content as a template and copy it to zoo2 and zoo3 and increment the corresponding values of <code>dataDir</code> and <code>clientPort</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># zoo1.properties</span></div><div class="line">tickTime=2000</div><div class="line">dataDir=/tmp/zookeeper/1</div><div class="line">clientPort=2181</div><div class="line">maxClientCnxns=0</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line"></div><div class="line">server.1=localhost:2888:3888</div><div class="line">server.2=localhost:2889:3889</div><div class="line">server.3=localhost:2890:3890</div></pre></td></tr></table></figure>
+<p><code>tickTime</code>: The number of milliseconds to be considered as one tick.</p>
+<p><code>dataDir</code>: The server’s data directory.<br>Notice that the <code>/tmp/zookeeper</code> directory might be removed after each restart.</p>
+<p><code>clientPort</code>: The port on which this server listens to client connections.</p>
+<p><code>maxClientCnxns</code>: Maximum amount of client connections allowed for this server.</p>
+<p><code>initLimit</code>: Maximum number of ticks for followers to connect and sync up with leader.</p>
+<p><code>syncLimit</code>: Maximum number of ticks for followers to sync up with Zookeeper.</p>
+<p><code>server.x</code>: The list of servers that create the Zookeeper ensemble.</p>
+<p>Also, for each of our servers that will run, we need to create a file called ‘<code>myid</code>‘ in their data directory. This file basically consists of a single line and a single number of that machine’s id.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ mkdir -p /tmp/zookeeper/1</div><div class="line">$ touch /tmp/zookeeper/1/myid</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'1'</span> &gt;&gt; /tmp/zookeeper/1/myid</div><div class="line"></div><div class="line">$ mkdir -p /tmp/zookeeper/2</div><div class="line">$ touch /tmp/zookeeper/2/myid</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'2'</span> &gt;&gt; /tmp/zookeeper/2/myid</div><div class="line"></div><div class="line">$ mkdir -p /tmp/zookeeper/3</div><div class="line">$ touch /tmp/zookeeper/3/myid</div><div class="line">$ <span class="built_in">echo</span> <span class="string">'3'</span> &gt;&gt; /tmp/zookeeper/3/myid</div></pre></td></tr></table></figure>
+<p>Now let’s run the first Zookeeper server in our ensemble.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zoo1.properties</div></pre></td></tr></table></figure>
+<p>After running our server a couple of ‘<em>java.net.ConnectException: Connection refused</em>‘ will be thrown which imply that our server instance cannot connect to the other two (since they are not running yet). So ignore the warning and run the rest of them.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zoo2.properties</div><div class="line">$ sh kafka/bin/zookeeper-server-start.sh kafka/config/zoo3.properties</div></pre></td></tr></table></figure>
+<p>As of this point, our Zookeeper ensemble with 3 server nodes shall be up and running.</p>
+<h4 id="Setting-up-a-Kafka-Cluster"><a href="#Setting-up-a-Kafka-Cluster" class="headerlink" title="Setting up a Kafka Cluster"></a>Setting up a Kafka Cluster</h4><p>Let’s now create a Kafka cluster with 3 broker inside it which is as easy as running 3 server instances with different configurations. So let’s create 3 properties files kafka-0, kafka-1 and kafka-2 that are only different in values of <code>broker.id</code>, <code>port</code> and <code>log.dirs</code>. As a result, increment those values for <code>kafka-1.properties</code> and <code>kafka-2.properties</code>.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># kafka-0.properties</span></div><div class="line">broker.id=0</div><div class="line">port=9090</div><div class="line"></div><div class="line">num.network.threads=3</div><div class="line">num.io.threads=8</div><div class="line">socket.send.buffer.bytes=102400</div><div class="line">socket.receive.buffer.bytes=102400</div><div class="line">socket.request.max.bytes=104857600</div><div class="line"></div><div class="line">log.dirs=/tmp/kafka-logs/0</div><div class="line">num.partitions=1</div><div class="line">num.recovery.threads.per.data.dir=1</div><div class="line">log.retention.hours=168</div><div class="line"></div><div class="line">log.segment.bytes=1073741824</div><div class="line">log.retention.check.interval.ms=300000</div><div class="line"></div><div class="line">zookeeper.connect=localhost:2181,localhost:2182,localhost:2183</div><div class="line">zookeeper.connection.timeout.ms=6000</div></pre></td></tr></table></figure>
+<p><code>broker.id</code>: The unique broker id for this server instance.</p>
+<p><code>port</code>: A <em>deprecated</em> property denoting the port to which this server listens and accepts connections.</p>
+<p><code>log.dirs</code>: The list of directories to maintain data logs.</p>
+<p><code>zookeeper.connect</code>: The list of nodes within the Zookeeper ensemble.</p>
+<p>After creating the properties files with proper content, it’s time to run the Kafka server instances.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/kafka-0.properties</div><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/kafka-1.properties</div><div class="line">$ sh kafka/bin/kafka-server-start.sh kafka/config/kafka-2.properties</div></pre></td></tr></table></figure>
+<h4 id="Creating-Replicated-Topics"><a href="#Creating-Replicated-Topics" class="headerlink" title="Creating Replicated Topics"></a>Creating Replicated Topics</h4><p>After having Zookeeper and Kafka brokers up and running, it’s now time to create a couple of topics that</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh \</div><div class="line">&gt; --create \</div><div class="line">&gt; --topic chat \</div><div class="line">&gt; --zookeeper localhost:2181,localhost:2182,localhost:2183 \</div><div class="line">&gt; --replication-factor 3 \</div><div class="line">&gt; --partitions 3</div><div class="line"></div><div class="line">$ sh kafka/bin/kafka-topics.sh</div><div class="line">&gt; --create \</div><div class="line">&gt; --topic event \</div><div class="line">&gt; --zookeeper localhost:2181,localhost:2182,localhost:2183 \</div><div class="line">&gt; --replication-factor 2 \</div><div class="line">&gt; --partitions 2</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-topics.sh --describe --zookeeper localhost:2181</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Topic:chat	PartitionCount:1	ReplicationFactor:3	Configs:</div><div class="line">	Topic: chat	Partition: 0	Leader: 1	Replicas: 1,2,0	Isr: 1,2,0</div><div class="line">Topic:event	PartitionCount:1	ReplicationFactor:2	Configs:</div><div class="line">	Topic: event	Partition: 0	Leader: 0	Replicas: 0,1	Isr: 0,1</div></pre></td></tr></table></figure>
+<p>The output is the description of topics and their relation with existing brokers. The first two lines of output state that the topic ‘chat’ has one partition that is replicated among brokers 1,2 and 3 while all three of them are in sync at the moment (Isr: 1,2,0). The rest of the output demonstrate similar information for the ‘event’ topic. In order to get a better understanding, compare it with the diagram shown at the beginning of the post.</p>
+<h4 id="Testing-Resiliency"><a href="#Testing-Resiliency" class="headerlink" title="Testing Resiliency"></a>Testing Resiliency</h4><p>It’s now time to create one consumer and one producer for our ‘chat’ topic (the same will stand for the ‘event’ topic as well) and test how resilient our setup is.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-producer.sh \</div><div class="line">&gt; --broker-list localhost:9092 \</div><div class="line">&gt; --topic chat</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ sh kafka/bin/kafka-console-consumer.sh \</div><div class="line">&gt; --bootstrap-server localhost:9092 \</div><div class="line">&gt; --from-beginning --topic chat</div></pre></td></tr></table></figure>
+<p>Try to send a few messages to ensure the setup works in the first place. According to the ‘chat’ topic description, broker1 is the topic leader. However, if that broker is killed, Kafka will elect another broker as the topic’s leader. Test this by killing broker 1 and issuing the topic description command which shall produce a similar output as below:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Topic:chat      PartitionCount:1        ReplicationFactor:3     Configs:</div><div class="line">        Topic: chat     Partition: 0    Leader: 2       Replicas: 1,2,0 Isr: 2,0</div><div class="line">Topic:event     PartitionCount:1        ReplicationFactor:2     Configs:</div><div class="line">        Topic: event    Partition: 0    Leader: 0       Replicas: 0,1   Isr: 0</div></pre></td></tr></table></figure>
+<p>As can be seen, the producer and consumer are not affected and messages can still be passed; however, the topics are. The ‘chat’ topic has now the broker2 as its new leader and has only 2 ISRs while topic ‘event’ now owns only 1 ISR.</p>
+<p>To further test the setup resiliency, try to kill a Zookeeper node and see that messaging will not fail until all nodes are down.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;In the previous post ‘&lt;a href=&quot;this&quot;&gt;Kafka: Absolute Basics&lt;/a&gt;‘ a few essential concepts in Kafka were discussed. In this post we will go through setting up and configuring Apache Kafka together with Zookeeper on a Linux machine in order to form a plain producer/consumer setup in the first step and a simple fault tolerant messaging system in the next one.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Kafka" scheme="http://truelogician.com/categories/Kafka/"/>
+    
+      <category term="Startup" scheme="http://truelogician.com/categories/Kafka/Startup/"/>
+    
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Apache" scheme="http://truelogician.com/tags/Apache/"/>
+    
+      <category term="Kafka" scheme="http://truelogician.com/tags/Kafka/"/>
+    
+      <category term="Messaging" scheme="http://truelogician.com/tags/Messaging/"/>
+    
+      <category term="Zookeeper" scheme="http://truelogician.com/tags/Zookeeper/"/>
+    
+      <category term="Messaging System" scheme="http://truelogician.com/tags/Messaging-System/"/>
+    
+      <category term="Event Sourcing" scheme="http://truelogician.com/tags/Event-Sourcing/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Getting Started with Kafka</title>
     <link href="http://truelogician.com/2017/kafka-startup/"/>
     <id>http://truelogician.com/2017/kafka-startup/</id>
     <published>2017-02-11T21:18:29.000Z</published>
-    <updated>2017-03-16T18:23:18.000Z</updated>
+    <updated>2020-07-06T23:20:18.417Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br><a href="https://en.wikipedia.org/wiki/Apache_Kafka" target="_blank" rel="external">Kafka</a> is Apache’s open-source platform for <a href="http://kafka.apache.org/documentation.html#introduction" target="_blank" rel="external">distributed stream processing</a> in high throughput environments. In the following tutorial we will try to configure Apache Kafka and Zookeeper as well as demonstrating a basic and a fault tolerant messaging setup.<br></div>
 
@@ -29,20 +242,8 @@
 <ul>
 <li><a href="#kafka-introduction">Kafka Introduction</a></li>
 <li><a href="#setting-up-kafka">Setting up Kafka</a></li>
-<li><a href="#basic-messaging">Basic Messaging</a><ul>
-<li><a href="#running-a-zookeeper-server-instance">Running a Zookeeper Server Instance</a></li>
-<li><a href="#running-a-kafka-server-instance">Running a Kafka Server Instance</a></li>
-<li><a href="#creating-and-checking-topics">Creating and Checking Topics</a></li>
-<li><a href="#creating-producer-and-consumer">Creating Producer and Consumer</a></li>
-</ul>
-</li>
-<li><a href="#scaled-messaging">Scaled Messaging</a><ul>
-<li><a href="#creating-zookeeper-ensemble">Creating Zookeeper Ensemble</a></li>
-<li><a href="#setting-up-a-kafka-cluster">Setting up a Kafka Cluster</a></li>
-<li><a href="#creating-replicated-topics">Creating Replicated Topics</a></li>
-<li><a href="#testing-resiliency">Testing Resiliency</a></li>
-</ul>
-</li>
+<li><a href="#basic-messaging">Basic Messaging</a> - <a href="#running-a-zookeeper-server-instance">Running a Zookeeper Server Instance</a> - <a href="#running-a-kafka-server-instance">Running a Kafka Server Instance</a> - <a href="#creating-and-checking-topics">Creating and Checking Topics</a> - <a href="#creating-producer-and-consumer">Creating Producer and Consumer</a></li>
+<li><a href="#scaled-messaging">Scaled Messaging</a> - <a href="#creating-zookeeper-ensemble">Creating Zookeeper Ensemble</a> - <a href="#setting-up-a-kafka-cluster">Setting up a Kafka Cluster</a> - <a href="#creating-replicated-topics">Creating Replicated Topics</a> - <a href="#testing-resiliency">Testing Resiliency</a></li>
 </ul>
 <h3 id="Kafka-Introduction"><a href="#Kafka-Introduction" class="headerlink" title="Kafka Introduction"></a>Kafka Introduction</h3><p>Kafka is a distributed publish/subscribe fault tolerant messaging system with partitioning and replication abilities that is based on distributed commit logs. It can handle high volumes of message streams (more than 1.5 million messages per second). Kafka heavily depends on the Apache Zookeeper maintain its internal states.</p>
 <p>In a nutshell, Zookeeper is a distributed key-value store used for maintaining configuration information, distributed synchronization, group services and etc. for various distributed applications.</p>
@@ -63,7 +264,7 @@
 </li>
 <li><strong>Message Offset:</strong> is a non-global zero-based immutable sequence-number of a message within a partition that is maintained by consumer.</li>
 <li><strong>Retention Policy:</strong> is Kafka’s configurable period during which the messages are retained by Kafka cluster for a topic.</li>
-<li><strong>Replication Factor:</strong> is the data redundancy factor by which Kafka replicates messages among brokers.  </li>
+<li><strong>Replication Factor:</strong> is the data redundancy factor by which Kafka replicates messages among brokers.</li>
 <li><strong>In-Sync Replicas (ISR):</strong> is the number of in-sync brokers in a topic’s replica-set or quorum.</li>
 <li><strong>Producer &amp; consumer:</strong> entities interested in sending and receiving messages to and from topics.<ul>
 <li>Kafka won’t allow more than 2 consumers to read from the same partition simultaneously.</li>
@@ -71,11 +272,9 @@
 </li>
 <li><strong>Controller:</strong> is an elected broker within a cluster for carrying out administrative tasks (e.g. managing the states of partitions and replicas).</li>
 <li><strong>Partition Leader:</strong> is a broker responsible for recruiting workers for replicating and propagating messages.</li>
-<li><strong>Follower/Worker:</strong> is a broker that only replicates the leader.<ul>
+<li><strong>Follower/Worker:</strong> is a broker that only replicates the leader.</li>
 <li><ul>
 <li>A broker can simultaneously be the leader for one topic a worker for another topic.</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -178,6 +377,100 @@
   </entry>
   
   <entry>
+    <title>Kafka, Absolute Basics</title>
+    <link href="http://truelogician.com/2017/kafka-basics/"/>
+    <id>http://truelogician.com/2017/kafka-basics/</id>
+    <published>2017-01-03T18:12:54.000Z</published>
+    <updated>2020-07-06T23:20:02.054Z</updated>
+    
+    <content type="html"><![CDATA[<div align="justify"><br><a href="https://en.wikipedia.org/wiki/Apache_Kafka" target="_blank" rel="external">Kafka</a> is Apache’s open-source platform for <a href="http://kafka.apache.org/documentation.html#introduction" target="_blank" rel="external">distributed stream processing</a> in high throughput environments. The following post will briefly go through Kafka and messaging concepts in general.<br></div>
+
+<a id="more"></a>
+<p>Kafka is a distributed publish/subscribe fault tolerant messaging system with partitioning and replication abilities that is based on distributed commit logs. It can handle high volumes of message streams (more than 1.5 million messages per second). Kafka heavily depends on the Apache Zookeeper maintain its internal states.</p>
+<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h3><p>Topic is a logical concept; a named feed of messages to be exchanged.</p>
+<h3 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h3><p>A partition is an immutable sequence of topic messages in a physical log file.</p>
+<ul>
+<li>A broker could have one or more partitions.</li>
+<li>One partition cannot be split across machines.</li>
+</ul>
+<h3 id="Kafka-Message"><a href="#Kafka-Message" class="headerlink" title="Kafka Message"></a>Kafka Message</h3><p>is an entity with a arrival timestamp, a unique id and the binary data payload.<br>Technically, there is no such type as ‘<em>Message</em>‘ within the entire API; it is called <code>ProducerRecord</code> which can be instantiated using the required ‘<em>topic</em>‘ and ‘<em>value</em>‘ properties.</p>
+<ul>
+<li><strong>Topic:</strong> The topic to which this record belongs.</li>
+<li><strong>Key:</strong> A convenient property that producer’s default-partitioner can use its hash form to decide and target the dispatching partition.</li>
+<li><strong>Value:</strong> Essentially the message content to be serialized using the specified serializer.</li>
+<li><strong>Partition:</strong> The specific partition (in a broker) to which the record will be dispatched.</li>
+<li><strong>Timestamp:</strong> The 8 bytes timestamp data transmitted with the message.</li>
+</ul>
+<h3 id="Producer-amp-consumer"><a href="#Producer-amp-consumer" class="headerlink" title="Producer &amp; consumer"></a>Producer &amp; consumer</h3><p>components interested in sending and receiving messages to and from topics.</p>
+<ul>
+<li>Kafka won’t allow more than 2 consumers to read from the same partition simultaneously.</li>
+</ul>
+<h3 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h3><p>A broker is a software process or node by which Kafka manages topics. They can be scaled out to achieve a higher load distribution, throughput and fault tolerance.</p>
+<h3 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h3><p>is a group of brokers (a leader and followers) on one or more hosts</p>
+<h3 id="Message-Offset"><a href="#Message-Offset" class="headerlink" title="Message Offset"></a>Message Offset</h3><p>is a non-global zero-based immutable sequence-number of a message within a partition that is maintained by consumer.<br>enables consumers to operate independently by representing the last read position the consumer has read from a partition within a topic</p>
+<p>current position:</p>
+<p>the last committed offset: the last record that the consumer has confirmed to have processed<br>uncommitted offsets: the records between the current position and the last committed offset<br>log-end offset:</p>
+<p>for any given topic, a consumer may have multiple offsets being tracked<br>one for each partition within a topic</p>
+<h3 id="Retention-Policy"><a href="#Retention-Policy" class="headerlink" title="Retention Policy"></a>Retention Policy</h3><p>is Kafka’s configurable period during which the messages are retained by Kafka cluster for a topic.</p>
+<h3 id="Replication-Factor"><a href="#Replication-Factor" class="headerlink" title="Replication Factor"></a>Replication Factor</h3><p>is the data redundancy factor by which Kafka replicates messages among brokers.</p>
+<h3 id="In-Sync-Replicas-ISR"><a href="#In-Sync-Replicas-ISR" class="headerlink" title="In-Sync Replicas (ISR)"></a>In-Sync Replicas (ISR)</h3><p>is the number of in-sync brokers in a topic’s replica-set or quorum.</p>
+<h3 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h3><p>is an elected broker within a cluster for carrying out administrative tasks (e.g. managing the states of partitions and replicas).</p>
+<h3 id="Partition-Leader"><a href="#Partition-Leader" class="headerlink" title="Partition Leader"></a>Partition Leader</h3><p>is a broker responsible for recruiting workers for replicating and propagating messages.</p>
+<h3 id="Follower-Worker"><a href="#Follower-Worker" class="headerlink" title="Follower/Worker"></a>Follower/Worker</h3><p>is a broker that only replicates the leader. It’s good to mention that a broker can simultaneously be the leader for one topic a worker for another topic.</p>
+<h3 id="Message-Serializers-Deserializers"><a href="#Message-Serializers-Deserializers" class="headerlink" title="Message Serializers/Deserializers"></a>Message Serializers/Deserializers</h3><p>Message serializers define how the key/value pair in a message are to be encoded &amp; decoded by producer and consumer respectively. The producer will then be bound to only dispatching records that match with the configured serializer types.</p>
+<p>Deserializers must correspond to the producer’s serializers type</p>
+<h3 id="Delivery-Acknowledgement"><a href="#Delivery-Acknowledgement" class="headerlink" title="Delivery Acknowledgement"></a>Delivery Acknowledgement</h3><p>The level of acknowledgement demanded by the producer for its sent messages.</p>
+<ul>
+<li><strong>Fire and Forget:</strong> producer asks for no acknowledgement from any broker (common for lossy messaging scenarios)</li>
+<li><strong>Leader acknowledged:</strong> producer asks only the leader broker to confirm instead of waiting for all quorum members confirmations.</li>
+<li><strong>Quorum acknowledged:</strong> producer asks all in-sync replicas to confirm the receipt (higher performance cost)</li>
+</ul>
+<h3 id="Delivery-Semantics"><a href="#Delivery-Semantics" class="headerlink" title="Delivery Semantics"></a>Delivery Semantics</h3><p>There are 3 basic message delivery semantics that can be configured in Kafka.</p>
+<ul>
+<li><strong>At-most once:</strong> for each handed message, it could either be lost or delivered at most one time.</li>
+<li><strong>At-least once:</strong> for each handed message, it shall be delivered at least one time (probable duplicates and multiple attempts)</li>
+<li><strong>Exactly once:</strong> for each handed message, it shall be delivered to the consumer exactly once.</li>
+</ul>
+<h3 id="Micro-batching"><a href="#Micro-batching" class="headerlink" title="Micro-batching"></a>Micro-batching</h3><p>Micro-batching is the technique of treating a stream as a sequence of small data chunks. Its intention is to reduce processing cost though amortizing the t broker and read-requests at consumer side.</p>
+<h3 id="Message-Ordering"><a href="#Message-Ordering" class="headerlink" title="Message Ordering"></a>Message Ordering</h3><p>In Kafka, the message ordering is only maintained within the partition. In order to achieve ordering on the topic (across partitions), the ordering logic needs to be provided at the consumer side since ordering mistakes are inevitable due to unpredictable network issues.</p>
+<h3 id="Routing-Strategies"><a href="#Routing-Strategies" class="headerlink" title="Routing Strategies"></a>Routing Strategies</h3><p>This is the strategy based on which, the producer determines to which partition the record shall be routed to.</p>
+<ul>
+<li><strong>Direct:</strong> Direct message dispatch to a partition in case a valid one is targeted.</li>
+<li><strong>Round-Robin:</strong> Equally distributed message dispatch using default partitioner and no key.</li>
+<li><strong>Key Mod-Hash:</strong> A hash-based strategy applied when using a key together with the default partitioner.</li>
+<li><strong>Custom:</strong> A custom based strategy applied when the key and custom partitioner are defined.</li>
+</ul>
+<h3 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h3><p>In a nutshell, Zookeeper is a distributed key-value store used for maintaining configuration information, distributed synchronization, group services and etc. for various distributed applications.</p>
+<h3 id="Zookeeper-Ensemble"><a href="#Zookeeper-Ensemble" class="headerlink" title="Zookeeper Ensemble"></a>Zookeeper Ensemble</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;div align=&quot;justify&quot;&gt;&lt;br&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Apache_Kafka&quot;&gt;Kafka&lt;/a&gt; is Apache’s open-source platform for &lt;a href=&quot;http://kafka.apache.org/documentation.html#introduction&quot;&gt;distributed stream processing&lt;/a&gt; in high throughput environments. The following post will briefly go through Kafka and messaging concepts in general.&lt;br&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="Kafka" scheme="http://truelogician.com/categories/Kafka/"/>
+    
+      <category term="Startup" scheme="http://truelogician.com/categories/Kafka/Startup/"/>
+    
+    
+      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
+    
+      <category term="Apache" scheme="http://truelogician.com/tags/Apache/"/>
+    
+      <category term="Kafka" scheme="http://truelogician.com/tags/Kafka/"/>
+    
+      <category term="Messaging" scheme="http://truelogician.com/tags/Messaging/"/>
+    
+      <category term="Zookeeper" scheme="http://truelogician.com/tags/Zookeeper/"/>
+    
+      <category term="Messaging System" scheme="http://truelogician.com/tags/Messaging-System/"/>
+    
+      <category term="Event Sourcing" scheme="http://truelogician.com/tags/Event-Sourcing/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Enhance Your Hexo Blog</title>
     <link href="http://truelogician.com/2016/hexo-install-plugins/"/>
     <id>http://truelogician.com/2016/hexo-install-plugins/</id>
@@ -244,7 +537,7 @@
     <link href="http://truelogician.com/2016/hexo-quick-start/"/>
     <id>http://truelogician.com/2016/hexo-quick-start/</id>
     <published>2016-07-14T19:55:50.000Z</published>
-    <updated>2016-09-18T15:36:36.000Z</updated>
+    <updated>2016-09-18T15:35:59.000Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br>Have you ever wished you could create your own blog in no time? Did you get frustrated as you thought you might not have enough time to design and set it up? Do you also wish to have more control over your blog comparing to other blogs such as those in WordPress?<br></div>
 
@@ -1271,7 +1564,7 @@
     <link href="http://truelogician.com/2012/flyweight/"/>
     <id>http://truelogician.com/2012/flyweight/</id>
     <published>2012-09-23T21:21:17.000Z</published>
-    <updated>2016-09-18T15:02:01.000Z</updated>
+    <updated>2016-09-18T15:01:53.000Z</updated>
     
     <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
 <h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Improve Performance by Sharing Objects Instead of Creating Them.</strong></p>
@@ -1324,184 +1617,6 @@
       <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
     
       <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Composite Pattern</title>
-    <link href="http://truelogician.com/2012/composite/"/>
-    <id>http://truelogician.com/2012/composite/</id>
-    <published>2012-06-14T19:19:03.000Z</published>
-    <updated>2016-09-18T14:59:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Add the Capability of Never Ending Grouping.</strong> <em>Client Treats Collection of Objects and Individual Objects Uniformly.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>Imagine the famous example of ‘Leaf’ and ‘Branch’<ul>
-<li>A ‘Branch’ can contain other more branches or leaves.</li>
-<li>A ‘Leaf’ cannot contain any other leaf or branch.</li>
-</ul>
-</li>
-<li>Now let’s define a single ‘Leaf’ (‘IProduct’ in this case).</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The implementation of the atomic ‘Leaf’ entity (Product).</li>
-<li>The implementation of the non-atomic ‘Branch’ (ProductGroup).<ul>
-<li>Notice that ProductGroup implements the same interface and contains a collection of products at the same time.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductGroup</span> <span class="keyword">implements</span> <span class="title">IProduct</span> </span>&#123;</div><div class="line"></div><div class="line">    List&lt;IProduct&gt; products;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(IProduct... product)</span> </span>&#123;<span class="comment">/*add to products*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(IProduct product)</span> </span>&#123;<span class="comment">/*remove form products*/</span>&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>After having the ‘Leaf’ and ‘Branch’ implementations in place, the client can now compose the tree and treat branches or leaves uniformly.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ProductGroup groupA = <span class="keyword">new</span> ProductGroup();</div><div class="line">        ProductGroup groupA1 = <span class="keyword">new</span> ProductGroup();</div><div class="line">        ProductGroup groupA2 = <span class="keyword">new</span> ProductGroup();</div><div class="line"></div><div class="line">        ProductGroup groupB = <span class="keyword">new</span> ProductGroup();</div><div class="line">        ProductGroup groupB1 = <span class="keyword">new</span> ProductGroup();</div><div class="line"></div><div class="line">        IProduct product1 = <span class="keyword">new</span> Product();</div><div class="line">        IProduct product2 = <span class="keyword">new</span> Product();</div><div class="line"></div><div class="line">        groupA.add(groupA1, groupA2);</div><div class="line">        groupB.add(groupB1);</div><div class="line"></div><div class="line">        ProductGroup allGroups = <span class="keyword">new</span> ProductGroup();</div><div class="line">        allGroups.add(groupA, groupB, product1, product2);</div><div class="line"></div><div class="line">        allGroups.operationA();</div><div class="line">        product1.operationA();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>Allows treating individual objects and compositions uniformly.</li>
-</ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Imagine your company asked you to create utility classes for the organizational chart.<br>The ‘WestCoast’ organization contains multiple divisions and departments. Each division might consist of other divisions or departments that groups them together. It is required to provide ceratin functionalities for handling employees and staff within divisions and departments.</p>
-<ul>
-<li>The notion of ‘Department’ is the atomic entity or a ‘Leaf’</li>
-<li>The notion of ‘Division’ is the composite entity or a ‘Branch’</li>
-<li>Don’t mind the ‘Employee’ as it’s only a utility class.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</div><div class="line">    <span class="function">List&lt;Employee&gt; <span class="title">staff</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Employee e)</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printStaff</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</div><div class="line">    String name; <span class="keyword">int</span> rank;</div><div class="line">    Employee(String name, <span class="keyword">int</span> rank) &#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">        <span class="keyword">this</span>.rank = rank;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Now that we have our core ‘Leaf’ interface, let’s create the concerete implementation as well as its composite implementation.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Department</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</div><div class="line">    List&lt;Employee&gt; employees;</div><div class="line">    Department(Employee... employees) &#123;<span class="keyword">this</span>.employees = Arrays.asList(employees);&#125;</div><div class="line">    <span class="function">List&lt;Employee&gt; <span class="title">staff</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> employees; &#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Employee e)</span> </span>&#123; <span class="keyword">return</span> employees.contains(e); &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printStaff</span><span class="params">()</span> </span>&#123;</div><div class="line">        employees.sort((e1, e2) -&gt; e1.rank - e2.rank);</div><div class="line">        <span class="keyword">for</span>(Employee e : employees)</div><div class="line">            System.out.println(e.name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Division</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</div><div class="line"></div><div class="line">    List&lt;IDepartment&gt; departments;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">addDepartment</span><span class="params">(IDepartment d)</span>    </span>&#123; departments.add(d);    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">removeDepartment</span><span class="params">(IDepartment d)</span> </span>&#123; departments.remove(d); &#125;</div><div class="line"></div><div class="line">    <span class="function">List&lt;Employee&gt; <span class="title">staff</span><span class="params">()</span> </span>&#123;</div><div class="line">        List&lt;Employee&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">        <span class="keyword">for</span> (IDepartment d : departments)</div><div class="line">            staff.addAll(d.staff());</div><div class="line">        <span class="keyword">return</span> staff;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Employee e)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(IDepartment d : departments)</div><div class="line">            <span class="keyword">if</span> (d.contains(e)) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printStaff</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(IDepartment d : departments)</div><div class="line">            d.printStaff();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Employees are extracted into a database class to increase the focus on ‘Client’</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DB</span> </span>&#123;</div><div class="line">    <span class="keyword">static</span> Employee james = <span class="keyword">new</span> Employee(<span class="string">"james"</span>, <span class="number">1</span>);</div><div class="line">    <span class="keyword">static</span> Employee jack = <span class="keyword">new</span> Employee(<span class="string">"jack"</span>, <span class="number">2</span>);</div><div class="line">    <span class="keyword">static</span> Employee john = <span class="keyword">new</span> Employee(<span class="string">"john"</span>, <span class="number">3</span>);</div><div class="line"></div><div class="line">    <span class="keyword">static</span> Employee abraham = <span class="keyword">new</span> Employee(<span class="string">"abraham"</span>, <span class="number">5</span>);</div><div class="line">    <span class="keyword">static</span> Employee abigale = <span class="keyword">new</span> Employee(<span class="string">"abigale"</span>, <span class="number">6</span>);</div><div class="line">    <span class="keyword">static</span> Employee anna = <span class="keyword">new</span> Employee(<span class="string">"anna"</span>, <span class="number">5</span>);</div><div class="line"></div><div class="line">    <span class="keyword">static</span> Employee brian = <span class="keyword">new</span> Employee(<span class="string">"brian"</span>, <span class="number">5</span>);</div><div class="line">    <span class="keyword">static</span> Employee bernard = <span class="keyword">new</span> Employee(<span class="string">"bernard"</span>, <span class="number">6</span>);</div><div class="line">    <span class="keyword">static</span> Employee bianca = <span class="keyword">new</span> Employee(<span class="string">"bianca"</span>, <span class="number">7</span>);</div><div class="line"></div><div class="line">    <span class="keyword">static</span> Employee unknown = <span class="keyword">new</span> Employee(<span class="string">"Unknown"</span>, <span class="number">10</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        IDepartment marketing = <span class="keyword">new</span> Department(DB.abigale, DB.abraham, DB.anna);</div><div class="line">        IDepartment accounting = <span class="keyword">new</span> Department(DB.bernard, DB.bianca, DB.brian);</div><div class="line">        IDepartment management = <span class="keyword">new</span> Department(DB.jack, DB.james, DB.john);</div><div class="line"></div><div class="line">        Division finance = <span class="keyword">new</span> Division();</div><div class="line">        finance.addDepartment(marketing);</div><div class="line">        finance.addDepartment(accounting);</div><div class="line"></div><div class="line">        Division westCoast = <span class="keyword">new</span> Division();</div><div class="line">        westCoast.addDepartment(management);</div><div class="line">        westCoast.addDepartment(finance);</div><div class="line"></div><div class="line">        <span class="keyword">boolean</span> exists = marketing.contains(DB.abigale);</div><div class="line">        exists = westCoast.contains(DB.unknown);</div><div class="line">        management.printStaff();</div><div class="line">        westCoast.printStaff();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Add the Capability of Never Ending Grouping.&lt;/strong&gt; &lt;em&gt;Client Treats Collection of Objects and Individual Objects Uniformly.&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Structural" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Structural/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Iterator Pattern</title>
-    <link href="http://truelogician.com/2012/iterator/"/>
-    <id>http://truelogician.com/2012/iterator/</id>
-    <published>2012-03-02T17:10:56.000Z</published>
-    <updated>2016-09-18T15:04:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Get the Iterator for Any Type of Collections in Subclasses.</strong> <em>Provides a Way to Traverse a Collection of Objects Without Exposing Its Implementation.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The interface that defines the getIterator() method</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>Concrete implementations provide the iterator of a collection they might own.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductA</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// return the iterator of a desired collection;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductB</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// return the iterator of a desired collection;</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>Having implemented the IIterable, it is now possible to iterate over the collections in each implementation.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        ProductA product = <span class="keyword">new</span> ProductA();</div><div class="line">        Iterator&lt;Integer&gt; iterator = product.getIterator();</div><div class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</div><div class="line">            Integer next = iterator.next();</div><div class="line">            <span class="comment">/*implementations*/</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><ul>
-<li>It provides a uniform way to cycle through different types of collections.</li>
-<li>You can refer to each collection of objects in the same way.</li>
-<li>It avoids code duplication which might occur during the iteration over each of them.</li>
-</ul>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Suppose there are some implementations which somehow hold a form of a collection (i.e arrays, lists, hash-tables, etc). this pattern provides a way to get an iterator over those collections.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Inventory</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line"></div><div class="line">    Collection&lt;String&gt; items = <span class="keyword">new</span> ArrayList&lt;String&gt;();</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> items.iterator();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IUser</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ISession</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">OnlineUsers</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    AbstractMap&lt;IUser, ISession&gt; users = <span class="keyword">new</span> HashMap&lt;IUser, ISession&gt;();</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> users.keySet().iterator();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IPoint</span> </span>&#123;&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Diagram</span> <span class="keyword">implements</span> <span class="title">IIterable</span> </span>&#123;</div><div class="line">    IPoint[] points = <span class="keyword">new</span> IPoint[<span class="number">10</span>];</div><div class="line">    <span class="function">Iterator <span class="title">getIterator</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Arrays.asList(points).iterator();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Get the Iterator for Any Type of Collections in Subclasses.&lt;/strong&gt; &lt;em&gt;Provides a Way to Traverse a Collection of Objects Without Exposing Its Implementation.&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
-    
-    
-      <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
-    
-      <category term="Tutorials" scheme="http://truelogician.com/tags/Tutorials/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Template Method Pattern</title>
-    <link href="http://truelogician.com/2012/template/"/>
-    <id>http://truelogician.com/2012/template/</id>
-    <published>2012-02-16T20:47:19.000Z</published>
-    <updated>2016-09-18T15:14:26.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p><strong>Create a Fixed Procedure and Vary its details for the Subclasses.</strong> <em>Subclasses Decide How to implement Steps in an Algorithm.</em></p>
-<a id="more"></a>
-<h3 id="Recipe"><a href="#Recipe" class="headerlink" title="Recipe"></a>Recipe</h3><ul>
-<li>The abstract product with basic behavior implementation as well as abstract methods (also called hooks).</li>
-<li>The hooks are to be implemented later on by the flavors of the product.</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span> </span>&#123;</div><div class="line">        action1();</div><div class="line">        action3();</div><div class="line">        <span class="keyword">if</span> (condition())</div><div class="line">            action4();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationB</span><span class="params">()</span> </span>&#123;</div><div class="line">        action2();</div><div class="line">        action3();</div><div class="line">        action5();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">action1</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action2</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">action3</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action4</span><span class="params">()</span> </span>&#123;<span class="comment">/* implementation */</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">action5</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">condition</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>The product flavors with custom implementations.</li>
-<li>Note that how they can also override non-abstract methods (‘Product2’).</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product1</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action1</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action3</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action5</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">condition</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/* return evaluation*/</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Product2</span> <span class="keyword">extends</span> <span class="title">Product</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operationA</span><span class="params">()</span> </span>&#123;</div><div class="line">        action1();</div><div class="line">        action4();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action1</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action3</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">action5</span><span class="params">()</span> </span>&#123;<span class="comment">/*implementation*/</span>&#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">condition</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">/* return evaluation*/</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Serve"><a href="#Serve" class="headerlink" title="Serve"></a>Serve</h3><p>The required product can then be created and asked for its specific behavior.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Product product = <span class="keyword">new</span> Product1();</div><div class="line">        product.operationB();</div><div class="line">        product = <span class="keyword">new</span> Product2();</div><div class="line">        product.operationA();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Important-Benefits"><a href="#Important-Benefits" class="headerlink" title="Important Benefits"></a>Important Benefits</h3><p>Creates a group of subclasses that have to execute a similar group of methods but every step of these executions can be customized.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>Suppose that you’re assigned to create simple framework for parsing the messages used in the system. These messages have the common parts of header and payload. So, in order to parse a message, we should parse the header and in case of valid header, we can move on to parsing the payload.</p>
-<p>Accordingly, we know about the procedure of parsing a message, but the details are different based on each message. So let’s define the procedure first.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Message</span> </span>&#123;</div><div class="line">    String content;</div><div class="line">    String header;</div><div class="line">    String payload;</div><div class="line">    Message(String content) &#123; <span class="keyword">this</span>.content = content; &#125;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">parse</span><span class="params">()</span> </span>&#123;</div><div class="line">        header = parseHeader();</div><div class="line">        <span class="keyword">if</span> (isValidHeader())</div><div class="line">            payload = parsePayload();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">abstract</span> String <span class="title">parseHeader</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">isValidHeader</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">abstract</span> String <span class="title">parsePayload</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Now for each existing message we can fine-tune the implementation details.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HttpMessage</span> <span class="keyword">extends</span> <span class="title">Message</span> </span>&#123;</div><div class="line">    HttpMessage(String content) &#123; <span class="keyword">super</span>(content); &#125;</div><div class="line">    <span class="function">String <span class="title">parseHeader</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"parse header according to HTTP standards"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isValidHeader</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"check validity based on valid HTTP headers"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">String <span class="title">parsePayload</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"parse message payload based on HTTP body"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomMessage</span> <span class="keyword">extends</span> <span class="title">Message</span> </span>&#123;</div><div class="line">    CustomMessage(String content) &#123; <span class="keyword">super</span>(content); &#125;</div><div class="line">    <span class="function">String <span class="title">parseHeader</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"the header has 4 parts, each is 2 bytes"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isValidHeader</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"valid if header ID equal to 300 or 400"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function">String <span class="title">parsePayload</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"from byte 10 and onward"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>The client invokes the base abstract method and the implementations are executed accordingly.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    Client() &#123;</div><div class="line">        Message message = <span class="keyword">new</span> HttpMessage(<span class="string">"&lt;valid HTTP message&gt;"</span>);</div><div class="line">        message.parse();</div><div class="line">        message = <span class="keyword">new</span> CustomMessage(<span class="string">"&lt;valid Custom message&gt;"</span>);</div><div class="line">        message.parse();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="/2010/design-patterns">Design Patterns Overview</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;/2010/design-patterns&quot;&gt;Design Patterns Overview&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Definition&quot;&gt;&lt;a href=&quot;#Definition&quot; class=&quot;headerlink&quot; title=&quot;Definition&quot;&gt;&lt;/a&gt;Definition&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;Create a Fixed Procedure and Vary its details for the Subclasses.&lt;/strong&gt; &lt;em&gt;Subclasses Decide How to implement Steps in an Algorithm.&lt;/em&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Software Architecture" scheme="http://truelogician.com/categories/Software-Architecture/"/>
-    
-      <category term="Design Patterns" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/"/>
-    
-      <category term="Types" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/"/>
-    
-      <category term="Behavioral" scheme="http://truelogician.com/categories/Software-Architecture/Design-Patterns/Types/Behavioral/"/>
     
     
       <category term="Design-Patterns" scheme="http://truelogician.com/tags/Design-Patterns/"/>
