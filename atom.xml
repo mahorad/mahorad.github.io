@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://truelogician.com/"/>
-  <updated>2020-07-06T23:20:11.817Z</updated>
+  <updated>2020-07-06T23:20:34.413Z</updated>
   <id>http://truelogician.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://truelogician.com/2017/kafka-java-api/"/>
     <id>http://truelogician.com/2017/kafka-java-api/</id>
     <published>2017-03-24T18:44:18.000Z</published>
-    <updated>2020-07-06T23:20:11.817Z</updated>
+    <updated>2020-07-06T23:20:34.413Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br>In my previous post “The Apache Kafka Basics”, the Kafka’s essential component members (Producer, Broker &amp; Consumer) were introduced and a simple producer/consumer setup was explained using shell programs. In this post we want to get our hands more into coding by creating and configuring a Kafka producer utilizing the Kafka’s Java API.<br></div>
 
@@ -233,7 +233,7 @@
     <link href="http://truelogician.com/2017/kafka-startup/"/>
     <id>http://truelogician.com/2017/kafka-startup/</id>
     <published>2017-02-11T21:18:29.000Z</published>
-    <updated>2020-07-06T23:20:18.417Z</updated>
+    <updated>2020-07-06T23:21:07.192Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br><a href="https://en.wikipedia.org/wiki/Apache_Kafka" target="_blank" rel="external">Kafka</a> is Apache’s open-source platform for <a href="http://kafka.apache.org/documentation.html#introduction" target="_blank" rel="external">distributed stream processing</a> in high throughput environments. In the following tutorial we will try to configure Apache Kafka and Zookeeper as well as demonstrating a basic and a fault tolerant messaging setup.<br></div>
 
@@ -381,7 +381,7 @@
     <link href="http://truelogician.com/2017/kafka-basics/"/>
     <id>http://truelogician.com/2017/kafka-basics/</id>
     <published>2017-01-03T18:12:54.000Z</published>
-    <updated>2020-07-06T23:20:02.054Z</updated>
+    <updated>2020-07-06T23:20:36.584Z</updated>
     
     <content type="html"><![CDATA[<div align="justify"><br><a href="https://en.wikipedia.org/wiki/Apache_Kafka" target="_blank" rel="external">Kafka</a> is Apache’s open-source platform for <a href="http://kafka.apache.org/documentation.html#introduction" target="_blank" rel="external">distributed stream processing</a> in high throughput environments. The following post will briefly go through Kafka and messaging concepts in general.<br></div>
 
